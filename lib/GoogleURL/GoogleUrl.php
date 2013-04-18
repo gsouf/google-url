@@ -108,21 +108,43 @@ class GoogleUrl{
         return $this;
     }
 
-
+    
+    /**
+     * 
+     * @param string $tld google tld "com","fr","co.uk"
+     * @return \GoogleURL\GoogleUrl
+     */
     public function setTld($tld){
-        return $this->tld=trim($tld," .");
+        $this->tld=trim($tld," .");
+        return $this;
     }
     
+    /**
+     * Set terms to search but doesnt launch the search
+     * @param string $search set the string to search
+     * @return GoogleUrl
+     */
     public function searchTerm($search){
         return $this->setParam("q",$search);
     }
     
+    /**
+     * 
+     * @param string $name name of the param
+     * @param string $value value of the param
+     * @return \GoogleURL\GoogleUrl
+     */
     private function setParam($name,$value){
         $this->googleParams[$name]=$value;
         
         return $this;
     }
     
+    /**
+     * get a param by its name
+     * @param string $name the param to get
+     * @return string
+     */
     private function param($name){
         return $this->googleParams[$name];
     }
