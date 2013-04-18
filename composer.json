@@ -1,0 +1,22 @@
+{
+    "name": "peek/peek",
+    "type": "library",
+    "description": "Micro library for string manipulation",
+    "keywords": ["String"],
+    "homepage": "https://github.com/SneakyBobito/peek",
+    "license": "BSD-3",
+    "authors": [
+        {
+            "name": "Soufiane Ghzal",
+            "email": "sghzal@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-0" : {
+            "Peek" : "lib/"
+        }
+    }
+}
