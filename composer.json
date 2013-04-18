@@ -1,9 +1,9 @@
 {
-    "name": "peek/peek",
+    "name": "sneaky-bobito/google-url",
     "type": "library",
-    "description": "Micro library for string manipulation",
-    "keywords": ["String"],
-    "homepage": "https://github.com/SneakyBobito/peek",
+    "description": "Manipulate google searches and SERP",
+    "keywords": ["google","SERP"],
+    "homepage": "https://github.com/SneakyBobito/google-url",
     "license": "BSD-3",
     "authors": [
         {
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-0" : {
-            "Peek" : "lib/"
+            "GoogleURL" : "lib/"
         }
     }
 }
