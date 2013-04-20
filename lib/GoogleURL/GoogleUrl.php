@@ -235,7 +235,7 @@ class GoogleUrl{
         /**===============
          * CREATE DOCUMENT
           ================*/
-        $doc=new GoogleDOM($this->param("q"));
+        $doc=new GoogleDOM($this->param("q"),$this->getUrl());
         libxml_use_internal_errors(TRUE);
         $doc->loadHTML($r);
         libxml_use_internal_errors(FALSE);
@@ -244,6 +244,18 @@ class GoogleUrl{
         return $doc;
     }
     
+    /**
+     * get the generated url
+     * @return string the generated url
+     */
+    public function getUrl(){
+        return $this->__toString();
+    }
+    
+    /**
+     * Same as gerUrl
+     * @return string the generated url
+     */
     public function __toString() {
         
         $url="https://google.".$this->tld."/search?".http_build_query($this->googleParams);

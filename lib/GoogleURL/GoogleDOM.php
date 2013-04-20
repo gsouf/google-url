@@ -31,12 +31,15 @@ class GoogleDOM extends \DOMDocument{
     
     protected $search;
     
+    protected $generatedUrl;
+    
     protected $date;
 
-    public function __construct($search,$version = null, $encoding = null) {
+    public function __construct($search,$generatedUrl,$version = null, $encoding = null) {
         parent::__construct($version, $encoding);
         
         $this->search = $search;
+        $this->generatedUrl=$generatedUrl;
         $this->date = time();
         
         $this->init();
@@ -88,21 +91,22 @@ class GoogleDOM extends \DOMDocument{
         // prepare the query to find url+title into the natural nodes
         $query=self::NATURAL_LINKS_IN;      
         
-        // prepare the query to find snippet into the natural nodes
-        $querysnippet=self::SNIPPET_IN;
+
         
         $positions=array();// we buf results
         $number=1;
         foreach($naturals as $node){
             
-            // query
+            // query to find the tilte/url
             $aTag=$this->naturalsResults=$this->getXpath()->query($query,$node);
-            $snippet=$this->naturalsResults=$this->getXpath()->query($querysnippet,$node);
             //take the first element, because anyway only one can be found
             $aTag=$aTag->item(0);
-            $snippet=$snippet->item(0);
+            
+
             /* @var $aTag \DOMElement */
-            /* @var $snippet \DOMElement */
+            
+            if(!$aTag)
+                continue;
             
             $url=$aTag->getAttribute("href"); // get the link of the result
             
@@ -111,7 +115,7 @@ class GoogleDOM extends \DOMDocument{
                 $shortUrl=  substr($url,$protPos+3); // ltrim the protocol
                 $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /   "google.com/search?..." becomes "google.com"
                 
-                $positions[]=new GooglePosition($this->search, $shortUrl, $this->date, $number, $url, $title, $snippet->C14N());
+                $positions[]=new GooglePosition($this->search, $shortUrl, $this->date, $number, $url, $title, $node->C14N());
                 
                 $number++;
             }
