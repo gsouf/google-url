@@ -74,6 +74,16 @@ class GoogleUrl{
         $this->setTld("com");
     }
     
+    /**
+     * ask if a langage is configured 
+     * @param string $iso the iso code of the country. e.g  english : "en" , france : "fr"
+     * @return boolean true if available
+     */
+    public static function langageIsAvailable($iso){
+        $hl="HL_".strtoupper($iso);
+        
+        return defined("self::".$hl);
+    }
     
     /**
      * Set the lang to the given (iso formated) lang. This will modify the params hl and lr
@@ -83,10 +93,9 @@ class GoogleUrl{
      * @throws Exception
      */
     public function setLang($iso,$setTld=true){
-        
-        $hl="HL_".strtoupper($iso);
-        
-        if(defined("self::".$hl)){
+               
+        if(self::langageIsAvailable($iso)){
+            $hl="HL_".strtoupper($iso);
             $lr="LR_".strtoupper($iso);
             $accept="ACCEPT_".strtoupper($iso);
             
