@@ -230,7 +230,7 @@ class GoogleUrl{
           =========*/
         $r=$c->exec();
         if(!$r)
-            throw new Exception ("HTTP query failled with the following URL : ".$this);
+            throw new \Exception ("HTTP query failled with the following URL : ".$this);
         
         /**===============
          * CREATE DOCUMENT
