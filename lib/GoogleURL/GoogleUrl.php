@@ -21,7 +21,7 @@ class GoogleUrl{
     
     const HL_EN="en";
     const LR_EN="lang_en";
-    const TLD_FR="com";
+    const TLD_EN="com";
     const ACCEPT_EN="en-us,en;q=0.8";
     
     
