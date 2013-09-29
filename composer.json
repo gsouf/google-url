@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.4",
-        "peek/peek": "dev-master"
+        "peek/peek": "1.0.0"
     },
     "autoload": {
         "psr-0" : {

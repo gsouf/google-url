@@ -28,22 +28,26 @@ class GoogleDOM extends \DOMDocument{
     
     protected $naturalsResults;
     protected $xpath;
-    
+
+    // the keyword(s)
     protected $search;
-    
+    // the google url
     protected $generatedUrl;
-    
+    // date of the search
     protected $date;
-
+    // page result
     protected $page;
+    //nb results per pages
+    protected $numberResults;
 
-    public function __construct($search,$generatedUrl,$page,$version = null, $encoding = null) {
+    public function __construct($search,$generatedUrl,$page,$numberResults,$version = null, $encoding = null) {
         parent::__construct($version, $encoding);
         
         $this->search = $search;
         $this->generatedUrl=$generatedUrl;
         $this->date = time();
         $this->page = $page;
+        $this->numberResults = $numberResults;
 
         $this->init();
     }
@@ -117,8 +121,10 @@ class GoogleDOM extends \DOMDocument{
                 $title=$aTag->nodeValue; // get the title of the result
                 $shortUrl=  substr($url,$protPos+3); // ltrim the protocol
                 $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /   "google.com/search?..." becomes "google.com"
-                
-                $positions[]=new GooglePosition($this->search, $shortUrl, $this->date, $number, $url, $title, $node->C14N());
+
+                $truePosition = $number + ($this->numberResults * $this->page);
+
+                $positions[]=new GooglePosition($this->search, $shortUrl, $this->date, $truePosition, $url, $title, $node->C14N());
                 
                 $number++;
             }
@@ -127,5 +133,26 @@ class GoogleDOM extends \DOMDocument{
         
         return $positions;
     }
+
+    /**
+     * @return int
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKeywords()
+    {
+        return $this->search;
+    }
+
+    public function getUrl(){
+        return $this->generatedUrl;
+    }
+
     
 }

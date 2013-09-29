@@ -58,7 +58,7 @@ class GooglePosition {
      * 
      * @param string $keyword the search query
      * @param string $website the searched website
-     * @param int $date the date in seconds within the UNIX timestamp
+     * @param int $date the date in seconds (UNIX timestamp)
      * @param int|boolean $position the position in the serp of false if not found. Begins to 1
      * @param string $url the url found in the search
      * @param string $title the title found in the search
@@ -131,10 +131,5 @@ class GooglePosition {
     public function setDate($date) {
         $this->date = $date;
     }
-
-
-    
     
 }
-
-?>

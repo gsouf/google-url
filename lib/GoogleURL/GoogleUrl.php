@@ -11,7 +11,12 @@ namespace GoogleURL;
  * @license http://www.freebsd.org/copyright/license.html BSD
  */
 class GoogleUrl{
-    
+
+    /** SEARCH PARAMS CONSTANTS */
+    const  PARAM_NBRESULTS="num";
+    /** END SEARCH PARAMS CONSTANTS */
+
+
     /** CONSTANTS OF LANG **/
     // french
     const HL_FR="fr";
@@ -183,8 +188,8 @@ class GoogleUrl{
     public function setNumberResults($n){
 
         $page=$this->getPage();
-        
-        $this->setParam("num", $n);
+
+        $this->setParam(self::PARAM_NBRESULTS, $n);
         
         $this->setPage($page);
         
@@ -241,7 +246,7 @@ class GoogleUrl{
         /**===============
          * CREATE DOCUMENT
           ================*/
-        $doc=new GoogleDOM($this->param("q"),$this->getUrl(),$this->getPage());
+        $doc=new GoogleDOM($this->param("q"),$this->getUrl(),$this->getPage(),$this->param(self::PARAM_NBRESULTS));
         libxml_use_internal_errors(TRUE);
         $doc->loadHTML($r);
         libxml_use_internal_errors(FALSE);
