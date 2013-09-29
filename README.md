@@ -1,7 +1,7 @@
 google-url
 ==========
 
-Make awesome google searches with PHP and query google like a pro
+Get ready to query google like a pro and make awesome google searches
 
 Example of use
 --------------
