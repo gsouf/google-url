@@ -35,13 +35,16 @@ class GoogleDOM extends \DOMDocument{
     
     protected $date;
 
-    public function __construct($search,$generatedUrl,$version = null, $encoding = null) {
+    protected $page;
+
+    public function __construct($search,$generatedUrl,$page,$version = null, $encoding = null) {
         parent::__construct($version, $encoding);
         
         $this->search = $search;
         $this->generatedUrl=$generatedUrl;
         $this->date = time();
-        
+        $this->page = $page;
+
         $this->init();
     }
     
@@ -120,12 +123,9 @@ class GoogleDOM extends \DOMDocument{
                 $number++;
             }
             
-//            var_dump($resultsInfos);
         }
         
         return $positions;
     }
     
 }
-
-?>

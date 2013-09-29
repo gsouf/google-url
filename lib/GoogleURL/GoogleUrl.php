@@ -13,24 +13,22 @@ namespace GoogleURL;
 class GoogleUrl{
     
     /** CONSTANTS OF LANG **/
-    
+    // french
     const HL_FR="fr";
     const LR_FR="lang_fr";
     const TLD_FR="fr";
     const ACCEPT_FR="fr;q=0.8";
-    
+    // english
     const HL_EN="en";
     const LR_EN="lang_en";
     const TLD_EN="com";
     const ACCEPT_EN="en-us,en;q=0.8";
-    
-    
-    protected $acceptLangage;
     /** END CONSTANTS OF LANG **/
-    
-    
+
+
     protected $tld;
-    
+    protected $acceptLangage;
+
     protected $googleParams;
     
     public function __construct() {
@@ -171,7 +169,11 @@ class GoogleUrl{
         $this->setParam("start", $this->param("num")*$n);
         return $this;
     }
-    
+
+    public function getPage(){
+        return $this->param("start")/$this->param("num");
+    }
+
     /**
      * Set how many results per page between 1 and 100
      * Will also update the start param to match the page number
@@ -179,8 +181,8 @@ class GoogleUrl{
      * @return GoogleUrl this instance
      */
     public function setNumberResults($n){
-        
-        $page=$this->param("start")/$this->param("num");
+
+        $page=$this->getPage();
         
         $this->setParam("num", $n);
         
@@ -192,7 +194,7 @@ class GoogleUrl{
     /**
      * Launch a google Search
      * @param string $searchTerm the string to search. Or if not specified will take the given with ->searchTerm($search)
-     * @return \Peek\Net\Google\GoogleDOM the Google DOMDocument
+     * @return GoogleDOM the Google DOMDocument
      * @throws Exception
      */
     public function search($searchTerm=null){
@@ -218,11 +220,14 @@ class GoogleUrl{
           ===========*/
         // let's be redirected if needed
         $c->followLocation();
-        // use a true user agent, better for true results
+        // use a true user agent, maybe better for true results
         $c->useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.22 (KHTML, like Gecko) Ubuntu Chromium/25.0.1364.160 Chrome/25.0.1364.160 Safari/537.22";
+
         // use other headers
-            // accept-langage for true same langage results
-            $header[]="Accept-Language: ".$this->acceptLangage;
+
+        // accept-langage to make sure google use the same language as asked
+        $header[]="Accept-Language: ".$this->acceptLangage;
+
         $c->HTTPHEADER=$header;
         
         
@@ -236,7 +241,7 @@ class GoogleUrl{
         /**===============
          * CREATE DOCUMENT
           ================*/
-        $doc=new GoogleDOM($this->param("q"),$this->getUrl());
+        $doc=new GoogleDOM($this->param("q"),$this->getUrl(),$this->getPage());
         libxml_use_internal_errors(TRUE);
         $doc->loadHTML($r);
         libxml_use_internal_errors(FALSE);
@@ -265,8 +270,4 @@ class GoogleUrl{
         
     }
 
-    
-    
 }
-
-?>
