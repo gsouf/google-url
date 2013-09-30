@@ -2,7 +2,8 @@
 
 // See License
 
-namespace GoogleURL;
+use \GoogleUrl\GoogleDOM;
+
 
 /**
  * Description of GoogleUrl
@@ -145,14 +146,14 @@ class GoogleUrl{
      * 
      * @param string $name name of the param
      * @param string $value value of the param
-     * @return \GoogleURL\GoogleUrl
+     * @return \GoogleUrl
      */
     private function setParam($name,$value){
         $this->googleParams[$name]=$value;
         
         return $this;
     }
-    
+
     /**
      * get a param by its name
      * @param string $name the param to get
@@ -163,8 +164,18 @@ class GoogleUrl{
     }
 
 
-    
-    
+    /**
+     * check if param isset
+     * @param string $name the param to get
+     * @return string
+     */
+    private function hasParam($name){
+        return isset($this->googleParams[$name]);
+    }
+
+
+
+
     /**
      * Set which page to query. Between 0 and 100
      * @param int $n the number of the page. Begins to 0
@@ -203,7 +214,7 @@ class GoogleUrl{
      * @throws Exception
      */
     public function search($searchTerm=null){
-        
+
         /**======================
          * CHANGE SEARCH IF NEEDED
           ========================*/
@@ -212,14 +223,14 @@ class GoogleUrl{
         else
             if( ! strlen($this->param("q"))>0 )
                 throw new Exception ("Nothing to Search");
-        
+
         /**=========
          * INIT CURL
           =========*/
         $c = new \Peek\Net\Curl();
         $c->url=$this->__toString();
-       
-        
+
+
         /**==========
          * DO HEADERS
           ===========*/
@@ -234,15 +245,15 @@ class GoogleUrl{
         $header[]="Accept-Language: ".$this->acceptLangage;
 
         $c->HTTPHEADER=$header;
-        
-        
+
+
         /**========
          * EXECUTE
           =========*/
         $r=$c->exec();
         if(!$r)
             throw new \Exception ("HTTP query failled with the following URL : ".$this);
-        
+
         /**===============
          * CREATE DOCUMENT
           ================*/
@@ -251,7 +262,7 @@ class GoogleUrl{
         $doc->loadHTML($r);
         libxml_use_internal_errors(FALSE);
         libxml_clear_errors();
-        
+
         return $doc;
     }
     

@@ -2,7 +2,7 @@
 
 // See LICENSE
 
-namespace GoogleURL;
+namespace GoogleUrl;
 
 /**
  * Description of GooglePosition

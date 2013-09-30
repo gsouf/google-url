@@ -13,11 +13,11 @@
     ],
     "require": {
         "php": ">=5.4",
-        "peek/peek": "1.0.0"
+        "peek/peek": "1.0.*"
     },
     "autoload": {
         "psr-0" : {
-            "GoogleURL" : "lib/"
+            "GoogleUrl" : "lib/"
         }
     }
 }
