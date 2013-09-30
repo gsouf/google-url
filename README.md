@@ -3,6 +3,13 @@ google-url
 
 Get ready to query google like a pro and make awesome google searches with PHP
 
+The library is being improved to make better pages parsing. Feel free to give any feedback/nfr from the issue tracker.
+
+Available on packgist
+---------------------
+
+``"sneaky-bobito/google-url": "dev-master"``
+
 Example of use
 --------------
 
@@ -35,4 +42,11 @@ Example of use
         }
         echo "</ul>";
 ```
+
+
+Roadmap
+-------
+
+* Page parsing improvment (images results, website results...)
+* Delayer/query queue
 
