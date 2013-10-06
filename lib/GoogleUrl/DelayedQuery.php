@@ -27,7 +27,11 @@ class DelayedQuery extends \GoogleUrl {
     public function search($searchTerm = null)
     {
         self::$delayer->wait();
-        return parent::search($searchTerm);
+        try{
+            return parent::search($searchTerm);
+        }catch (\Exception $e){
+            throw $e;
+        }
     }
 
 
