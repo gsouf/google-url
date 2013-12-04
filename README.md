@@ -8,7 +8,7 @@ The library is being improved to make better pages parsing. Feel free to give an
 Available on packgist
 ---------------------
 
-``"sneaky-bobito/google-url": "dev-master"``
+``"sneakybobito/google-url": "dev-master"``
 
 Example of use
 --------------
