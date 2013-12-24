@@ -47,7 +47,7 @@ Example of use
 Support - Contact
 -----------------
 
-Feel free to tweet me about any questoin / suggestion at @SneakyBobito
+Feel free to tweet me about any question / suggestion at @SneakyBobito
 
 
 Roadmap
