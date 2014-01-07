@@ -55,4 +55,4 @@ Roadmap
 
 * Page parsing improvment (images results, website results...)
 * Delayer/query queue
-
+* Removing dependancy + php 5.3 compatibility
