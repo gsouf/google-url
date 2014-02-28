@@ -13,7 +13,7 @@
     ],
     "require": {
         "php": ">=5.4",
-        "peek/peek": "1.0.*"
+        "peek/peek": ">=1"
     },
     "autoload": {
         "psr-0" : {
