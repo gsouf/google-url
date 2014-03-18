@@ -21,7 +21,7 @@ class DelayedQuery extends \GoogleUrl {
     public function __construct(){
         parent::__construct();
         if(self::$delayer==null)
-            self::$delayer = new MilliDelayer(25000,70000,80000,40000,150000,50000,70000,190000);
+            self::$delayer = new MilliDelayer(50020,70023,80084,40096,150032,50150,70007,180000);
     }
 
     public function search($searchTerm = null)
