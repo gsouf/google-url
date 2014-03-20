@@ -5,6 +5,13 @@ Get ready to query google like a pro and make awesome google searches with PHP
 
 The library is being improved to make better pages parsing. Feel free to give any feedback/nfr from the issue tracker.
 
+
+Warning
+-------
+
+Google mays limit you with a captcha if you make too many queries in a short time.
+
+
 Available on packgist
 ---------------------
 
@@ -17,13 +24,13 @@ Example of use
 
     <?php
         $googleUrl=new \GoogleURL\GoogleUrl();
-        $googleUrl->setLang('en')
-            ->setNumberResults(10);
-        $acdcPage1=$googleUrl->setPage(0)->search("acdc");
-        $acdcPage2=$googleUrl->setPage(1)->search("acdc");
+        $googleUrl->setLang('en') // lang allows to adapt the query (tld, and google local params)
+            ->setNumberResults(10);                        // 10 results per page
+        $acdcPage1=$googleUrl->setPage(0)->search("acdc"); // acdc result page 1 (results 1-10)
+        $acdcPage2=$googleUrl->setPage(1)->search("acdc"); // acdc result page 2 (results 11-20)
 
         $googleUrl->setNumberResults(20);
-        $simpsonPage1=$googleUrl->setPage(0)->search("simpson");
+        $simpsonPage1=$googleUrl->setPage(0)->search("simpson"); // acdc result page 1 (results 1-20)
 
 
         $positions=$simpsonPage1->getPositions();
@@ -42,6 +49,11 @@ Example of use
         }
         echo "</ul>";
 ```
+
+
+**Available Languages**
+* en
+* fr
 
 
 Support - Contact
