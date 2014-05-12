@@ -17,6 +17,7 @@ use Peek\Time\MilliDelayer;
 class DelayedQuery extends \GoogleUrl {
 
     protected static $delayer=null;
+    protected $started=false;
 
     public function __construct(){
         parent::__construct();
@@ -26,7 +27,13 @@ class DelayedQuery extends \GoogleUrl {
 
     public function search($searchTerm = null)
     {
-        self::$delayer->wait();
+        // dont wait for the first iteration
+        if($this->started)
+            self::$delayer->wait();
+        else{
+            $this->started = true;
+        }
+
         try{
             return parent::search($searchTerm);
         }catch (\Exception $e){

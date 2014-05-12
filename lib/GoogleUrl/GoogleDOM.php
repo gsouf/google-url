@@ -14,7 +14,7 @@ class GoogleDOM extends \DOMDocument{
     /**
      * list of natural nodes
      */
-    const NATURAL_QUERY="//div[@id = 'ires']/ol/li[@class='g'][not(@id) or @id != 'imagebox_bigimages']";
+    const NATURAL_QUERY="//div[@id = 'ires']/ol/div[@class='srg']/li[@class='g'][not(@id) or @id != 'imagebox_bigimages']";
     
     /**
      * Get natural link (<a> tag) in the natural node context
@@ -26,7 +26,7 @@ class GoogleDOM extends \DOMDocument{
      */
     const SNIPPET_IN="div[@class='vsc']/div[@class='s']"; 
     
-    protected $naturalsResults;
+    protected $naturalsResults = null;
     protected $xpath;
 
     // the keyword(s)
@@ -94,7 +94,9 @@ class GoogleDOM extends \DOMDocument{
         
         // list of naturals nodes
         $naturals=$this->getNaturals();
-        
+
+
+
         // prepare the query to find url+title into the natural nodes
         $query=self::NATURAL_LINKS_IN;      
         

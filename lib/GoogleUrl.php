@@ -94,7 +94,7 @@ class GoogleUrl{
      * Set the lang to the given (iso formated) lang. This will modify the params hl and lr
      * @param string $iso the iso code of the country. e.g  english : "en" , france : "fr"
      * @param boolean $setTld change the tld to matching with the langage. Default to true
-     * @return \Peek\Net\Google\GoogleUrl this instance
+     * @return GoogleUrl this instance
      * @throws Exception
      */
     public function setLang($iso,$setTld=true){
@@ -224,6 +224,7 @@ class GoogleUrl{
             if( ! strlen($this->param("q"))>0 )
                 throw new Exception ("Nothing to Search");
 
+
         /**=========
          * INIT CURL
           =========*/
@@ -279,8 +280,8 @@ class GoogleUrl{
      * @return string the generated url
      */
     public function __toString() {
-        
-        $url="https://google.".$this->tld."/search?".http_build_query($this->googleParams);
+
+        $url="https://www.google.".$this->tld."/search?".http_build_query($this->googleParams);
         
         return $url;
         
