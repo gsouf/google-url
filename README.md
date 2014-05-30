@@ -23,7 +23,7 @@ Example of use
 ```php
 
     <?php
-        $googleUrl=new \GoogleURL\GoogleUrl();
+        $googleUrl=new \GoogleUrl();
         $googleUrl->setLang('en') // lang allows to adapt the query (tld, and google local params)
             ->setNumberResults(10);                        // 10 results per page
         $acdcPage1=$googleUrl->setPage(0)->search("acdc"); // acdc results page 1 (results 1-10)
