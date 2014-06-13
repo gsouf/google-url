@@ -11,7 +11,7 @@ Be aware...
 
 ...that scrapping google is forbiden (what an irony for the biggest scrapper ever written)... But who cares ? 
 
-Google does. And it will stop you with a captcha if yo submit to many requests in a short time.
+Google does. And it will stop you with a captcha if you submit too many requests in a short time.
 
 Usually I delay each query with 30 seconds. But if you do a lot of requests it's still too short.
 
