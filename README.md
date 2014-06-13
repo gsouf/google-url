@@ -6,10 +6,19 @@ Get ready to query google like a pro and make awesome google searches with PHP
 The library is being improved to make better pages parsing. Feel free to give any feedback/nfr from the issue tracker.
 
 
-Warning
--------
+Be aware...
+------------
 
-Google mays limit you with a captcha if you make too many queries in a short time.
+that scrapping google is forbiden (what an irony for the biggest scrapper ever written)... But who cares ? 
+
+Google does. And it will stop you with a captcha if yo submit to many requests in a short time.
+
+Usually I delay each query with 30 seconds. But if you do a lot of requests it's still too short.
+
+**How to counter :**
+
+* Optimize your delays (this package contains a query delayer that does it for you with different delays, but i'm still trying to figure out what is the best timing to use)
+* If you want to do very high number of requests on a short time you will have to use proxy(s). I'm looking for the best implementation I can do of it in the library.
 
 
 Available on packgist
@@ -55,6 +64,7 @@ Example of use
 * en
 * fr
 
+more are incoming...
 
 Support - Contact
 -----------------
