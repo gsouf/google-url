@@ -9,7 +9,7 @@ The library is being improved to make better pages parsing. Feel free to give an
 Be aware...
 ------------
 
-that scrapping google is forbiden (what an irony for the biggest scrapper ever written)... But who cares ? 
+...that scrapping google is forbiden (what an irony for the biggest scrapper ever written)... But who cares ? 
 
 Google does. And it will stop you with a captcha if yo submit to many requests in a short time.
 
