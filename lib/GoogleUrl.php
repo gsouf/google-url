@@ -29,6 +29,42 @@ class GoogleUrl{
     const LR_EN="lang_en";
     const TLD_EN="com";
     const ACCEPT_EN="en-us,en;q=0.8";
+    // GERMAN
+    const HL_DE="de";
+    const LR_DE="lang_de";
+    const TLD_DE="de";
+    const ACCEPT_DE="de;q=0.8";
+    // DUTCH
+    const HL_NL="nl";
+    const LR_NL="lang_nl";
+    const TLD_NL="nl";
+    const ACCEPT_NL="nl;q=0.8";
+    // Czech
+    const HL_CS="cs";
+    const LR_CS="lang_cs";
+    const TLD_CS="com";
+    const ACCEPT_CS="cs;q=0.8";
+    // Danish
+    const HL_DK="da";
+    const LR_DK="lang_da";
+    const TLD_DK="dk";
+    const ACCEPT_DK="da;q=0.8";
+    // Japan
+    const HL_JP="ja";
+    const LR_JP="lang_ja";
+    const TLD_JP="co.jp";
+    const ACCEPT_JP="ja;q=0.8";
+    // spain
+    const HL_ES="es";
+    const LR_DK="lang_es";
+    const TLD_DK="es";
+    const ACCEPT_DK="es;q=0.8";
+    // spain
+    const HL_RU="ru";
+    const LR_RU="lang_ru";
+    const TLD_RU="ru";
+    const ACCEPT_RU="ru;q=0.8";
+    
     /** END CONSTANTS OF LANG **/
 
 

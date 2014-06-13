@@ -60,11 +60,18 @@ Example of use
 ```
 
 
-**Available Languages**
-* en
-* fr
+**Implemented Languages**
+* en (english)
+* fr (french)
+* de (german)
+* nl (dutch)
+* cs (czech)
+* dk (danish)
+* jp (japanese)
+* es (spannish)
+* ru (russian)
 
-more are incoming...
+more are incoming over the time...
 
 Support - Contact
 -----------------
