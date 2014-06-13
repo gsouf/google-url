@@ -56,9 +56,9 @@ class GoogleUrl{
     const ACCEPT_JP="ja;q=0.8";
     // spain
     const HL_ES="es";
-    const LR_DK="lang_es";
-    const TLD_DK="es";
-    const ACCEPT_DK="es;q=0.8";
+    const LR_ES="lang_es";
+    const TLD_ES="es";
+    const ACCEPT_ES="es;q=0.8";
     // spain
     const HL_RU="ru";
     const LR_RU="lang_ru";
