@@ -63,7 +63,7 @@ When you use this library you have to keep in mind that querying google is somet
 You cant use it everytime someone loads a page on your webserver. Indeed it mays be long, it means long time to load the web page.
 You also have to control the number of query you do over the time. Or else google will consider you as a bot and you will get blocked by the captcha.
 
-Instead you may to use it in a cli program that will store results in database. And the query the database from the webpage.
+Instead you may use it in a cli program that will store results in database. And then query the database from the webpage script.
 
 Once again think about using delays between each query. It is very important for not google to add your server to the blacklist. 
 There is no universal rule for the delays to apply. It is hard to figure out the best delays to use and it requires many tests. That's why people want to keep it secret.
