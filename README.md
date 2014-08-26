@@ -33,12 +33,26 @@ Usually I delay each query with 30 seconds. But if you do a lot of requests it's
 * If you want to do very high number of requests on a short time you will have to use proxy(s). I'm looking for the best implementation I can do of it in the library.
 
 
+Installation
+------------
 
-Available on packgist
----------------------
+The library is available on packgist : ``"sneakybobito/google-url": "dev-master"``
 
-``"sneakybobito/google-url": "dev-master"``
+If you are not familiar with packagist, you an also use the loader packaged in the repo. To do so download the library (e.g. as a zip from github) 
+and just include the file named ``autoload.php`̀` : 
 
+```php
+
+    <?php
+       
+    include("path/to/googleurl/autoload.php");
+
+    $g = new \GoogleUrl();
+
+    // ......
+
+
+```
 
 Example of use
 --------------
@@ -88,13 +102,10 @@ There is no universal rule for the delays to apply. It is hard to figure out the
         }
         echo "</ul>";
 
-
-
-
         // GET ADWORDS RESULTS
 
-        $commercialSearch = $googleUrl->setPage(0)->search("simpson tshirt");
-        $adwordsPositions = $commercialSearch->getAdwordsPositions();
+        $commercialSearch = $googleUrl->setLang("fr")->setPage(0)->search("simpson tshirt");
+        $adwordsPositions = $commercialSearch->getAdwords();
         echo "adwords for " . $commercialSearch->getKeywords();
         echo "<ul>";
         foreach($adwordsPositions as $result){
@@ -111,23 +122,24 @@ There is no universal rule for the delays to apply. It is hard to figure out the
         }
         echo "</ul>";
 
-
         // we can also get only results in body
-        echo "adwords <b>IN BODY</b> for " . $commercialSearch->getBodyResults();
+        echo "adwords <b>IN BODY</b> for " . $commercialSearch->getKeywords();
         echo "<ul>";
-        foreach($adwordsPosition->getBodyResults() as $result){
+        foreach($adwordsPositions->getBodyResults() as $result){
             echo "<li>" . $result->getPosition() . " : " . utf8_decode($result->getTitle()) . "</li>";
         }
         echo "</ul>";
 
 
         // and obviously results in the right column
-        echo "adwords <b>IN COLUMN</b> for " . $commercialSearch->getBodyResults();
+        echo "adwords <b>IN COLUMN</b> for " . $commercialSearch->getKeywords();
         echo "<ul>";
-        foreach($adwordsPosition->getBodyResults() as $result){
+        foreach($adwordsPositions->getColumnResults() as $result){
             echo "<li>" . $result->getPosition() . " : " . utf8_decode($result->getTitle()) . "</li>";
         }
         echo "</ul>";
+        
+    }
 
 
 ```
