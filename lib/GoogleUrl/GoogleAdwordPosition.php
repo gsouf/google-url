@@ -46,7 +46,7 @@ class GoogleAdwordPosition {
      * html string of the matching snipper
      * @var string
      */
-    protected $snippet;
+    protected $text;
     
     /**
      * UNIX timestamp date of the search
@@ -54,17 +54,42 @@ class GoogleAdwordPosition {
      */
     protected $date;
     
+    /**
+     * where on the page (body, column)
+     * @var string
+     */
+    protected $location;
     
-    function __construct($keyword, $position , $visurl , $adwordsUrl, $title, $snippet, $date) {
+    
+    /**
+     * 
+     * @param type $keyword
+     * @param type $position
+     * @param type $visurl
+     * @param type $adwordsUrl
+     * @param type $title
+     * @param type $text
+     * @param type $date
+     */
+    function __construct($keyword, $position , $visurl , $adwordsUrl, $title, $text, $date) {
         $this->keyword = $keyword;
         $this->visurl = $visurl;
         $this->position = $position;
         $this->adwordsUrl = $adwordsUrl;
         $this->title = $title;
-        $this->snippet = $snippet;
+        $this->text = $text;
         $this->date = $date;
     }
     
+    public function getLocation() {
+        return $this->location;
+    }
+
+    public function setLocation($location) {
+        $this->location = $location;
+    }
+
+        
     public function getKeyword() {
         return $this->keyword;
     }
@@ -89,14 +114,15 @@ class GoogleAdwordPosition {
         $this->position = $position;
     }
 
-    public function getGoogleUrl() {
-        return $this->googleUrl;
+    
+    public function getAdwordsUrl() {
+        return $this->adwordsUrl;
     }
 
-    public function setGoogleUrl($googleUrl) {
-        $this->googleUrl = $googleUrl;
+    public function setAdwordsUrl($adwordsUrl) {
+        $this->adwordsUrl = $adwordsUrl;
     }
-
+        
     public function getTitle() {
         return $this->title;
     }
@@ -105,13 +131,6 @@ class GoogleAdwordPosition {
         $this->title = $title;
     }
 
-    public function getSnippet() {
-        return $this->snippet;
-    }
-
-    public function setSnippet($snippet) {
-        $this->snippet = $snippet;
-    }
 
     public function getDate() {
         return $this->date;
@@ -119,6 +138,14 @@ class GoogleAdwordPosition {
 
     public function setDate($date) {
         $this->date = $date;
+    }
+
+    public function getText() {
+        return $this->text;
+    }
+
+    public function setText($text) {
+        $this->text = $text;
     }
 
 

@@ -3,6 +3,9 @@
 // See LICENSE
 
 namespace GoogleUrl;
+
+use \GoogleUrl\AdwordsResultSet;
+
 /**
  * Description of GoogleDOM
  *
@@ -24,7 +27,8 @@ class GoogleDOM extends \DOMDocument{
     /**
      * Get adwords nodes
      */
-    const RHS_QUERY="//div[@id = 'rhs']//ol/li[@class='ads-ad']"; 
+    const RHS_QUERY_COLUMN="//div[@id = 'rhs']//ol/li[@class='ads-ad']"; 
+    const RHS_QUERY_BODY="//div[@id = 'tads']//ol/li[@class='ads-ad']"; 
     const RHS_LINK="descendant::h3/a[@onmousedown]"; 
     const RHS_VISURL="descendant::div[@class='ads-visurl']/cite"; 
     const RHS_TEXT="descendant::div[@class='ads-creative']"; 
@@ -145,16 +149,23 @@ class GoogleDOM extends \DOMDocument{
     
     /**
      * list of adwords nodes. Please consider using getAdwordsPositions() instead
-     * @return \DOMNameList
+     * @return \DOMNodeList
      */
     public function getAdwords(){
         
         if(null === $this->adwsResults){
         
-            $query=self::RHS_QUERY;
-
             
-            $this->adwsResults=$this->getXpath()->query($query);
+            $DOMbodyAdwords = $this->getXpath()->query(self::RHS_QUERY_BODY);
+            $body = $this->parseAdwords($DOMbodyAdwords, AdwordsResultSet::LOCATION_BODY);
+            
+            $DOMColumnAdwords = $this->getXpath()->query(self::RHS_QUERY_COLUMN);
+            $column = $this->parseAdwords($DOMColumnAdwords, AdwordsResultSet::LOCATION_COLUMN);
+            
+            $resultSet = new AdwordsResultSet(array_merge($body,$column));
+         
+            
+            return $resultSet;
             
         }
         
@@ -166,12 +177,14 @@ class GoogleDOM extends \DOMDocument{
      * Get the list of adwords positions
      * @return \GoogleUrl\GoogleAdwordPosition[]
      */
-    public function getAdwordsPositions(){
+    public function parseAdwords(\DOMNodeList $dlist,$location = null){
+    
         
         $positions=array();// we buf results
         $number=1;
         
-        foreach($this->getAdwords() as $node){
+        
+        foreach($dlist as $node){
             
             
             // query to find the tilte/url
@@ -192,7 +205,9 @@ class GoogleDOM extends \DOMDocument{
             $text = $textTag ? strip_tags($textTag->textContent) : "";
             
             
-            $positions[] = new GoogleAdwordPosition($this->search, $number, $visurl, $adwordsUrl, $title, $text, $this->date);
+            $position = new GoogleAdwordPosition($this->search, $number, $visurl, $adwordsUrl, $title, $text, $this->date);
+            $position->setLocation($location);
+            $positions[] = $position;
             
             $number++;
             
