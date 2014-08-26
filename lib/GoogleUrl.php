@@ -264,7 +264,7 @@ class GoogleUrl{
         /**=========
          * INIT CURL
           =========*/
-        $c = new \Peek\Net\Curl();
+        $c = new \GoogleUrl\Curl();
         $c->url=$this->__toString();
 
 

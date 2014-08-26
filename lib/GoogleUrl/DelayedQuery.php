@@ -3,7 +3,7 @@
 namespace GoogleUrl;
 
 
-use Peek\Time\MilliDelayer;
+use GoogleUrl\MilliDelayer;
 
 /**
  * Allows to do google searches with safe delays
