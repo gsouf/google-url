@@ -15,18 +15,24 @@ class GoogleDOM extends \DOMDocument{
      * list of natural nodes
      */
     const NATURAL_QUERY="//div[@id = 'ires']/ol/div[@class='srg']/li[@class='g'][not(@id) or @id != 'imagebox_bigimages']";
-    
     /**
      * Get natural link (<a> tag) in the natural node context
      */
     const NATURAL_LINKS_IN="descendant::h3[@class='r'][1]/a"; 
     
-    /**
-     * Get snipet into a natural node
-     */
-    const SNIPPET_IN="div[@class='vsc']/div[@class='s']"; 
     
-    protected $naturalsResults = null;
+    /**
+     * Get adwords nodes
+     */
+    const RHS_QUERY="//div[@id = 'rhs']//ol/li[@class='ads-ad']"; 
+    const RHS_LINK="descendant::h3/a[@onmousedown]"; 
+    const RHS_VISURL="descendant::div[@class='ads-visurl']/cite"; 
+    const RHS_TEXT="descendant::div[@class='ads-creative']"; 
+    
+    
+    
+    protected $naturalsResults = null; // used for cache
+    protected $adwsResults = null; // used for cache
     protected $xpath;
 
     // the keyword(s)
@@ -107,7 +113,7 @@ class GoogleDOM extends \DOMDocument{
         foreach($naturals as $node){
             
             // query to find the tilte/url
-            $aTag=$this->naturalsResults=$this->getXpath()->query($query,$node);
+            $aTag=$this->getXpath()->query($query,$node);
             //take the first element, because anyway only one can be found
             $aTag=$aTag->item(0);
             
@@ -135,8 +141,68 @@ class GoogleDOM extends \DOMDocument{
         
         return $positions;
     }
-
+    
+    
     /**
+     * list of adwords nodes. Please consider using getAdwordsPositions() instead
+     * @return \DOMNameList
+     */
+    public function getAdwords(){
+        
+        if(null === $this->adwsResults){
+        
+            $query=self::RHS_QUERY;
+
+            
+            $this->adwsResults=$this->getXpath()->query($query);
+            
+        }
+        
+        return $this->adwsResults;
+        
+    }
+    
+    /**
+     * Get the list of adwords positions
+     * @return \GoogleUrl\GoogleAdwordPosition[]
+     */
+    public function getAdwordsPositions(){
+        
+        $positions=array();// we buf results
+        $number=1;
+        
+        foreach($this->getAdwords() as $node){
+            
+            
+            // query to find the tilte/url
+            $aTag=$this->getXpath()->query(self::RHS_LINK,$node)->item(0);
+            /* @var $aTag \DOMElement */
+
+            $visUrlTag = $this->getXpath()->query(self::RHS_VISURL,$node)->item(0);
+            /* @var $visUrlTag \DOMElement */
+            
+            
+            $textTag = $this->getXpath()->query(self::RHS_TEXT,$node)->item(0);
+            /* @var $textTag \DOMElement */
+            
+            
+            $title = $aTag ?  strip_tags($aTag->textContent) : "";
+            $adwordsUrl = $aTag ? $aTag->getAttribute("href") : "";
+            $visurl = $visUrlTag ? strip_tags($visUrlTag->textContent) : "";
+            $text = $textTag ? strip_tags($textTag->textContent) : "";
+            
+            
+            $positions[] = new GoogleAdwordPosition($this->search, $number, $visurl, $adwordsUrl, $title, $text, $this->date);
+            
+            $number++;
+            
+        }
+        
+        return $positions;
+    }
+    
+
+        /**
      * @return int
      */
     public function getDate()
