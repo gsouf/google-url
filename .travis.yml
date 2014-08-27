@@ -7,4 +7,4 @@ before_script:
   - travis_retry composer self-update
   - travis_retry composer install --dev
 
-script: (cd test && phpunit --verbose)
+script: (cd tests && phpunit --verbose)
