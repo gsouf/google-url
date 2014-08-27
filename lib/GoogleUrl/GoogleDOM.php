@@ -14,6 +14,7 @@ use \GoogleUrl\AdwordsResultSet;
  */
 class GoogleDOM extends \DOMDocument{
     
+    
     /**
      * list of natural nodes
      */
@@ -33,7 +34,8 @@ class GoogleDOM extends \DOMDocument{
     const RHS_VISURL="descendant::div[@class='ads-visurl']/cite"; 
     const RHS_TEXT="descendant::div[@class='ads-creative']"; 
     
-    
+    // we check if there is a form named 'captcha' to detect a bad page
+    const CAPTCHA_FORM_XPATH="//input[@name='captcha']";
     
     protected $naturalsResults = null; // used for cache
     protected $adwsResults = null; // used for cache
@@ -77,6 +79,15 @@ class GoogleDOM extends \DOMDocument{
         return $this->xpath;
     }
 
+    /**
+     * detect if the page is a captcha
+     * @return bool
+     */
+    public function isCaptcha(){
+        
+        return $this->getXpath()->query(self::CAPTCHA_FORM_XPATH)->length > 0;
+        
+    }
         
     /**
      * gives the list of the natural results

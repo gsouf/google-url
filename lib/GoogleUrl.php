@@ -248,6 +248,7 @@ class GoogleUrl{
      * @param string $searchTerm the string to search. Or if not specified will take the given with ->searchTerm($search)
      * @return GoogleDOM the Google DOMDocument
      * @throws Exception
+     * @throws \GoogleUrl\CaptachaException google detected us as a bot
      */
     public function search($searchTerm=null){
 
@@ -299,6 +300,9 @@ class GoogleUrl{
         $doc->loadHTML($r);
         libxml_use_internal_errors(FALSE);
         libxml_clear_errors();
+        
+        if($doc->isCaptcha())
+            throw new \GoogleUrl\CaptachaException();
 
         return $doc;
     }
