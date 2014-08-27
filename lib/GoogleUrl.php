@@ -98,7 +98,7 @@ class GoogleUrl{
      */
     public function init(){
         
-        $this->googleParams=[
+        $this->googleParams=array(
             
             "q" => "",                      // Search Query
             "start" => 0,                   // First result number
@@ -110,7 +110,7 @@ class GoogleUrl{
 
 
             
-        ];
+        );
         $this->acceptLangage=self::ACCEPT_EN;
         $this->setTld("com");
     }
