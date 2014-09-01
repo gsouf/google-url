@@ -25,7 +25,7 @@ class DelayedQuery extends \GoogleUrl {
             self::$delayer = new MilliDelayer(50020,70023,80084,40096,150032,50150,70007,180000);
     }
 
-    public function search($searchTerm = null)
+    public function search($searchTerm = null , $options = array())
     {
         // dont wait for the first iteration
         if($this->started)
@@ -35,7 +35,7 @@ class DelayedQuery extends \GoogleUrl {
         }
 
         try{
-            return parent::search($searchTerm);
+            return parent::search($searchTerm,$options);
         }catch (\Exception $e){
             throw $e;
         }

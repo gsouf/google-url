@@ -7,8 +7,10 @@ namespace GoogleUrl;
  *
  * @author bob
  */
-class ProxyPool {
+class ProxyPool implements ProxyAccessAdapter {
     
+    protected $proxys;
+
     /**
      *
      * @var ProxyAccessAdapter
@@ -19,6 +21,9 @@ class ProxyPool {
         $this->proxyAccessAdapter = $proxyAccessAdapter;
     }
 
+    public function findShortestTimeProxy(){
+        
+    }
     
     
 }

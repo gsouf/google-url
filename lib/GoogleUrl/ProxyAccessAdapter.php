@@ -9,6 +9,6 @@ namespace GoogleUrl;
  */
 interface ProxyAccessAdapter {
     
-    
+    public function findShortestTimeProxy();
     
 }
