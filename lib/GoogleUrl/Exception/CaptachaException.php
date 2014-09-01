@@ -1,10 +1,6 @@
 <?php
 
-/**
- * @copyright (c) Rock A Gogo VPC
- */
-
-namespace GoogleUrl;
+namespace GoogleUrl\Exception;
 
 /**
  * CaptachaException

@@ -2,8 +2,8 @@
 
 // See License
 
-use \GoogleUrl\GoogleDOM;
-
+use \GoogleUrl\GoogleDOM,
+ GoogleUrl\ProxyDefinition;
 
 /**
  * Description of GoogleUrl
@@ -246,11 +246,16 @@ class GoogleUrl{
     /**
      * Launch a google Search
      * @param string $searchTerm the string to search. Or if not specified will take the given with ->searchTerm($search)
+     * @param array $options Options for the query . available options :
+     *                       + proxy : a proxyDefinition item to proxyfy the request
+     *                       + 
+     *                       + 
+     *                       
      * @return GoogleDOM the Google DOMDocument
      * @throws Exception
      * @throws \GoogleUrl\CaptachaException google detected us as a bot
      */
-    public function search($searchTerm=null){
+    public function search($searchTerm=null, $options = array()){
 
         /**======================
          * CHANGE SEARCH IF NEEDED
@@ -284,14 +289,32 @@ class GoogleUrl{
 
         $c->HTTPHEADER=$header;
 
+        
+        /**=========
+         * SET PROXY
+           =========*/
+        
+        $c->proxy = 
+        
+        
 
         /**========
          * EXECUTE
           =========*/
         $r=$c->exec();
-        if(!$r)
-            throw new \Exception ("HTTP query failled with the following URL : ".$this);
-
+        
+        if(false === $r){
+            
+            $errno = $c->errno();
+            
+            if(CURLE_COULDNT_RESOLVE_PROXY == $errno){
+                throw new \GoogleUrl\Exception\ProxyException("HTTP query failled [curl-error : $errno - " . $c->error() . " ] for the following URL : ".$this);
+            }else{
+                throw new \GoogleUrl\Exception\CurlException ("HTTP query failled [curl-error : $errno - " . $c->error() . " ] for the following URL : ".$this);
+            }
+            
+        }
+        
         /**===============
          * CREATE DOCUMENT
           ================*/
@@ -302,7 +325,7 @@ class GoogleUrl{
         libxml_clear_errors();
         
         if($doc->isCaptcha())
-            throw new \GoogleUrl\CaptachaException();
+            throw new \GoogleUrl\Exception\CaptachaException();
 
         return $doc;
     }

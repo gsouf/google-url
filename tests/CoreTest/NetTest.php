@@ -6,7 +6,7 @@ class NetTest  extends PHPUnit_Framework_TestCase{
    
     
     public function testQuery(){
-
+        
         $googleUrl=new \GoogleUrl\DelayedQuery();
         
         $firstSearch = $googleUrl->setLang('fr')->setNumberResults(10)->search("simpson tshirt");

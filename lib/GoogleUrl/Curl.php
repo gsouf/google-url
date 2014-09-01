@@ -217,7 +217,7 @@ class Curl
 	public function close ()
 	{
 		if ( !empty($this->ch) && is_resource($this->ch) )
-			curl_close($this->ch);
+                    curl_close($this->ch);
 	}
 
 	/**

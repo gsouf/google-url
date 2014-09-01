@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @copyright (c) Rock A Gogo VPC
- */
 
 namespace GoogleUrl;
 
