@@ -7,7 +7,7 @@ namespace GoogleUrl\Proxy;
  *
  * @author bob
  */
-class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedInterface{
+class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedInterface, \GoogleUrl\SimpleProxyInterface{
 
     
 

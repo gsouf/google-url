@@ -12,7 +12,7 @@ Features
  * Google SERP url generation
  * Natural results parsing
  * Adwords results parsing
-
+ * Proxy Usage
 
 
 **PLEASE READ ALL THE FOLLOWING SECTIONS BEFORE USING IT** it contains important informations about the usage.
@@ -143,6 +143,28 @@ There is no universal rule for the delays to apply. It is hard to figure out the
 
 
 ```
+
+Using Proxy
+-----------
+
+
+```php
+
+<?php
+
+include __DIR__ . "/../autoload.php";
+
+
+
+$proxy1 = new \GoogleUrl\SimpleProxy("localhost", "3128");
+$proxy2 = new \GoogleUrl\SimpleProxy("someproxyAddress", "8080");
+
+$googleUrl=new \GoogleUrl();
+$googleUrl->setLang('fr')->setNumberResults(10)->search("simpson",$proxy1);
+$googleUrl->setLang('fr')->setNumberResults(10)->search("simpsons",$proxy2);
+
+```
+
 
 
 **Implemented Languages**

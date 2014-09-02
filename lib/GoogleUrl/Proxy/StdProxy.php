@@ -7,7 +7,7 @@ namespace GoogleUrl\Proxy;
  *
  * @author sghzal
  */
-class StdProxy implements \GoogleUrl\ProxyInterface,  \GoogleUrl\ProxyDelayedInterface{
+class StdProxy implements \GoogleUrl\ProxyInterface,  \GoogleUrl\ProxyDelayedInterface, \GoogleUrl\SimpleProxyInterface{
    
     protected $ip;
     protected $port;

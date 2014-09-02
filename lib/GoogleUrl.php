@@ -255,13 +255,9 @@ class GoogleUrl{
      * @throws Exception
      * @throws \GoogleUrl\CaptachaException google detected us as a bot
      */
-    public function search($searchTerm=null, $options = array()){
+    public function search($searchTerm=null, \GoogleUrl\SimpleProxyInterface $proxy = null){
         
-        if(! is_array($options)){
-            trigger_error("Param 2 for GoogleUrl::search() must be an array",E_USER_ERROR);
-            return;
-        }
-
+    
         /**======================
          * CHANGE SEARCH IF NEEDED
           ========================*/
@@ -298,9 +294,9 @@ class GoogleUrl{
         /**=========
          * SET PROXY
            =========*/
-        if(isset($options["proxy"]))
-            $c->proxy = $options["proxy"];
-        
+        if($proxy){
+            $c->proxy = $proxy->getIp() . ":" . $proxy->getPort() ;
+        }
         
 
         /**========
