@@ -30,7 +30,7 @@ interface ProxyAccessAdapter {
     public function releaseProxyLock(ProxyInterface $proxy);
     public function proxyUsed(ProxyInterface $proxy);
     
-    public function addProxy(ProxyInterface $proxy);
+    public function setProxy(ProxyInterface $proxy);
     public function removeProxy(ProxyInterface $proxy);
     
 }

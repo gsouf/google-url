@@ -20,10 +20,10 @@ class ProxyPool implements ProxyAccessAdapter {
      * @param \GoogleUrl\ProxyInterface $p
      * @throws \Exception
      */
-    public function addProxy(ProxyInterface $p){
+    public function setProxy(ProxyInterface $p){
         
-        if(!$p instanceof ProxyDefinition){
-            throw new \Exception("ProxyPool::addProxy() first parameter must be an instance of GoogleUrl\ProxyDefinition." . get_class($p) . " used instead.");
+        if(!$p instanceof Proxy\ProxyObject){
+            throw new \Exception("ProxyPool::addProxy() first parameter must be an instance of GoogleUrl\Proxy\ProxyObject." . get_class($p) . " used instead.");
         }
         
         $this->proxys[$p->__toString()] = $p;

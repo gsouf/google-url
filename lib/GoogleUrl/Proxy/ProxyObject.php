@@ -1,15 +1,16 @@
 <?php
 
-namespace GoogleUrl;
+namespace GoogleUrl\Proxy;
 
 /**
  * Description of ProxyDefinition
  *
  * @author bob
  */
-class ProxyDefinition implements ProxyInterface{
+class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedInterface{
 
     
+
     protected $ip;
     protected $port;
     
@@ -22,6 +23,16 @@ class ProxyDefinition implements ProxyInterface{
     protected $cycle;
     
     protected $locked;
+    
+    public function __construct($ip, $port, $lastRun, $nextDelay,$delayCount,$locked) {
+        $this->ip=$ip;
+        $this->port=$port;
+        $this->lastUse=$lastRun;
+        $this->locked = $locked;
+        $this->nextDelay=$nextDelay;
+        $this->delaysCount = $delayCount;
+    }
+    
     
     public function getNextDelay() {
         return $this->nextDelay;
@@ -40,11 +51,6 @@ class ProxyDefinition implements ProxyInterface{
     }
 
     
-
-    public function addDelay($count,$min,$max){
-        $this->delays[$count] = $min <= $max ? array($min,$max) : array($max,$min);
-        ksort($this->delays);
-    }
     
     public function prepareNextDelay(){
         return $this->__prepareNextDelay(true);
@@ -73,6 +79,11 @@ class ProxyDefinition implements ProxyInterface{
             throw new \Exception("Preventing endless loop : proxy delays are not correctly configured");
         }
     }
+    
+    public function getDelayCount() {
+        return $this->getDelaysCount();
+    }
+
     
     public function isAvailable(){
         return $this->lastUse + $this->nextDelay <= time();
