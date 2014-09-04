@@ -31,11 +31,11 @@ This is the most basic case of using a proxy.
 Proxy Rotation
 --------------
 
-What we are interested in is to rotate between many proxys.
-The following example show how it is possible with google's ProxyPool.
+What we are interested in is to rotate between **many proxys**.
+The following example shows how it is possible with ``googleUrl's ProxyPool``.
 
-This example shows a basical use of the proxy. You may modify it to use your keywords
-(from database ?), choosing how to handle errors and how to store results.
+The following example shows a basical use of the proxy. You may modify it to use your **keywords**
+(from database ?), choosing how to **handle errors** and how to **store results**.
 
 
 ```php
@@ -209,17 +209,15 @@ This example shows a basical use of the proxy. You may modify it to use your key
     
 
 
-This examples is quite a few complet because it locks with ``$proxypool->acquireProxyLock($proxy)``. 
-In this example it is not usefull because all proxy are created in the begining of the script. And ther is no concurrent run
+This examples is quite a few complet because it **locks proxys** with ``$proxypool->acquireProxyLock($proxy)``. 
 
-But we could store proxies into a file (next example) and keep a trace of their current state.
-The main goal is to make the script more tolerant to error. 
+In the previous example it is useless because proxy state are **not stored**. In the next example proxy states are **stored into a file**.
 
 Why is it usefull :
 
- * If your script crashes during the execution, you can start it again and because the state of proxies are stored in a file then it is easy to restore it.
- * You can ask the file to know the stat of the proxies without stopping the script execution,
- * You can start many scripts with same proxies and the proxy will never collide
+ * If your script **crashes** during the execution, you can start it again and because the state of proxies are stored in a file then it is easy to restore it.
+ * You can ask the file to know the state of the proxies **without stopping the script execution**,
+ * You can start **many scripts with same proxies** and the proxy will **never collide**
  * Using it in a multithreaded application
  
 
@@ -227,13 +225,15 @@ Why is it usefull :
 Using a file to store proxy state
 ---------------------------------
 
-In this example we are using a file to store proxy file and make proxy state tolerant to crashes or multiscript usage
+In this example we are using a **file to store proxy** and make proxy state tolerant to crashes or multiscript usage.
 
 This exemples contains 2 scripts. First will init proxies. Second will rotate over the proxies
 
 These example are close enough from the previous one. Only new actions are documented
 
-> init.php : it sets the basic stat of the proxies
+**init.php**
+
+> it sets the basic stat of the proxies
 
 ```php
    
@@ -258,6 +258,20 @@ These example are close enough from the previous one. Only new actions are docum
     $proxyPool->setProxy($proxy1);
     $proxyPool->setProxy($proxy2);
     
+```
+    
+
+**proxy-rotation.php**
+
+> it rotates with the previously created proxies
+
+```php
+   
+    <?php 
+    include __DIR__ . "/../autoload.php";
+
+    // this pool starts with the prvious states of the proxies. No matters when you start the script.
+    $proxyPool = new \GoogleUrl\ProxyPool\File(__DIR__ . "/path/to/file.json",$defaultDelays);
 
     $searcher = new GoogleUrl();
     $searcher->setLang('fr')->setNumberResults(10);
