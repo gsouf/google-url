@@ -15,6 +15,17 @@ class ProxyPool implements ProxyAccessAdapter {
      */
     protected $proxys;
     
+    protected $delays;
+    
+    /**
+     * the delays to use by default if the proxy doesnt have
+     * @param array $delays
+     */
+    function __construct($delays) {
+        $this->delays = $delays;
+    }
+
+    
     /**
      * Add a proxy. It must be an instance of {@see ProxyDefinition}
      * @param \GoogleUrl\ProxyInterface $p
@@ -71,7 +82,7 @@ class ProxyPool implements ProxyAccessAdapter {
         if(isset($this->proxys[$string])){
            $p = $this->proxys[$string];
            $p->setLastUse(time());
-           $p->prepareNextDelay();
+           $p->prepareNextDelay($this->delays);
         echo "updating proxy : $proxy. Setting count : " . $p->getDelaysCount() ;
         echo " cycle : " . $p->getCycle() ;
         echo " nextDelay : " . $p->getNextDelay() ;

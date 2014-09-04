@@ -52,8 +52,8 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
 
     
     
-    public function prepareNextDelay(){
-        return $this->__prepareNextDelay(true);
+    public function prepareNextDelay($delays){
+        return $this->__prepareNextDelay($delays,true);
     }
     
     
@@ -62,9 +62,15 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     }
     
     
-    private function __prepareNextDelay($first=false){
-        foreach($this->delays as $count => $range){
-            if($this->delaysCount <= $count){
+    private function __prepareNextDelay($delaysDefault,$first=false){
+        
+        if(!$this->delays)
+            $delays = $delaysDefault;
+        else
+            $delays = $this->delays;
+        
+        foreach($delays as $count => $range){
+            if($count < 0 ||  $this->delaysCount <= $count){
                 $this->nextDelay = rand($range[0], $range[1]);
                 $this->increaseDelayCount();
                 return $this->nextDelay;
@@ -74,7 +80,7 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
         if($first){
             $this->setDelaysCount(0);
             $this->increaseCycle();
-            return $this->__prepareNextDelay();
+            return $this->__prepareNextDelay($delaysDefault);
         }else{
             throw new \Exception("Preventing endless loop : proxy delays are not correctly configured");
         }

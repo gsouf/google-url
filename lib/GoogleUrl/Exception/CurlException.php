@@ -7,6 +7,6 @@ namespace GoogleUrl\Exception;
  *
  * @author sghzal
  */
-class CurlException extends \Exception{
+class CurlException extends \GoogleUrl\Exception{
     //put your code here
 }

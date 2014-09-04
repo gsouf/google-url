@@ -165,6 +165,7 @@ $googleUrl->setLang('fr')->setNumberResults(10)->search("simpsons",$proxy2);
 
 ```
 
+Please refere to https://github.com/SneakyBobito/google-url/doc/proxy_rotation.md for more complet usage of proxies.
 
 
 **Implemented Languages**

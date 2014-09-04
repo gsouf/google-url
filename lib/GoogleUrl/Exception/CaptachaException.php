@@ -7,6 +7,6 @@ namespace GoogleUrl\Exception;
  *
  * @author sghzal
  */
-class CaptachaException extends \Exception{
+class CaptachaException extends \GoogleUrl\Exception{
     //put your code here
 }
