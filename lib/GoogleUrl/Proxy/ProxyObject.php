@@ -14,6 +14,11 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     protected $ip;
     protected $port;
     
+    protected $login;
+    protected $password;
+    protected $proxyType;
+
+
     protected $lastUse;
     
     protected $delays;
@@ -24,13 +29,18 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     
     protected $locked;
     
-    public function __construct($ip, $port, $lastRun, $nextDelay,$delayCount,$locked) {
+    public function __construct($ip, $port,$login,$password,$proxyType, $lastRun, $nextDelay,$delayCount,$locked) {
         $this->ip=$ip;
         $this->port=$port;
         $this->lastUse=$lastRun;
         $this->locked = $locked;
         $this->nextDelay=$nextDelay;
         $this->delaysCount = $delayCount;
+        
+        $this->login = $login;
+        $this->password = $password;
+        $this->proxyType = $proxyType;
+        
     }
     
     
@@ -115,6 +125,31 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
         $this->port = $port;
     }
 
+    public function getLogin() {
+        return $this->login;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getProxyType() {
+        return $this->proxyType;
+    }
+
+    public function setLogin($login) {
+        $this->login = $login;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function setProxyType($proxyType) {
+        $this->proxyType = $proxyType;
+    }
+
+        
     public function getLastUse() {
         return $this->lastUse;
     }

@@ -295,7 +295,23 @@ class GoogleUrl{
          * SET PROXY
            =========*/
         if($proxy){
-            $c->proxy = $proxy->getIp() . ":" . $proxy->getPort() ;
+            $c->proxy = $proxy->getIp();
+            $c->proxyport = $proxy->getPort();
+            
+            $login = $proxy->getLogin();
+            if($login){
+                $auth = $login;
+                $psw = $proxy->getPassword();
+                if($psw){
+                    $auth .= ":" . $psw;
+                }
+                $c->proxyuserpwd = $auth;
+            }
+            
+            
+            $proxyType = $proxy->getProxyType();
+            $c->proxytype = $proxyType ? $proxyType : "http";
+  
         }
         
 

@@ -11,7 +11,10 @@ class SimpleProxy implements \GoogleUrl\SimpleProxyInterface{
    
     public $ip;
     public $port;
-    
+    public $login;
+    public $password;
+    public $proxyType="http";
+            
     function __construct($ip, $port) {
         $this->ip = $ip;
         $this->port = $port;
@@ -33,7 +36,36 @@ class SimpleProxy implements \GoogleUrl\SimpleProxyInterface{
         $this->port = $port;
     }
 
+    public function getLogin() {
+        return $this->login;
+    }
 
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function setLogin($login) {
+        $this->login = $login;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+    
+    public function getProxyType() {
+        return $this->proxyType;
+    }
+
+    public function setProxyType($proxyType) {
+        $this->proxyType = $proxyType;
+    }
+
+
+
+
+
+
+    
 
     
 }

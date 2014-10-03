@@ -16,14 +16,14 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
             
         );
         
-        $proxyDefinition1 = new GoogleUrl\Proxy\ProxyObject("23.21.183.183", 82, 0, 0,0,false);
+        $proxyDefinition1 = new GoogleUrl\Proxy\ProxyObject("23.21.183.183", 82 , null, null ,null, 0, 0,0,false);
         $proxyDefinition1->setDelays($delays);
         
-        $proxyDefinition2 = new GoogleUrl\Proxy\ProxyObject("23.21.183.183", 80, 0, 0,0,false);
+        $proxyDefinition2 = new GoogleUrl\Proxy\ProxyObject("23.21.183.183", 80, null, null ,null, 0, 0,0,false);
         $proxyDefinition2->setDelays($delays);
         
         
-        $pool = new \GoogleUrl\ProxyPool();
+        $pool = new \GoogleUrl\ProxyPool([-1=>array(0,1)]);
         $pool->setProxy($proxyDefinition1);
         $pool->setProxy($proxyDefinition2);
 
@@ -88,10 +88,10 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
             
         );
         
-        $proxyDefinition1 = new GoogleUrl\Proxy\StdProxy("23.21.183.183", 82, 0, 0,0,false);
+        $proxyDefinition1 = new GoogleUrl\Proxy\StdProxy("23.21.183.183", 82,null, null ,null, 0, 0,0,false);
         $proxyDefinition1->setDelays($delays);
         
-        $proxyDefinition2 = new GoogleUrl\Proxy\StdProxy("23.21.183.183", 80, 0, 0,0,false);
+        $proxyDefinition2 = new GoogleUrl\Proxy\StdProxy("23.21.183.183", 80,null, null ,null, 0, 0,0,false);
         $proxyDefinition2->setDelays($delays);
         
         

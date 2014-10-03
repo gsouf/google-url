@@ -54,6 +54,9 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
             "last-run" => 0,
             "next-delay" => $availTime > 0 ? $availTime : 0 ,
             "ip" => $proxy->getIp(),
+            "login" => $proxy->getLogin(),
+            "password" => $proxy->getPassword(),
+            "proxyType" => $proxy->getProxyType(),
             "port" => $proxy->getPort(),
             "locked" => false,
             "count" => 0,
@@ -82,11 +85,11 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
     }
     
     private function __constructProxy($data){
-        $p = new \GoogleUrl\Proxy\StdProxy($data["ip"], $data["port"], $data["last-run"], $data["next-delay"], $data["count"], $data["locked"]);
+        $p = new \GoogleUrl\Proxy\StdProxy($data["ip"], $data["port"],$data["login"],$data["password"],$data["proxyType"], $data["last-run"], $data["next-delay"], $data["count"], $data["locked"]);
         
         if($p instanceof ProxyDelayedInterface){
             $p->setDelays($data["delays"]);
-        };
+        }
         
         return $p;
     }

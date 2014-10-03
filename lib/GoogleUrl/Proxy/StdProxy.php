@@ -14,17 +14,27 @@ class StdProxy implements \GoogleUrl\ProxyInterface,  \GoogleUrl\ProxyDelayedInt
     protected $lastRun;
     protected $nextDelay;
     
+    protected $login;
+    protected $password;
+    protected $proxyType;
+
+    
     protected $delays;
     protected $delayCount;
     protected $locked;
-            
-    function __construct($ip, $port, $lastRun, $nextDelay,$delayCount,$locked) {
-        $this->ip = $ip;
-        $this->port = $port;
-        $this->nextDelay = $nextDelay;
-        $this->lastRun = $lastRun;
-        $this->delayCount = $delayCount;
+    
+    public function __construct($ip, $port,$login,$password,$proxyType, $lastRun, $nextDelay,$delayCount,$locked) {
+        $this->ip=$ip;
+        $this->port=$port;
+        $this->lastUse=$lastRun;
         $this->locked = $locked;
+        $this->nextDelay=$nextDelay;
+        $this->delaysCount = $delayCount;
+        
+        $this->login = $login;
+        $this->password = $password;
+        $this->proxyType = $proxyType;
+        
     }
 
     public function getDelayCount() {
@@ -60,6 +70,29 @@ class StdProxy implements \GoogleUrl\ProxyInterface,  \GoogleUrl\ProxyDelayedInt
         $this->delays = $delays;
     }
 
+        public function getLogin() {
+        return $this->login;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getProxyType() {
+        return $this->proxyType;
+    }
+
+    public function setLogin($login) {
+        $this->login = $login;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function setProxyType($proxyType) {
+        $this->proxyType = $proxyType;
+    }
 
     
 }
