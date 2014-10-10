@@ -29,8 +29,8 @@ Usually I delay each query with 30 seconds. But if you do a lot of requests it's
 
 **How to counter :**
 
-* Optimize your delays (this package contains a query delayer that does it for you with different delays, but i'm still trying to figure out what is the best timing to use)
-* If you want to do very high number of requests on a short time you will have to use proxy(s). I'm looking for the best implementation I can do of it in the library.
+* Optimize your delays between each queries.
+* If you want to do very high number of requests on a short time you will have to use proxy(s). There is a tool packaged in the library that can do it for you (see below), but you still can do it by yourself.
 
 
 Installation
