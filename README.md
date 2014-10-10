@@ -30,7 +30,7 @@ Usually I delay each query with 30 seconds. But if you do a lot of requests it's
 **How to counter :**
 
 * Optimize your delays between each queries.
-* If you want to do very high number of requests on a short time you will have to use proxy(s). There is a tool packaged in the library that can do it for you (see below), but you still can do it by yourself.
+* If you want to do very high number of requests on a short time you will have to use proxy(s). There is a tool packaged in the library that can do it for you ([see below](#using-proxy)), but you still can do it by yourself.
 
 
 Installation
