@@ -13,11 +13,12 @@ class SimpleProxy implements \GoogleUrl\SimpleProxyInterface{
     public $port;
     public $login;
     public $password;
-    public $proxyType="http";
+    public $proxyType;
             
     function __construct($ip, $port) {
         $this->ip = $ip;
         $this->port = $port;
+        $this->proxyType = CURLPROXY_HTTP;
     }
     
     public function getIp() {

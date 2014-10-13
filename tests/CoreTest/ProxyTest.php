@@ -66,7 +66,29 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
         
     }
     
-    
+    public function testProxyString(){
+        
+        $p = new GoogleUrl\ProxyString("192.168.1.2:2222");
+        
+        $this->assertEquals("192.168.1.2",$p->getIp());
+        $this->assertEquals("2222",$p->getPort());
+        
+        
+        $p = new GoogleUrl\ProxyString("user@192.168.1.2:2222");
+        
+        $this->assertEquals("192.168.1.2",$p->getIp());
+        $this->assertEquals("2222",$p->getPort());
+        $this->assertEquals("user",$p->getLogin());
+        
+        
+        $p = new GoogleUrl\ProxyString("user:pswd@192.168.1.2:2222");
+        
+        $this->assertEquals("192.168.1.2",$p->getIp());
+        $this->assertEquals("2222",$p->getPort());
+        $this->assertEquals("user",$p->getLogin());
+        $this->assertEquals("pswd",$p->getPassword());
+        
+    }
     
     
     /**
