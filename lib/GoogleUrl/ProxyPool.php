@@ -39,7 +39,19 @@ class ProxyPool implements ProxyAccessAdapter {
         
         $this->proxys[$p->__toString()] = $p;
     }
-   
+    
+    
+    /**
+     * check if the given proxy exists
+     * @param \GoogleUrl\SimpleProxyInterface $p
+     */
+    public function hasProxy(SimpleProxyInterface $p) {
+        
+        return isset($this->proxys[$p->getIp() . ":" . $p->getPort()]);
+        
+    }
+
+    
 
     public function removeProxy(ProxyInterface $proxy) {
     

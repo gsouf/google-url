@@ -33,4 +33,6 @@ interface ProxyAccessAdapter {
     public function setProxy(ProxyInterface $proxy);
     public function removeProxy(ProxyInterface $proxy);
     
+    public function hasProxy(SimpleProxyInterface $p);
+    
 }

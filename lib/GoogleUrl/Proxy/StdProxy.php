@@ -23,6 +23,13 @@ class StdProxy implements \GoogleUrl\ProxyInterface,  \GoogleUrl\ProxyDelayedInt
     protected $delayCount;
     protected $locked;
     
+    
+    public static function fromSimpleProxy(\GoogleUrl\SimpleProxyInterface $proxy,$lastRun = 0,$nextDelay=0,$delayCount=0,$locked=false){
+        
+        return new static($proxy->getIp(),$proxy->getPort(),$proxy->getLogin(),$proxy->getPassword(),$proxy->getProxyType(),$lastRun, $nextDelay,$delayCount,$locked);
+        
+    }
+    
     public function __construct($ip, $port,$login,$password,$proxyType, $lastRun, $nextDelay,$delayCount,$locked) {
         $this->ip=$ip;
         $this->port=$port;
@@ -55,7 +62,9 @@ class StdProxy implements \GoogleUrl\ProxyInterface,  \GoogleUrl\ProxyDelayedInt
     }
 
     public function getTimeToAvailability() {
-        return $this->lastRun + $this->nextDelay - time();
+        $next = ($this->lastUse + $this->nextDelay) - time();
+        
+        return $next > 0 ? $next : 0;
     }
 
     public function isAvailable() {

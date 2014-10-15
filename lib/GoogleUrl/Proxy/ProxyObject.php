@@ -29,6 +29,13 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     
     protected $locked;
     
+    public static function fromSimpleProxy(\GoogleUrl\SimpleProxyInterface $proxy,$lastRun = 0,$nextDelay=0,$delayCount=0,$locked=false){
+        
+        return new static($proxy->getIp(),$proxy->getPort(),$proxy->getLogin(),$proxy->getPassword(),$proxy->getProxyType(),$lastRun, $nextDelay,$delayCount,$locked);
+        
+    }
+    
+    
     public function __construct($ip, $port,$login,$password,$proxyType, $lastRun, $nextDelay,$delayCount,$locked) {
         $this->ip=$ip;
         $this->port=$port;
@@ -106,7 +113,10 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     }
     
     public function getTimeToAvailability(){
-        return ($this->lastUse + $this->nextDelay) - time();
+        
+        $next = ($this->lastUse + $this->nextDelay) - time();
+        
+        return $next > 0 ? $next : 0;
     }
     
     public function getIp() {

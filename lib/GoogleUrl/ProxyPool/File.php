@@ -37,7 +37,7 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
     /**
      * returns the proxy string identifier
      */
-    private function __id(ProxyInterface $proxy){
+    private function __id(\GoogleUrl\SimpleProxyInterface $proxy){
         return $proxy->getIp() . ":" . $proxy->getPort();
     }
 
@@ -74,6 +74,20 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
         $this->writeFile($proxys);
     }
 
+    /**
+     * check if the given proxy exists
+     * @param \GoogleUrl\SimpleProxyInterface $p
+     */
+    public function hasProxy(\GoogleUrl\SimpleProxyInterface $p) {
+        
+        $id = $this->__id($p);
+        
+        $proxys = $this->getFile();
+        
+        return isset($proxys["proxy"][$id]);
+        
+    }
+    
     public function findAvailableProxy() {
         $proxys = $this->getFile();
         foreach($proxys["proxy"] as $p){
