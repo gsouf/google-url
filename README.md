@@ -3,7 +3,11 @@ google-url
 
 Get ready to query google like a pro and make awesome google searches with PHP
 
-The library is being improved to make better pages parsing. Feel free to give any feedback/nfr from the issue tracker.
+
+
+**BE AWARE**
+
+The proxyPool section will soon be moved to another package and it is going to be refactored.
 
 
 Features
