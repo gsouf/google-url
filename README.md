@@ -42,7 +42,7 @@ Installation
 
 The library is available on packgist : ``"sneakybobito/google-url": "dev-master"``
 
-If you are not familiar with packagist, you an also use the loader packaged in the repo. To do so download the library (e.g. as a zip from github) 
+If you are not familiar with packagist, you can also use the loader packaged in the repo. To do so download the library (e.g. as a zip from github) 
 and just include the file named ``autoload.php`̀` : 
 
 ```php
