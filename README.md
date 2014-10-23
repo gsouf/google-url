@@ -168,7 +168,7 @@ $proxy2->setPassword("myPassword");
 
 // OR WITH PROXY STRING :
 
-$proxy2 = new \GoogleUrl\ProxyString("mylogin:mylogin@someproxyAddress:8080");
+$proxy2 = new \GoogleUrl\ProxyString("mylogin:myPassword@someproxyAddress:8080");
 
 
 $googleUrl=new \GoogleUrl();
