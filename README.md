@@ -7,7 +7,7 @@ Get ready to query google like a pro and make awesome google searches with PHP
 
 **BE AWARE**
 
-The proxyPool section will soon be moved to another package and it is going to be refactored.
+The proxyPool section will soon be moved to another package and it is going to be refactored (only proxy pools, not proxy objects).
 
 
 Features
@@ -162,6 +162,14 @@ include __DIR__ . "/../autoload.php";
 
 $proxy1 = new \GoogleUrl\SimpleProxy("localhost", "3128");
 $proxy2 = new \GoogleUrl\SimpleProxy("someproxyAddress", "8080");
+$proxy2->setLogin("mylogin");
+$proxy2->setPassword("myPassword");
+
+
+// OR WITH PROXY STRING :
+
+$proxy2 = new \GoogleUrl\ProxyString("mylogin:mylogin@someproxyAddress:8080");
+
 
 $googleUrl=new \GoogleUrl();
 $googleUrl->setLang('fr')->setNumberResults(10)->search("simpson",$proxy1);
@@ -172,7 +180,13 @@ $googleUrl->setLang('fr')->setNumberResults(10)->search("simpsons",$proxy2);
 Please refere to https://github.com/SneakyBobito/google-url/blob/master/doc/proxy_rotation.md for more complet usage of proxies.
 
 
-**Implemented Languages**
+Implemented Languages
+---------------------
+
+Each language matches a google domain (google.com, google.fr, google.de...) and language of the search. You will not have the same results for EN or DE.
+
+The following languages are implemented.
+
 * en (english)
 * fr (french)
 * de (german)
@@ -183,7 +197,8 @@ Please refere to https://github.com/SneakyBobito/google-url/blob/master/doc/prox
 * es (spannish)
 * ru (russian)
 
-more are incoming over the time...
+
+more are comming over the time, but because the language management is going to change soon we dont want to implement too many right now (dont be affraid about using them it's only internal changes).
 
 Support - Contact
 -----------------
@@ -194,5 +209,6 @@ Roadmap
 -------
 
 * Page parsing improvment (images results, website results...)
-* Delayer/query queue
-
+* Refactoring and moving proxy pools
+* refactoring language management
+* refactoring page parsing management to handle better google page changes
