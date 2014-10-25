@@ -73,6 +73,9 @@ class GoogleUrl{
 
     protected $googleParams;
     
+    protected $userAgent = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36";
+
+
     public function __construct() {
         $this->init();
     }
@@ -243,6 +246,11 @@ class GoogleUrl{
         return $this;
     }
     
+    public function setUserAgent($userAgent) {
+        $this->userAgent = $userAgent;
+    }
+
+        
     /**
      * Launch a google Search
      * @param string $searchTerm the string to search. Or if not specified will take the given with ->searchTerm($search)
@@ -281,7 +289,7 @@ class GoogleUrl{
         // let's be redirected if needed
         $c->followLocation();
         // use a true user agent, maybe better for true results
-        $c->useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.22 (KHTML, like Gecko) Ubuntu Chromium/25.0.1364.160 Chrome/25.0.1364.160 Safari/537.22";
+        $c->useragent = $this->userAgent;
 
         // use other headers
 
