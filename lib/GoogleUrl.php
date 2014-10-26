@@ -75,6 +75,7 @@ class GoogleUrl{
     
     protected $userAgent = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36";
 
+    protected $enableLr = true;
 
     public function __construct() {
         $this->init();
@@ -144,8 +145,13 @@ class GoogleUrl{
             $accept="ACCEPT_".strtoupper($iso);
             
             
-            $this->setParam("hl", constant("self::".$hl))
-                 ->setParam('lr', constant("self::".$lr));
+            $this->setParam("hl", constant("self::".$hl));
+            
+            if($this->enableLr){
+                $this->setParam('lr', constant("self::".$lr));
+            }else{
+                $this->setParam('lr', null);
+            }
             
             $this->acceptLangage=constant("self::".$accept);
             
@@ -159,6 +165,13 @@ class GoogleUrl{
         }
             
         return $this;
+    }
+    
+    public function enableLr($enabled = true){
+        $this->enableLr = $enabled;
+        if(!$this->enableLr){
+            $this->setParam('lr', null);
+        }
     }
 
     
@@ -188,7 +201,12 @@ class GoogleUrl{
      * @return \GoogleUrl
      */
     private function setParam($name,$value){
-        $this->googleParams[$name]=$value;
+        if(null === $value){
+            if($this->googleParams[$name]){
+                unset($this->googleParams[$name]);
+            }
+        }else
+            $this->googleParams[$name]=$value;
         
         return $this;
     }
