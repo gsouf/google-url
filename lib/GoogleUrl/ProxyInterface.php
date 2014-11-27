@@ -13,7 +13,7 @@ namespace GoogleUrl;
  */
 interface ProxyInterface {
     
-    function __construct($ip, $port, $lastRun, $nextDelay,$delayCount,$locked);
+    function __construct($ip, $port,$login,$password,$proxyType, $lastRun, $nextDelay,$delayCount,$locked);
     
     public function getIp();
     public function getPort();
@@ -21,4 +21,10 @@ interface ProxyInterface {
     public function getLocked();
     public function getTimeToAvailability();
     public function isAvailable();
+    
+    public function getLogin();
+    public function getPassword();
+    
+    public function getProxyType();
+    
 }

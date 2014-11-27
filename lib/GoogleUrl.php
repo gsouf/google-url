@@ -73,6 +73,10 @@ class GoogleUrl{
 
     protected $googleParams;
     
+    protected $userAgent = "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36";
+
+    protected $enableLr = true;
+
     public function __construct() {
         $this->init();
     }
@@ -141,8 +145,13 @@ class GoogleUrl{
             $accept="ACCEPT_".strtoupper($iso);
             
             
-            $this->setParam("hl", constant("self::".$hl))
-                 ->setParam('lr', constant("self::".$lr));
+            $this->setParam("hl", constant("self::".$hl));
+            
+            if($this->enableLr){
+                $this->setParam('lr', constant("self::".$lr));
+            }else{
+                $this->setParam('lr', null);
+            }
             
             $this->acceptLangage=constant("self::".$accept);
             
@@ -156,6 +165,13 @@ class GoogleUrl{
         }
             
         return $this;
+    }
+    
+    public function enableLr($enabled = true){
+        $this->enableLr = $enabled;
+        if(!$this->enableLr){
+            $this->setParam('lr', null);
+        }
     }
 
     
@@ -185,7 +201,12 @@ class GoogleUrl{
      * @return \GoogleUrl
      */
     private function setParam($name,$value){
-        $this->googleParams[$name]=$value;
+        if(null === $value){
+            if($this->googleParams[$name]){
+                unset($this->googleParams[$name]);
+            }
+        }else
+            $this->googleParams[$name]=$value;
         
         return $this;
     }
@@ -243,6 +264,11 @@ class GoogleUrl{
         return $this;
     }
     
+    public function setUserAgent($userAgent) {
+        $this->userAgent = $userAgent;
+    }
+
+        
     /**
      * Launch a google Search
      * @param string $searchTerm the string to search. Or if not specified will take the given with ->searchTerm($search)
@@ -255,13 +281,9 @@ class GoogleUrl{
      * @throws Exception
      * @throws \GoogleUrl\CaptachaException google detected us as a bot
      */
-    public function search($searchTerm=null, $options = array()){
+    public function search($searchTerm=null, \GoogleUrl\SimpleProxyInterface $proxy = null){
         
-        if(! is_array($options)){
-            trigger_error("Param 2 for GoogleUrl::search() must be an array",E_USER_ERROR);
-            return;
-        }
-
+    
         /**======================
          * CHANGE SEARCH IF NEEDED
           ========================*/
@@ -285,7 +307,7 @@ class GoogleUrl{
         // let's be redirected if needed
         $c->followLocation();
         // use a true user agent, maybe better for true results
-        $c->useragent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.22 (KHTML, like Gecko) Ubuntu Chromium/25.0.1364.160 Chrome/25.0.1364.160 Safari/537.22";
+        $c->useragent = $this->userAgent;
 
         // use other headers
 
@@ -298,9 +320,25 @@ class GoogleUrl{
         /**=========
          * SET PROXY
            =========*/
-        if(isset($options["proxy"]))
-            $c->proxy = $options["proxy"];
-        
+        if($proxy){
+            $c->proxy = $proxy->getIp();
+            $c->proxyport = $proxy->getPort();
+            
+            $login = $proxy->getLogin();
+            if($login){
+                $auth = $login;
+                $psw = $proxy->getPassword();
+                if($psw){
+                    $auth .= ":" . $psw;
+                }
+                $c->proxyuserpwd = $auth;
+            }
+            
+            
+            $proxyType = $proxy->getProxyType();
+            $c->proxytype = $proxyType ? $proxyType : "http";
+  
+        }
         
 
         /**========

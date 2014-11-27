@@ -7,13 +7,18 @@ namespace GoogleUrl\Proxy;
  *
  * @author bob
  */
-class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedInterface{
+class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedInterface, \GoogleUrl\SimpleProxyInterface{
 
     
 
     protected $ip;
     protected $port;
     
+    protected $login;
+    protected $password;
+    protected $proxyType;
+
+
     protected $lastUse;
     
     protected $delays;
@@ -24,13 +29,25 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     
     protected $locked;
     
-    public function __construct($ip, $port, $lastRun, $nextDelay,$delayCount,$locked) {
+    public static function fromSimpleProxy(\GoogleUrl\SimpleProxyInterface $proxy,$lastRun = 0,$nextDelay=0,$delayCount=0,$locked=false){
+        
+        return new static($proxy->getIp(),$proxy->getPort(),$proxy->getLogin(),$proxy->getPassword(),$proxy->getProxyType(),$lastRun, $nextDelay,$delayCount,$locked);
+        
+    }
+    
+    
+    public function __construct($ip, $port,$login,$password,$proxyType, $lastRun, $nextDelay,$delayCount,$locked) {
         $this->ip=$ip;
         $this->port=$port;
         $this->lastUse=$lastRun;
         $this->locked = $locked;
         $this->nextDelay=$nextDelay;
         $this->delaysCount = $delayCount;
+        
+        $this->login = $login;
+        $this->password = $password;
+        $this->proxyType = $proxyType;
+        
     }
     
     
@@ -52,8 +69,8 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
 
     
     
-    public function prepareNextDelay(){
-        return $this->__prepareNextDelay(true);
+    public function prepareNextDelay($delays){
+        return $this->__prepareNextDelay($delays,true);
     }
     
     
@@ -62,9 +79,15 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     }
     
     
-    private function __prepareNextDelay($first=false){
-        foreach($this->delays as $count => $range){
-            if($this->delaysCount <= $count){
+    private function __prepareNextDelay($delaysDefault,$first=false){
+        
+        if(!$this->delays)
+            $delays = $delaysDefault;
+        else
+            $delays = $this->delays;
+        
+        foreach($delays as $count => $range){
+            if($count < 0 ||  $this->delaysCount <= $count){
                 $this->nextDelay = rand($range[0], $range[1]);
                 $this->increaseDelayCount();
                 return $this->nextDelay;
@@ -74,7 +97,7 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
         if($first){
             $this->setDelaysCount(0);
             $this->increaseCycle();
-            return $this->__prepareNextDelay();
+            return $this->__prepareNextDelay($delaysDefault);
         }else{
             throw new \Exception("Preventing endless loop : proxy delays are not correctly configured");
         }
@@ -90,7 +113,10 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     }
     
     public function getTimeToAvailability(){
-        return ($this->lastUse + $this->nextDelay) - time();
+        
+        $next = ($this->lastUse + $this->nextDelay) - time();
+        
+        return $next > 0 ? $next : 0;
     }
     
     public function getIp() {
@@ -109,6 +135,31 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
         $this->port = $port;
     }
 
+    public function getLogin() {
+        return $this->login;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getProxyType() {
+        return $this->proxyType;
+    }
+
+    public function setLogin($login) {
+        $this->login = $login;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function setProxyType($proxyType) {
+        $this->proxyType = $proxyType;
+    }
+
+        
     public function getLastUse() {
         return $this->lastUse;
     }

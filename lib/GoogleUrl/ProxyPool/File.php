@@ -37,7 +37,7 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
     /**
      * returns the proxy string identifier
      */
-    private function __id(ProxyInterface $proxy){
+    private function __id(\GoogleUrl\SimpleProxyInterface $proxy){
         return $proxy->getIp() . ":" . $proxy->getPort();
     }
 
@@ -54,6 +54,9 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
             "last-run" => 0,
             "next-delay" => $availTime > 0 ? $availTime : 0 ,
             "ip" => $proxy->getIp(),
+            "login" => $proxy->getLogin(),
+            "password" => $proxy->getPassword(),
+            "proxyType" => $proxy->getProxyType(),
             "port" => $proxy->getPort(),
             "locked" => false,
             "count" => 0,
@@ -71,6 +74,20 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
         $this->writeFile($proxys);
     }
 
+    /**
+     * check if the given proxy exists
+     * @param \GoogleUrl\SimpleProxyInterface $p
+     */
+    public function hasProxy(\GoogleUrl\SimpleProxyInterface $p) {
+        
+        $id = $this->__id($p);
+        
+        $proxys = $this->getFile();
+        
+        return isset($proxys["proxy"][$id]);
+        
+    }
+    
     public function findAvailableProxy() {
         $proxys = $this->getFile();
         foreach($proxys["proxy"] as $p){
@@ -82,11 +99,11 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
     }
     
     private function __constructProxy($data){
-        $p = new \GoogleUrl\Proxy\StdProxy($data["ip"], $data["port"], $data["last-run"], $data["next-delay"], $data["count"], $data["locked"]);
+        $p = new \GoogleUrl\Proxy\StdProxy($data["ip"], $data["port"],$data["login"],$data["password"],$data["proxyType"], $data["last-run"], $data["next-delay"], $data["count"], $data["locked"]);
         
         if($p instanceof ProxyDelayedInterface){
             $p->setDelays($data["delays"]);
-        };
+        }
         
         return $p;
     }

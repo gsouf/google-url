@@ -3,7 +3,11 @@ google-url
 
 Get ready to query google like a pro and make awesome google searches with PHP
 
-The library is being improved to make better pages parsing. Feel free to give any feedback/nfr from the issue tracker.
+
+
+**BE AWARE**
+
+The proxyPool section will soon be moved to another package and it is going to be refactored (only proxy pools, not proxy objects).
 
 
 Features
@@ -12,7 +16,7 @@ Features
  * Google SERP url generation
  * Natural results parsing
  * Adwords results parsing
-
+ * Proxy Usage
 
 
 **PLEASE READ ALL THE FOLLOWING SECTIONS BEFORE USING IT** it contains important informations about the usage.
@@ -29,8 +33,8 @@ Usually I delay each query with 30 seconds. But if you do a lot of requests it's
 
 **How to counter :**
 
-* Optimize your delays (this package contains a query delayer that does it for you with different delays, but i'm still trying to figure out what is the best timing to use)
-* If you want to do very high number of requests on a short time you will have to use proxy(s). I'm looking for the best implementation I can do of it in the library.
+* Optimize your delays between each queries.
+* If you want to do very high number of requests on a short time you will have to use proxy(s). There is a tool packaged in the library that can do it for you ([see below](#using-proxy)), but you still can do it by yourself.
 
 
 Installation
@@ -38,7 +42,7 @@ Installation
 
 The library is available on packgist : ``"sneakybobito/google-url": "dev-master"``
 
-If you are not familiar with packagist, you an also use the loader packaged in the repo. To do so download the library (e.g. as a zip from github) 
+If you are not familiar with packagist, you can also use the loader packaged in the repo. To do so download the library (e.g. as a zip from github) 
 and just include the file named ``autoload.php`̀` : 
 
 ```php
@@ -144,8 +148,45 @@ There is no universal rule for the delays to apply. It is hard to figure out the
 
 ```
 
+Using Proxy
+-----------
 
-**Implemented Languages**
+
+```php
+
+<?php
+
+include __DIR__ . "/../autoload.php";
+
+
+
+$proxy1 = new \GoogleUrl\SimpleProxy("localhost", "3128");
+$proxy2 = new \GoogleUrl\SimpleProxy("someproxyAddress", "8080");
+$proxy2->setLogin("mylogin");
+$proxy2->setPassword("myPassword");
+
+
+// OR WITH PROXY STRING :
+
+$proxy2 = new \GoogleUrl\ProxyString("mylogin:myPassword@someproxyAddress:8080");
+
+
+$googleUrl=new \GoogleUrl();
+$googleUrl->setLang('fr')->setNumberResults(10)->search("simpson",$proxy1);
+$googleUrl->setLang('fr')->setNumberResults(10)->search("simpsons",$proxy2);
+
+```
+
+Please refere to https://github.com/SneakyBobito/google-url/blob/master/doc/proxy_rotation.md for more complet usage of proxies.
+
+
+Implemented Languages
+---------------------
+
+Each language matches a google domain (google.com, google.fr, google.de...) and language of the search. You will not have the same results for EN or DE.
+
+The following languages are implemented.
+
 * en (english)
 * fr (french)
 * de (german)
@@ -156,7 +197,8 @@ There is no universal rule for the delays to apply. It is hard to figure out the
 * es (spannish)
 * ru (russian)
 
-more are incoming over the time...
+
+more are comming over the time, but because the language management is going to change soon we dont want to implement too many right now (dont be affraid about using them it's only internal changes).
 
 Support - Contact
 -----------------
@@ -167,5 +209,6 @@ Roadmap
 -------
 
 * Page parsing improvment (images results, website results...)
-* Delayer/query queue
-
+* Refactoring and moving proxy pools
+* refactoring language management
+* refactoring page parsing management to handle better google page changes
