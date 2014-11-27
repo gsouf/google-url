@@ -1,0 +1,14 @@
+Rules:
+  NaturalResults: 
+    Nodes: //div[@id = 'ires']/ol/descendant::li[@class='g'][not(@id) or @id != 'imagebox_bigimages']
+    LinkInNodes: descendant::h3[@class='r'][1]/a
+  
+  Rhs:
+    ColumnNodes: //div[@id = 'rhs']//ol/li[@class='ads-ad']
+    BodyNodes: //div[@id = 'tads']//ol/li[@class='ads-ad']
+    LinkInNodes: descendant::h3/a[@onmousedown] 
+    VisUlrlInNodes: descendant::div[@class='ads-visurl']/cite
+    TextInNodes: descendant::div[@class='ads-creative']
+    
+  Captcha: 
+    hasCaptcha: //input[@name='captcha']

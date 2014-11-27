@@ -52,6 +52,11 @@ class GoogleDOM extends \DOMDocument{
     //nb results per pages
     protected $numberResults;
 
+    /**
+     * @var DomParsingRules
+     */
+    protected $parsingRules = null;
+    
     public function __construct($search,$generatedUrl,$page,$numberResults,$version = null, $encoding = null) {
         parent::__construct($version, $encoding);
         
@@ -66,6 +71,30 @@ class GoogleDOM extends \DOMDocument{
     
     public function init(){
         $this->naturalsResults=null;
+    }
+    
+    public function setParsingRules(DomParsingRules $parsingRules) {
+        $this->parsingRules = $parsingRules;
+    }
+
+    public function getParsingRules(){
+        if(null == $this->parsingRules){
+            
+            if(function_exists("yaml_parse_file")){
+                $res = yaml_parse_file(__DIR__ . "/../../res/dom-rules.yml");
+            }else if(class_exists("Symfony\Component\Yaml\Parser")){
+                $parser = new \Symfony\Component\Yaml\Parser();
+                $res    = $parser->parse(file_get_contents(__DIR__ . "/../../res/dom-rules.yml"));
+            }else{
+                throw new \Exception("No yaml loader found. Please install ext yaml or Symfony's Yaml component");
+            }
+            
+            $this->setParsingRules(
+                new DomParsingRules($res)
+            );
+        }
+        
+        return $this->parsingRules;
     }
     
     /**
@@ -84,9 +113,7 @@ class GoogleDOM extends \DOMDocument{
      * @return bool
      */
     public function isCaptcha(){
-        
-        return $this->getXpath()->query(self::CAPTCHA_FORM_XPATH)->length > 0;
-        
+        return $this->getXpath()->query($this->getParsingRules()->hasCaptcha())->length > 0;
     }
         
     /**
@@ -97,7 +124,7 @@ class GoogleDOM extends \DOMDocument{
         
         if(null === $this->naturalsResults){
         
-            $query=self::NATURAL_QUERY;
+            $query=$this->getParsingRules()->naturalNodes();
 
             
             $this->naturalsResults=$this->getXpath()->query($query);
@@ -119,7 +146,7 @@ class GoogleDOM extends \DOMDocument{
 
 
         // prepare the query to find url+title into the natural nodes
-        $query=self::NATURAL_LINKS_IN;      
+        $query=$this->getParsingRules()->naturalNodesLinks();      
         
 
         
@@ -167,10 +194,10 @@ class GoogleDOM extends \DOMDocument{
         if(null === $this->adwsResults){
         
             
-            $DOMbodyAdwords = $this->getXpath()->query(self::RHS_QUERY_BODY);
+            $DOMbodyAdwords = $this->getXpath()->query($this->getParsingRules()->rhsBodyNodes());
             $body = $this->parseAdwords($DOMbodyAdwords, AdwordsResultSet::LOCATION_BODY);
             
-            $DOMColumnAdwords = $this->getXpath()->query(self::RHS_QUERY_COLUMN);
+            $DOMColumnAdwords = $this->getXpath()->query($this->getParsingRules()->rhsColumnNodes());
             $column = $this->parseAdwords($DOMColumnAdwords, AdwordsResultSet::LOCATION_COLUMN);
             
             $resultSet = new AdwordsResultSet(array_merge($body,$column));
@@ -199,14 +226,14 @@ class GoogleDOM extends \DOMDocument{
             
             
             // query to find the tilte/url
-            $aTag=$this->getXpath()->query(self::RHS_LINK,$node)->item(0);
+            $aTag=$this->getXpath()->query($this->getParsingRules()->rhsNodesLink(),$node)->item(0);
             /* @var $aTag \DOMElement */
 
-            $visUrlTag = $this->getXpath()->query(self::RHS_VISURL,$node)->item(0);
+            $visUrlTag = $this->getXpath()->query($this->getParsingRules()->rhsNodesVisurl(),$node)->item(0);
             /* @var $visUrlTag \DOMElement */
             
             
-            $textTag = $this->getXpath()->query(self::RHS_TEXT,$node)->item(0);
+            $textTag = $this->getXpath()->query($this->getParsingRules()->rhsNodesText(),$node)->item(0);
             /* @var $textTag \DOMElement */
             
             

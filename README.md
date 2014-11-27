@@ -212,3 +212,15 @@ Roadmap
 * Refactoring and moving proxy pools
 * refactoring language management
 * refactoring page parsing management to handle better google page changes
+
+ChangeLogs
+----------
+
+** v2.0.0 **
+
+* Parsing rules are now updatable regardless of the current build
+
+
+** v1.* **
+
+* Base version

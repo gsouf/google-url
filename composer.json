@@ -14,6 +14,9 @@
     "require": {
         "php": ">=5.3"
     },
+    "suggest": {
+        "ext/yaml": "To load default dom rules"
+    },
     "autoload": {
         "psr-0" : {
             "GoogleUrl" : "lib/"
