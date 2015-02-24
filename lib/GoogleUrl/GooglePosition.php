@@ -11,51 +11,11 @@ namespace GoogleUrl;
  * @license http://www.freebsd.org/copyright/license.html BSD
  */
 class GooglePosition {
-    /**
-     * search query
-     * @var string
-     */
-    protected $keyword;
+
+
+
     
     /**
-     * the website formated like follow : subdomain.domain.tld  (leave out the www.)
-     * @var string 
-     */
-    protected $website;
-    
-    /**
-     * position in the SERP
-     * @var int
-     */
-    protected $position;
-    
-    /**
-     * matching url
-     * @var string
-     */
-    protected $url;
-    
-    /**
-     * matching title
-     * @var string
-     */
-    protected $title;
-    
-    /**
-     * html string of the matching snipper
-     * @var string
-     */
-    protected $snippet;
-    
-    /**
-     * UNIX timestamp date of the search
-     * @var int
-     */
-    protected $date;
-    
-    
-    /**
-     * 
      * @param string $keyword the search query
      * @param string $website the searched website
      * @param int $date the date in seconds (UNIX timestamp)

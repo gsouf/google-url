@@ -67,6 +67,24 @@ class GoogleDOM extends \DOMDocument{
     public function init(){
         $this->naturalsResults=null;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumberResults()
+    {
+        return $this->numberResults;
+    }
+
+
     
     /**
      * get the object xpath to query it
