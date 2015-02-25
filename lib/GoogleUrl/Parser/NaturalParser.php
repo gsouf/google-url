@@ -17,6 +17,10 @@ class NaturalParser {
     protected $rules;
 
 
+    public function addRule(AbstractNaturalRule $rule){
+        $this->rules[] = $rule;
+    }
+
     /**
      * @param GoogleDOM $googleDOM
      * @return ResultSetInterface $resultSet
@@ -28,12 +32,19 @@ class NaturalParser {
         $xpathElementGroups = "//div[@id = 'ires']/ol/*";
         $elementGroups = $xpathObject->query($xpathElementGroups);
 
+        return $this->parseGroups($elementGroups, $googleDOM);
+
+
+    }
+
+    public function parseGroups($elementGroups, GoogleDOM $googleDOM){
+
         $resultSet = new ResultSet();
 
         $currentPosition = 0;
 
         foreach($elementGroups as $group){
-        /* @var $group \DOMNode */
+            /* @var $group \DOMNode */
 
             foreach($this->rules as $rule){
                 $match = $rule->match($group);
