@@ -66,27 +66,6 @@
     });
 
 
-    $(document).scroll(function(e){
-
-        var s = $(this).scrollTop();
-
-    console.log(s);
-
-        if(s > 0 ){
-
-            if(s > 250 )
-                s = 250;
-
-            $(".heading_supersize").css("top", s / 2);
-            $(".welcome_text").css("top", s / 4);
-
-
-        }else{
-            $(".heading_supersize").add(".welcome_text").css("top",0);
-        }
-
-    });
-
 
 
 

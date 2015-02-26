@@ -1,6 +1,9 @@
-.pln,
 .kwd {
     color: #2195C8;
+}
+
+.pln {
+    color: white;
 }
 
 .str {

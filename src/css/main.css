@@ -99,10 +99,10 @@ header {background: #f3f3f3; clear:both; padding: 20px 0 40px}
 .featured_post h3 {margin:10px 0 0; color: #000}
 
 p {color: #333}
-.welcome_text {font-size: 32px; margin-bottom: 0; text-align:center; font-weight: normal; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic}
+.welcome_text {font-size: 32px; margin-bottom: 0; text-align:center; font-weight: normal; font-family:arial, "Times New Roman", Times, serif;font-size: 20px;margin-top: 0;}
 .excerpt {font-size: 24px; margin-bottom: 0; font-weight: normal; font-family:Georgia, "Times New Roman", Times, serif; font-style:italic}
 
-h1,h2,h3,h4 {font-family:'Open Sans Condensed',sans-serif; font-weight: normal; color: #333; margin: 20px 0}
+h1,h2,h3,h4 {font-family:arial,tahoma,verdana,sans-serif; font-weight: normal; color: #333; margin: 20px 0}
 
 /* sections */
 .section_light {background: #FFF; border-top: 1px dotted #999; border-bottom: 1px dotted #999; padding: 20px 0; clear:both}
@@ -111,7 +111,19 @@ h1,h2,h3,h4 {font-family:'Open Sans Condensed',sans-serif; font-weight: normal; 
 .section_dark {background: #262626; border-top: 0; border-bottom: 1px dotted #999; padding: 20px 0 40px}
 .section_dark h2 {color: #999999; margin: 0 0 20px 0; font-size: 22px; text-align: center}
 
-.section_main {padding: 20px 0}
+
+.section_main h2{
+	color: #767676;
+	border-bottom: 1px solid #2A2A2A;
+	padding-bottom: 10px;
+	margin-bottom: 5px;
+}
+
+.section_main {
+	background: #222;
+	padding: 20px 0
+
+}
 .section_main h2 {padding: 0 0 20px}
 
 /* END Frontpage sections */
