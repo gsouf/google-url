@@ -1,67 +1,74 @@
-<section  class="section_dark code-sample-section">
+<section  class="section_main">
 
     <div class="row">
+
+        <h2 style="text-align:center">Query google throught the fluent API</h2>
+
 
             <pre style="opacity:0" class="small-8 columns small-centered  prettyprint lang-php">
-// Create a query to find some trees in the DB
-$fQuery = Tree::faceQueryBuilder()
-    ->join("lemons") // trees have lemons
-    ->join("lemons.seeds") // each lemon has some seeds
-    ->join("leafs")  // trees have also leafs
-    ->where("~age>10"); // only tree older than 10
+
+$googleUrl = new GoogleUrl();
+$google->setLang("en")
+       ->setNumberResults(10);
+
+$simpsonsPage = $googleUrl->search("simpsons");
+</pre>
+
+
+        <h2 style="text-align:center">Analyze the natural results of the page</h2>
+
+
+            <pre style="opacity:0" class="small-8 columns small-centered  prettyprint lang-php">
+
+$naturalResults = $simpsonsPage->getNaturalResults();
+
+foreach($naturalResults as $result){
+
+    switch($result->getType()){
+
+        case "classical":
+            $resultTitle = $result->getTitle();
+            $website     = $result->getWebsite();
+            $url         = $result->getTargetUrl();
+            break;
+
+
+        case "pictures":
+            foreach($result->getItems() as $imageResult){
+                $url = $imageResult->getTargetUrl();
+                $imageUrl = $imageResult->getImageUrl();
+                $website     = $result->getWebsite();
+            }
+            break;
+
+
+        // ...
+    }
+}</pre>
 
 
 
-// create a PDO object :
-$pdo = new PDO('mysql:host=localhost;dbname=lemon-trees', 'login', 'pswd');
-
-// Get the datas from the db
-$trees =  Face\ORM::execute($fQuery, $pdo);
+        <h2 style="text-align:center">Check if your site appears in adWords results</h2>
 
 
-echo count($trees);
-echo count($trees[0]->getLeafs());
-echo $trees[0]->getLeafs()[0]->getSize();</pre>
+            <pre style="opacity:0" class="small-8 columns small-centered  prettyprint lang-php">
+
+
+$adWordsResults = $simpsonsPage->getAdWordsResults();
+
+foreach($adWordsResults as $result){
+
+    if($website == "my-simpsons-website.com"){
+        $position = $website->getPosition();
+        echo "My web site is number $position in the results";
+    }
+
+}</pre>
+
+
+
+
 
     </div>
 
 </section>
-
-
-<!-- ######################## Section ######################## -->
-
-<section class="section_light">
-
-    <div class="row">
-
-        <div class="columns medium-6 small-12 large-3">
-            <h3><span class="dropcap_red lsf-icon-dropcap" title="gear"></span> Functional</h3>
-            <p>Face is <b>feature rich</b>. It's not only a query builder, it is
-                first of all a powerfull abstraction of your <b>database structure</b>. <br/><a href="#">Learn More...</a> </p>
-        </div>
-
-
-        <div class="medium-6 small-12 large-3 columns">
-            <h3><span class="dropcap_black lsf-icon-dropcap" title="light"></span> Performant</h3>
-            <p>The library was written with performances in mind. It uses as few layers as possible and you can adapt
-                the queries to get the <b>best performances</b></p>
-        </div>
-
-
-        <div class="medium-6 small-12 large-3 columns">
-            <h3><span class="dropcap_black lsf-icon-dropcap" title="magic"></span> Time saver</h3>
-            <p>Dealing with <b>complex queries</b> becomes very easy and transparent.
-                With a very few efforts you can write join queries and get a structured result. The workflow is very transparent and semantic</p>
-        </div>
-
-        <div class="medium-6 small-12 large-3 columns">
-            <h3><span class="dropcap_black lsf-icon-dropcap" title="globe"></span> Easy Integration</h3>
-            <p>Face is <b>easy to integrate</b> and won't be in conflict with you existing code. Models classes use <b>traits</b> instead of inheritance.  </p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ######################## Section ######################## -->
-
