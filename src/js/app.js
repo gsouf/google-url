@@ -55,13 +55,6 @@
         $scope.$watch("assignments", function (value) {//I change here
             prettyPrint();
 
-            $("pre.prettyprint").css('opacity', 0).css("top",180)
-                .slideDown('slow')
-                .animate(
-                { opacity: 1 , top:0 },
-                { queue: false, duration: 'slow' }
-            );
-
         });
     });
 
