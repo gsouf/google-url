@@ -2,13 +2,14 @@
 
     <div class="row">
 
-        <h2 style="text-align:center">Query google throught the fluent API</h2>
+        <h2 style="text-align:center">Query Google throught the fluent API</h2>
 
 
             <pre style="opacity:0" class="small-8 columns small-centered  prettyprint lang-php">
 
 $googleUrl = new GoogleUrl();
 $google->setLang("en")
+       ->setDomain(".com")
        ->setNumberResults(10);
 
 $simpsonsPage = $googleUrl->search("simpsons");
@@ -47,6 +48,8 @@ foreach($naturalResults as $result){
 }</pre>
 
 
+        <div class="infoBox">More information about  <a href="">result types</a></div>
+
 
         <h2 style="text-align:center">Check if your site appears in adWords results</h2>
 
@@ -66,6 +69,24 @@ foreach($adWordsResults as $result){
 }</pre>
 
 
+
+
+
+        <h2 style="text-align:center">Use proxy to do a lot of queries</h2>
+
+
+            <pre style="opacity:0" class="small-8 columns small-centered  prettyprint lang-php">
+
+
+$proxy = new GoogleUrl\ProxyString("mylogin:myPassword@someproxyAddress:8080");
+$googleUrl->setLang("de");
+          ->setDomain(".de");
+
+
+$simpsonsDeStimme = $googleUrl->search("Simpsons deutsche Stimme", $proxy);</pre>
+
+
+        <div class="infoBox">Learn how to <a href="">rotate between many proxies</a></div>
 
 
 
