@@ -209,14 +209,19 @@ class GoogleUrl{
         /**======================
          * CHANGE SEARCH IF NEEDED
           ========================*/
-        if(null !== $searchTerm)
-            $this->searchTerm($searchTerm);
-        else
-            if( ! strlen($this->param("q"))>0 )
+        if (null !== $searchTerm) {
+            $url = $this->getUrl(array(
+                "q" => $searchTerm
+            ));
+        } else {
+            if (!strlen($this->param("q")) > 0) {
                 throw new \GoogleUrl\Exception ("Nothing keyword to Search");
+            }
+            $url = $this->getUrl();
+            $searchTerm = $this->param("q");
+        }
 
 
-        $url = $this->getUrl();
 
         /**=========
          * INIT CURL
@@ -285,7 +290,7 @@ class GoogleUrl{
         /**===============
          * CREATE DOCUMENT
           ================*/
-        $doc = new GoogleDOM($this->param("q"),$this->getUrl(),$this->getPage(),$this->param(self::PARAM_NBRESULTS));
+        $doc = new GoogleDOM($searchTerm,$url,$this->getPage(),$this->param("num"));
         libxml_use_internal_errors(TRUE);
         $doc->loadHTML($r);
         libxml_use_internal_errors(FALSE);
@@ -301,7 +306,7 @@ class GoogleUrl{
      * get the generated url
      * @return string the generated url
      */
-    public function getUrl(){
+    public function getUrl($overrides = array()){
 
         if($this->language){
 
@@ -315,6 +320,8 @@ class GoogleUrl{
         }else{
             $params = $this->googleParams;
         }
+
+        $params = array_merge($params, $overrides);
 
 
         if(isset($params["num"])){
