@@ -1615,10 +1615,9 @@ dl.tabs dd.active a{background:#fff}
 .star-button{width:80px;height:25px;margin-top:10px}
 .badge{display:inline-block;padding:2px 5px;border-radius:5px;background:#DDD;font-weight:700;font-size:12px}
 .kwd{color:#2195C8}
-.pln{color:#fff}
+.pln,.typ{color:#fff}
 .str{color:#BB9973}
 .com{color:#BEBEBE}
-.typ{color:#FF0029}
 .lit{color:#066}
 .clo,.opn,.pun{color:#555}
 .tag{color:#008}
@@ -1626,7 +1625,7 @@ dl.tabs dd.active a{background:#fff}
 .atv{color:#080}
 .dec,.var{color:#606}
 .fun{color:red}
-.section_light .pln{color:#4B732F}
+.section_light .pln,.section_light .typ{color:#4B732F}
 .section_light .pun{color:#A0A0A0}
 pre.prettyprint{color:#f6f3e8;word-break:break-all;font-size:13px;font-family:Consolas,Menlo,'Courier New',monospace}
 ol.linenums{margin-top:0;margin-bottom:0}

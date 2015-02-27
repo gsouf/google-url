@@ -2,7 +2,7 @@
     color: #2195C8;
 }
 
-.pln {
+.pln,.typ {
     color: white;
 }
 
@@ -13,9 +13,7 @@
 .com {
     color: #BEBEBE;
 }
-.typ {
-    color: #FF0029;
-}
+
 .lit {
     color: #066;
 }
@@ -42,7 +40,7 @@
 }
 
 
-.section_light .pln{
+.section_light .pln, .section_light .typ{
     color: #4B732F;
 }
 

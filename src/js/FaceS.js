@@ -10,11 +10,11 @@ var FaceS = function(options){
 FaceS.availableLanguages = ["en"];
 
 FaceS.hasSession = function(){
-    return $.cookie("zep-session") == 1;
+    return $.cookie("js-session") == 1;
 };
 
 FaceS.startSession = function() {
-    return $.cookie("zep-session",1);
+    return $.cookie("js-session",1);
 };
 
 FaceS.detectLanguage = function(){
