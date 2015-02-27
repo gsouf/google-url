@@ -14,12 +14,7 @@ class NetTest  extends PHPUnit_Framework_TestCase{
         $googleUrl->setLang("fr")->setTld("com.au");
         $dom = $googleUrl->search("charlie hebdo");
 
-        $parser = new \GoogleUrl\Parser\NaturalParser();
-        $parser->addRule(new \GoogleUrl\Parser\Rule\ClassicalResultRule());
-        $parser->addRule(new \GoogleUrl\Parser\Rule\ClassicalResultGroupRule());
-        $parser->addRule(new \GoogleUrl\Parser\Rule\InTheNewsRule());
-
-        $parsed = $parser->parse($dom);
+        $parsed = $dom->getNaturals();
 
         echo $dom->getUrl();
 
