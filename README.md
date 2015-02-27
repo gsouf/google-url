@@ -212,3 +212,15 @@ Roadmap
 * Refactoring and moving proxy pools
 * refactoring language management
 * refactoring page parsing management to handle better google page changes
+
+
+ChangeLog
+---------
+
+What is new in V2 :
+
+* Page parsing has been wholly refactored to allow better control and extensibility
+* The result analyse API as been reviewed to be more semantic and now accepts different types of results ("in the news", "images", "in depth articles"...)
+* The language management is more transparent
+* The control over tld is more transparent
+

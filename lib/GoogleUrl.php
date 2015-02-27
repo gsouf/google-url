@@ -17,56 +17,10 @@ class GoogleUrl{
     const  PARAM_NBRESULTS="num";
     /** END SEARCH PARAMS CONSTANTS */
 
-
-    /** CONSTANTS OF LANG **/
-    // french
-    const HL_FR="fr";
-    const LR_FR="lang_fr";
-    const TLD_FR="fr";
-    const ACCEPT_FR="fr;q=0.8";
-    // english
-    const HL_EN="en";
-    const LR_EN="lang_en";
-    const TLD_EN="com";
-    const ACCEPT_EN="en-us,en;q=0.8";
-    // GERMAN
-    const HL_DE="de";
-    const LR_DE="lang_de";
-    const TLD_DE="de";
-    const ACCEPT_DE="de;q=0.8";
-    // DUTCH
-    const HL_NL="nl";
-    const LR_NL="lang_nl";
-    const TLD_NL="nl";
-    const ACCEPT_NL="nl;q=0.8";
-    // Czech
-    const HL_CS="cs";
-    const LR_CS="lang_cs";
-    const TLD_CS="com";
-    const ACCEPT_CS="cs;q=0.8";
-    // Danish
-    const HL_DK="da";
-    const LR_DK="lang_da";
-    const TLD_DK="dk";
-    const ACCEPT_DK="da;q=0.8";
-    // Japan
-    const HL_JP="ja";
-    const LR_JP="lang_ja";
-    const TLD_JP="co.jp";
-    const ACCEPT_JP="ja;q=0.8";
-    // spain
-    const HL_ES="es";
-    const LR_ES="lang_es";
-    const TLD_ES="es";
-    const ACCEPT_ES="es;q=0.8";
-    // spain
-    const HL_RU="ru";
-    const LR_RU="lang_ru";
-    const TLD_RU="ru";
-    const ACCEPT_RU="ru;q=0.8";
-    
-    /** END CONSTANTS OF LANG **/
-
+    /**
+     * @var \GoogleUrl\Language
+     */
+    protected $language;
 
     protected $tld;
     protected $acceptLangage;
@@ -108,60 +62,31 @@ class GoogleUrl{
             "start" => 0,                   // First result number
             "num" => 10,                    // Number of results per pages
             "complete" => 0,                // Suggestion auto
-            "pws" => 0,                     // Personnal search
-            "hl" =>  self::HL_EN,           // Interface langage
-            "lr" =>  self::LR_EN,          // Results Langage
+            "pws" => 0                      // Personnal search
 
-
-            
         );
-        $this->acceptLangage=self::ACCEPT_EN;
-        $this->setTld("com");
+
+        $this->setLang("en");
+
     }
     
-    /**
-     * ask if a langage is configured 
-     * @param string $iso the iso code of the country. e.g  english : "en" , france : "fr"
-     * @return boolean true if available
-     */
-    public static function langageIsAvailable($iso){
-        $hl="HL_".strtoupper($iso);
-        
-        return defined("self::".$hl);
-    }
+
     
     /**
      * Set the lang to the given (iso formated) lang. This will modify the params hl and lr
      * @param string $iso the iso code of the country. e.g  english : "en" , france : "fr"
      * @param boolean $setTld change the tld to matching with the langage. Default to true
-     * @return GoogleUrl this instance
+     * @return GoogleUrl
      * @throws Exception
      */
-    public function setLang($iso,$setTld=true){
-               
-        if(self::langageIsAvailable($iso)){
-            $hl="HL_".strtoupper($iso);
-            $lr="LR_".strtoupper($iso);
-            $accept="ACCEPT_".strtoupper($iso);
-            
-            
-            $this->setParam("hl", constant("self::".$hl));
-            
-            if($this->enableLr){
-                $this->setParam('lr', constant("self::".$lr));
-            }else{
-                $this->setParam('lr', null);
-            }
-            
-            $this->acceptLangage=constant("self::".$accept);
-            
-            if($setTld){
-                $tld="TLD_".strtoupper($iso);
-                $this->setTld(constant("self::".$tld));
-            }
-            
+    public function setLang($lang){
+
+        if(is_string($lang)){
+            $this->language = \GoogleUrl\Language::buildFromIso($lang);
+        }else if(is_object($lang) && $lang instanceof \GoogleUrl\Language){
+            $this->language = $lang;
         }else{
-            throw new \Exception("Unknown lang '".$iso."'");
+            throw new \GoogleUrl\Exception("Bad parameter type for Google::setLang. It should be either a string or a Language instance");
         }
             
         return $this;
@@ -178,7 +103,7 @@ class GoogleUrl{
     /**
      * 
      * @param string $tld google tld "com","fr","co.uk"
-     * @return \GoogleURL\GoogleUrl
+     * @return \GoogleURL
      */
     public function setTld($tld){
         $this->tld=trim($tld," .");
@@ -200,7 +125,7 @@ class GoogleUrl{
      * @param string $value value of the param
      * @return \GoogleUrl
      */
-    private function setParam($name,$value){
+    public function setParam($name,$value){
         if(null === $value){
             if($this->googleParams[$name]){
                 unset($this->googleParams[$name]);
@@ -216,7 +141,7 @@ class GoogleUrl{
      * @param string $name the param to get
      * @return string
      */
-    private function param($name){
+    public function param($name){
         return $this->googleParams[$name];
     }
 
@@ -226,7 +151,7 @@ class GoogleUrl{
      * @param string $name the param to get
      * @return string
      */
-    private function hasParam($name){
+    public function hasParam($name){
         return isset($this->googleParams[$name]);
     }
 
@@ -272,14 +197,11 @@ class GoogleUrl{
     /**
      * Launch a google Search
      * @param string $searchTerm the string to search. Or if not specified will take the given with ->searchTerm($search)
-     * @param array $options Options for the query . available options :
-     *                       + proxy : a proxyDefinition item to proxyfy the request
-     *                       + 
-     *                       + 
+     * @param \GoogleUrl\SimpleProxyInterface $options an optional proxy for the query
      *                       
      * @return GoogleDOM the Google DOMDocument
      * @throws Exception
-     * @throws \GoogleUrl\CaptachaException google detected us as a bot
+     * @throws \GoogleUrl\Exception\CaptachaException google detected us as a bot
      */
     public function search($searchTerm=null, \GoogleUrl\SimpleProxyInterface $proxy = null){
         
@@ -291,14 +213,16 @@ class GoogleUrl{
             $this->searchTerm($searchTerm);
         else
             if( ! strlen($this->param("q"))>0 )
-                throw new Exception ("Nothing to Search");
+                throw new \GoogleUrl\Exception ("Nothing keyword to Search");
 
+
+        $url = $this->getUrl();
 
         /**=========
          * INIT CURL
           =========*/
         $c = new \GoogleUrl\Curl();
-        $c->url=$this->__toString();
+        $c->url = $url;
 
 
         /**==========
@@ -312,7 +236,7 @@ class GoogleUrl{
         // use other headers
 
         // accept-langage to make sure google use the same language as asked
-        $header[]="Accept-Language: ".$this->acceptLangage;
+        $header[]="Accept-Language: ". ($this->acceptLangage ? $this->acceptLangage : $this->language->getAccept());
 
         $c->HTTPHEADER=$header;
 
@@ -344,7 +268,7 @@ class GoogleUrl{
         /**========
          * EXECUTE
           =========*/
-        $r=$c->exec();
+        $r = $c->exec();
         
         if(false === $r){
             
@@ -361,7 +285,7 @@ class GoogleUrl{
         /**===============
          * CREATE DOCUMENT
           ================*/
-        $doc=new GoogleDOM($this->param("q"),$this->getUrl(),$this->getPage(),$this->param(self::PARAM_NBRESULTS));
+        $doc = new GoogleDOM($this->param("q"),$this->getUrl(),$this->getPage(),$this->param(self::PARAM_NBRESULTS));
         libxml_use_internal_errors(TRUE);
         $doc->loadHTML($r);
         libxml_use_internal_errors(FALSE);
@@ -378,19 +302,46 @@ class GoogleUrl{
      * @return string the generated url
      */
     public function getUrl(){
-        return $this->__toString();
+
+        if($this->language){
+
+            $langParams = array(
+                "lr" => $this->language->getLr(),
+                "hl" => $this->language->getHl(),
+            );
+
+            $params = array_merge($langParams,$this->googleParams);
+
+        }else{
+            $params = $this->googleParams;
+        }
+
+
+        if(isset($params["num"])){
+            if($params["num"] == 10 ){
+                unset($params["num"]);
+            }
+        }
+
+        if(isset($params["start"])){
+            if($params["start"] == 0 ){
+                unset($params["start"]);
+            }
+        }
+
+        return "https://www.google.". ($this->tld ? $this->tld : $this->language->getDefaultTld()) ."/search?".http_build_query($params);
+
     }
-    
+
     /**
      * Same as gerUrl
      * @return string the generated url
      */
     public function __toString() {
 
-        $url="https://www.google.".$this->tld."/search?".http_build_query($this->googleParams);
+        return $this->getUrl();
         
-        return $url;
-        
+
     }
 
 }

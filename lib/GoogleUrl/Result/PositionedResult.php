@@ -23,4 +23,16 @@ abstract class PositionedResult implements  ResultItemInterface {
         $this->position = $position;
     }
 
+    function __get($name)
+    {
+        $methodName = "get" . ucfirst($name);
+
+
+        if(method_exists($this,$methodName)){
+            return  $this->$methodName();
+        }else{
+            return null;
+        }
+    }
+
 }

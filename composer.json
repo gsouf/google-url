@@ -14,6 +14,11 @@
     "require": {
         "php": ">=5.3"
     },
+
+    "require-dev": {
+        "phpunit/PHPUnit": "4.4.5"
+    },
+
     "autoload": {
         "psr-0" : {
             "GoogleUrl" : "lib/"
