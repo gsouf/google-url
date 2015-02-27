@@ -41,6 +41,15 @@
     color: red
 }
 
+
+.section_light .pln{
+    color: #4B732F;
+}
+
+.section_light .pun{
+    color: #A0A0A0;
+}
+
 pre.prettyprint {
     color: #f6f3e8;
     word-break: break-all;

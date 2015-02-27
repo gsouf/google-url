@@ -6,64 +6,6 @@
 
 /* CSS */
 
-@font-face {
-    font-family: 'LigatureSymbols';
-    src: url('LigatureSymbols-2.05.eot');
-    src: url('LigatureSymbols-2.05.eot?#iefix') format('embedded-opentype'),
-         url('LigatureSymbols-2.05.woff') format('woff'),
-         url('LigatureSymbols-2.05.ttf') format('truetype'),
-         url('LigatureSymbols-2.05.svg#LigatureSymbols') format('svg');
-    src: url('LigatureSymbols-2.05.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.lsf {
-  font-family: 'LigatureSymbols';
-  -webkit-text-rendering: optimizeLegibility;
-  -moz-text-rendering: optimizeLegibility;
-  -ms-text-rendering: optimizeLegibility;
-  -o-text-rendering: optimizeLegibility;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -ms-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-}
-
-.lsf-icon:before {
-  content:attr(title);
-  margin-right:0.3em;
-  font-size:64px;
-  font-family: 'LigatureSymbols';
-  -webkit-text-rendering: optimizeLegibility;
-  -moz-text-rendering: optimizeLegibility;
-  -ms-text-rendering: optimizeLegibility;
-  -o-text-rendering: optimizeLegibility;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -ms-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-}
-
-.lsf-icon-dropcap:before {
-  content:attr(title);
-  font-size:64px;
-  font-family: 'LigatureSymbols';
-  -webkit-text-rendering: optimizeLegibility;
-  -moz-text-rendering: optimizeLegibility;
-  -ms-text-rendering: optimizeLegibility;
-  -o-text-rendering: optimizeLegibility;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -ms-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-}
 
 body {background: #f3f3f3}
 
@@ -708,4 +650,14 @@ ul.flyout li a:hover, .nav-bar li ul li a:hover { background: #151515; color: #f
 	width: 80px;
 	height: 25px;
 	margin-top: 10px;
+}
+
+
+.badge{
+	display: inline-block;
+	padding: 2px 5px;
+	border-radius: 5px;
+	background: #DDD;
+	font-weight: bold;
+	font-size: 12px;
 }

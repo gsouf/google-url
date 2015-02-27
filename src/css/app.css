@@ -2,3 +2,40 @@
 .welcome_text{
     position: relative;
 }
+
+.result-type-description{
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 15px;
+    margin-top: -15px;
+    color:#666;
+}
+
+.typeProperties ul{
+    font-size: 13px;
+    list-style: none;
+}
+
+.typeProperties .propertyName{
+    font-weight: bold;
+}
+
+.propertyIdent{
+    display: inline-block;
+    padding: 0 0;
+    width: 15px;
+    margin:1px;
+    text-align: center;
+    border-radius: 5px;
+    background: #444;
+    color:white;
+}
+
+.propertyIdent .empty{
+    background: transparent;
+}
+
+.propertyDescription{
+    font-size: 12px;
+    font-style: italic;
+}

@@ -30,29 +30,23 @@
             controller  : 'homeController'
         });
 
-        $routeProvider.when('/compare', {
-            templateUrl : app.getTemplate('compare.html'),
+        $routeProvider.when('/serp-analysis', {
+            templateUrl : app.getTemplate('serp-analysis.html'),
             controller  : 'mainController'
         });
 
-        $routeProvider.when('/start', {
-            templateUrl : app.getTemplate('start.html'),
-            controller  : 'mainController'
-        });
-
-        $routeProvider.when('/support', {
-            templateUrl : app.getTemplate('support.html'),
-            controller  : 'mainController'
-        });
 
     });
 
     app.angular.controller('mainController', function($scope, $http) {
+        $scope.$watch("assignments", function (value) {
+            prettyPrint();
 
+        });
     });
 
     app.angular.controller('homeController', function($scope, $http) {
-        $scope.$watch("assignments", function (value) {//I change here
+        $scope.$watch("assignments", function (value) {
             prettyPrint();
 
         });

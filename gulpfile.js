@@ -12,7 +12,6 @@ var gulp = require('gulp'),
 var cssPath = [
     './src/css/foundation.css',
     './src/css/main.css',
-    './src/css/ligature.css',
     './src/css/prettify.css',
     './src/css/app.css'
 ];
