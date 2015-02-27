@@ -1,9 +1,7 @@
 google-url
 ==========
 
-Get ready to query google like a pro and make awesome google searches with PHP
-
-
+Google url is a library that brings a very comfortable way to query and parse google SERPs (Search Engine Result Page)
 
 **BE AWARE**
 
@@ -37,10 +35,27 @@ Usually I delay each query with 30 seconds. But if you do a lot of requests it's
 * If you want to do very high number of requests on a short time you will have to use proxy(s). There is a tool packaged in the library that can do it for you ([see below](#using-proxy)), but you still can do it by yourself.
 
 
+This library needs to be updated regularly
+------------------------------------------
+
+As said in the previous section google doesn't want bots to scrape it. 
+Then there is no guaranty that the current build of GoogleUrl still works in the 2 next monthes.
+
+Every update made by google can lead to unpredicted behaviours of the library. We try to keep it up to date
+
+In the last 2 years, there were only once critical google update for the library. We can tell it's safe enough.
+
+Sometime google also adds new stuff to the results. For instance the "in the news" box. That wont be parsed unless we implement it in the library.
+
+We kindly encourage you to report any problem or question you encounter with the library to help us to keep the library up to date as often as possible.
+(please use the github issue tracker)
+
+
+
 Installation
 ------------
 
-The library is available on packgist : ``"sneakybobito/google-url": "dev-master"``
+The library is available on packgist : ``"sneakybobito/google-url": "~2.0"``
 
 If you are not familiar with packagist, you can also use the loader packaged in the repo. To do so download the library (e.g. as a zip from github) 
 and just include the file named ``autoload.php`̀` : 
@@ -198,7 +213,9 @@ The following languages are implemented.
 * ru (russian)
 
 
-more are comming over the time, but because the language management is going to change soon we dont want to implement too many right now (dont be affraid about using them it's only internal changes).
+more are comming over the time. You can open an issue if you want your language to appear in the library.
+
+Optionally you can use a not implemented language TODO : link to the doc
 
 Support - Contact
 -----------------
@@ -208,19 +225,15 @@ Feel free to open an issue for any request/question
 Roadmap
 -------
 
-* Page parsing improvment (images results, website results...)
 * Refactoring and moving proxy pools
-* refactoring language management
-* refactoring page parsing management to handle better google page changes
-
+* Create better test and set up a task to handle google updates
 
 ChangeLog
 ---------
 
 What is new in V2 :
 
-* Page parsing has been wholly refactored to allow better control and extensibility
+* Page parsing has been wholly refactored to allow better control and extensibility (internal changes)
 * The result analyse API as been reviewed to be more semantic and now accepts different types of results ("in the news", "images", "in depth articles"...)
-* The language management is more transparent
-* The control over tld is more transparent
+* The language management is more transparent. You can control easily the tld, the language, etc...
 

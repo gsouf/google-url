@@ -17,7 +17,7 @@ class ResultSet extends \ArrayObject implements ResultSetInterface{
         $results = new ResultSet();
 
         foreach($this as $item){
-            if($item->getType == $typeName){
+            if($item->getType() == $typeName){
                 $results->addItem( $item->getPosition() , $item->getItem() ); // TODO : REINDEX
             }
         }
