@@ -1,6 +1,8 @@
 google-url
 ==========
 
+[![Join the chat at https://gitter.im/SneakyBobito/google-url](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SneakyBobito/google-url?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Get ready to query google like a pro and make awesome google searches with PHP
 
 
