@@ -661,3 +661,16 @@ ul.flyout li a:hover, .nav-bar li ul li a:hover { background: #151515; color: #f
 	font-weight: bold;
 	font-size: 12px;
 }
+
+.warning-box{
+	width: 428px;
+	padding: 5px 0;
+	background: #FFEFD5;
+	text-align: center;
+	border-radius: 5px;
+	margin: auto;
+	margin-bottom: 11px;
+	font-size: 12px;
+	color: #887633;
+	font-weight: bold;
+}
