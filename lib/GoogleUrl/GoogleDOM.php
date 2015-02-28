@@ -5,6 +5,7 @@
 namespace GoogleUrl;
 
 use \GoogleUrl\AdwordsResultSet;
+use GoogleUrl\Parser\Rule\VideoResultRule;
 
 /**
  * Description of GoogleDOM
@@ -100,6 +101,7 @@ class GoogleDOM extends \DOMDocument{
             $parser->addRule(new \GoogleUrl\Parser\Rule\ClassicalResultRule());
             $parser->addRule(new \GoogleUrl\Parser\Rule\ClassicalResultGroupRule());
             $parser->addRule(new \GoogleUrl\Parser\Rule\InTheNewsRule());
+            $parser->addRule(new VideoResultRule());
             $this->naturalsResults = $parser->parse($this);
 
         }

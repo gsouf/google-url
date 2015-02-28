@@ -4,44 +4,11 @@
 namespace GoogleUrl\Result;
 
 
-abstract class TextResult extends PositionedResult {
+abstract class TextResult extends ClickableResult {
 
-    protected $targetUrl;
-    protected $website;
     protected $title;
     protected $snippet;
 
-    /**
-     * @return mixed
-     */
-    public function getTargetUrl()
-    {
-        return $this->targetUrl;
-    }
-
-    /**
-     * @param mixed $url
-     */
-    public function setTargetUrl($url)
-    {
-        $this->targetUrl = $url;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWebsite()
-    {
-        return $this->website;
-    }
-
-    /**
-     * @param mixed $website
-     */
-    public function setWebsite($website)
-    {
-        $this->website = $website;
-    }
 
     /**
      * @return mixed
@@ -74,8 +41,4 @@ abstract class TextResult extends PositionedResult {
     {
         $this->snippet = $snippet;
     }
-
-
-
-
 }

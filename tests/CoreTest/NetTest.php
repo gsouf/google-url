@@ -11,8 +11,8 @@ class NetTest  extends PHPUnit_Framework_TestCase{
 
 
         $googleUrl = new GoogleUrl();
-        $googleUrl->setLang("fr")->setTld("com.au");
-        $dom = $googleUrl->search("charlie hebdo");
+        $googleUrl->setLang("fr");
+        $dom = $googleUrl->search("lorde royal");
 
         $parsed = $dom->getNaturals();
 
@@ -33,6 +33,9 @@ class NetTest  extends PHPUnit_Framework_TestCase{
                     echo PHP_EOL . "   " . $card->position . " " . $card->title ;
                     echo PHP_EOL . "     target-> (" . $card->website . ") " . $card->targetUrl ;
                 }
+            }else if($item->is("video")){
+                echo $item->getPosition() . " [VIDEO] " . $item->title;
+                echo PHP_EOL . "  url -> (" . $item->website . ")" . $item->targetUrl ;
             }
             echo PHP_EOL;
         }

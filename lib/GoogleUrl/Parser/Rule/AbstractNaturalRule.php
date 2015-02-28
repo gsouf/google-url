@@ -15,4 +15,15 @@ abstract class AbstractNaturalRule {
 
     abstract public function parseGroup(GoogleDOM $googleDOM, \DomElement $group, ResultSetInterface $resultSet, $currentPosition);
 
+    public function extractDomain($url){
+
+        $protPos=strpos($url, "://");
+
+        $shortUrl=  substr($url,$protPos+3); // ltrim the protocol
+        $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /
+
+        return $shortUrl;
+
+    }
+
 }
