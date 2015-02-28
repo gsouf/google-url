@@ -36,7 +36,7 @@
                     </li>
                     <li>
                         <span class="propertyIdent empty"></span>
-                        <span class="propertyName">webSite</span>
+                        <span class="propertyName">website</span>
                         <span class="propertyDescription">This is the domain of the target url (e.g. en.wikipedia.org)</span>
                     </li>
                 </ul>
@@ -52,10 +52,6 @@
 if($result->is("classical"){
 
     echo $result->position . " " . $result->title;
-
-    if ($result->hasPicture()) {
-        echo " [" . $result->pictureUrl . "]";
-    }
 
 }</pre>
 
@@ -110,7 +106,7 @@ if($result->is("classical"){
                     </li>
                     <li>
                         <span class="propertyIdent empty"></span>
-                        <span class="propertyName">webSite</span>
+                        <span class="propertyName">website</span>
                         <span class="propertyDescription">This is the domain of the target url (e.g. en.wikipedia.org)</span>
                     </li>
                 </ul>
@@ -254,10 +250,6 @@ if($result->is("imageGroup"){
                         <span class="propertyName">title</span>
                     </li>
                     <li>
-                        <span class="propertyIdent">B</span>
-                        <span class="propertyName">description</span>
-                    </li>
-                    <li>
                         <span class="propertyIdent empty"></span>
                         <span class="propertyName">targetUrl</span>
                         <span class="propertyDescription">The url where we go when we click</span>
@@ -335,10 +327,6 @@ if($result->is("inTheNewsGroup"){
                     <li>
                         <span class="propertyIdent">A</span>
                         <span class="propertyName">title</span>
-                    </li>
-                    <li>
-                        <span class="propertyIdent">B</span>
-                        <span class="propertyName">description</span>
                     </li>
                     <li>
                         <span class="propertyIdent empty"></span>

@@ -8,8 +8,8 @@
             <pre class="small-8 columns small-centered  prettyprint lang-php">
 
 $googleUrl = new GoogleUrl();
-$google->setLang("en")
-       ->setDomain(".com")
+$googleUrl->setLang("en")
+       ->setTld(".com")
        ->setNumberResults(10);
 
 $simpsonsPage = $googleUrl->search("simpsons");
@@ -34,17 +34,16 @@ foreach($naturalResults as $result){
     switch($result->getType()){
 
         case "classical":
-            $resultTitle = $result->getTitle();
-            $website     = $result->getWebsite();
-            $url         = $result->getTargetUrl();
+            $resultTitle = $result->title;
+            $website     = $result->website;
+            $url         = $result->targetUrl;
             break;
 
 
-        case "pictures":
+        case "imageGroup":
             foreach($result->getItems() as $imageResult){
-                $url = $imageResult->getTargetUrl();
-                $imageUrl = $imageResult->getImageUrl();
-                $website     = $result->getWebsite();
+                $url = $imageResult->targetUrl;
+                $website     = $result->website;
             }
             break;
 
@@ -71,8 +70,8 @@ $adWordsResults = $simpsonsPage->getAdWordsResults();
 
 foreach($adWordsResults as $result){
 
-    if($website == "my-simpsons-website.com"){
-        $position = $website->getPosition();
+    if($result->website == "my-simpsons-website.com"){
+        $position = $website->position;
         echo "My web site is number $position in the results";
     }
 
