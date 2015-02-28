@@ -174,7 +174,7 @@ if($result->is("video"){
                     <li>
                         <span class="propertyIdent empty"></span>
                         <span class="propertyName">targetUrl</span>
-                        <span class="propertyDescription">The url where we go when we click</span>
+                        <span class="propertyDescription">The url of the page where the image comes from</span>
                     </li>
                     <li>
                         <span class="propertyIdent empty"></span>
@@ -323,7 +323,7 @@ if($result->is("inTheNewsGroup"){
         <div class="columns small-6">
 
             <div class="identifiedBy">
-                Type name <span class="badge">inDepthGroup</span>
+                Type name <span class="badge">inDepthArticleGroup</span>
             </div>
 
             <div class="typeProperties">
@@ -353,7 +353,7 @@ if($result->is("inTheNewsGroup"){
 
     <div class="row">
         <pre class="small-8 columns small-centered  prettyprint lang-php">
-if($result->is("inDepthGroup"){
+if($result->is("inDepthArticleGroup"){
 
     foreach ($result->getItems() as $newsResult) {
 
