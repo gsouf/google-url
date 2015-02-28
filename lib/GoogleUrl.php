@@ -95,7 +95,9 @@ class GoogleUrl{
     public function enableLr($enabled = true){
         $this->enableLr = $enabled;
         if(!$this->enableLr){
-            $this->setParam('lr', null);
+            if($this->hasParam("lr")) {
+                $this->setParam('lr', null);
+            }
         }
     }
 
@@ -334,6 +336,10 @@ class GoogleUrl{
             if($params["start"] == 0 ){
                 unset($params["start"]);
             }
+        }
+
+        if(false == $this->enableLr){
+            unset($params["lr"]);
         }
 
         return "https://www.google.". ($this->tld ? $this->tld : $this->language->getDefaultTld()) ."/search?".http_build_query($params);

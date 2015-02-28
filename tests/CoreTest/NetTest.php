@@ -11,12 +11,13 @@ class NetTest  extends PHPUnit_Framework_TestCase{
 
 
         $googleUrl = new GoogleUrl();
-        $googleUrl->setLang("fr");
-        $dom = $googleUrl->search("lorde royal");
+        $googleUrl->setLang("en")->setTld("com.au")->enableLr(false);
+        $dom = $googleUrl->search("simpsons");
+
+        echo $dom->getUrl();
 
         $parsed = $dom->getNaturalResults();
 
-        echo $dom->getUrl();
 
         echo PHP_EOL . PHP_EOL;
 
@@ -42,6 +43,14 @@ class NetTest  extends PHPUnit_Framework_TestCase{
                     echo PHP_EOL . "   " . $card->position . " " . $card->imageUrl ;
                     echo PHP_EOL . "     target->(" . $card->website . ") " . $card->targetUrl ;
                 }
+            }else if($item->is("inDepthArticleGroup")){
+                echo $item->getPosition() . " [IN DEPTH ARTICLES] " ;
+                foreach($item->getItems() as $card){
+                    echo PHP_EOL . "   " . $card->position . " " . $card->title ;
+                    echo PHP_EOL . "     target->(" . $card->website . ") " . $card->targetUrl ;
+                }
+            }else{
+                echo "Unknown type : " . $item->getType();
             }
             echo PHP_EOL;
         }

@@ -13,9 +13,7 @@ class VideoResultRule extends  AbstractNaturalRule{
     public function match(\DOMElement $node)
     {
 
-        $classList = explode(" ", $node->getAttribute("class"));
-
-        if( in_array("mnr-c", $classList)){
+        if($node->getAttribute("class") == "g mnr-c g-blk"){
             return self::RULE_MATCH_MATCHED;
         }else{
             return self::RULE_MATCH_NOMATCH;
