@@ -178,6 +178,11 @@ if($result->is("video"){
                     </li>
                     <li>
                         <span class="propertyIdent empty"></span>
+                        <span class="propertyName">imageUrl</span>
+                        <span class="propertyDescription">The url to the original image</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent empty"></span>
                         <span class="propertyName">website</span>
                         <span class="propertyDescription">This is the domain of the target url (e.g. en.wikipedia.org)</span>
                     </li>
@@ -195,7 +200,7 @@ if($result->is("imageGroup"){
 
     foreach ($result->getItems() as $imgResult) {
 
-        echo $result->position . " " . $result->website;
+        echo $imgResult->position . " " . $imgResult->website . " : " . $imgResult->imageUrl ;
 
     }
 
