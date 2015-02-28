@@ -1,8 +1,9 @@
 
+<!-- CLASSIAL RESULTS -->
+
 <section  class="section_light">
 
 
-    <!-- CLASSIAL RESULTS -->
 
     <h2 style="text-align:center">The classical results</h2>
     <div class="result-type-description">
@@ -52,6 +53,303 @@ if($result->is("classical"){
 
     if ($result->hasPicture()) {
         echo " [" . $result->pictureUrl . "]";
+    }
+
+}</pre>
+
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- VIDEO RESULT -->
+
+<section  class="section_light">
+
+
+
+    <h2 style="text-align:center">Video Result</h2>
+    <div class="result-type-description">
+        This is an illustrated video result that mays appear as first position in natural results
+    </div>
+
+    <div class="row">
+
+        <div class="columns small-6">
+            <img src="/images/serp-screens/video.png" alt="video example" />
+        </div>
+
+        <div class="columns small-6">
+
+            <div class="identifiedBy">
+                Type name <span class="badge">video</span>
+            </div>
+
+            <div class="typeProperties">
+                <span>Properties</span>
+                <ul>
+                    <li>
+                        <span class="propertyIdent">A</span>
+                        <span class="propertyName">title</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent">B</span>
+                        <span class="propertyName">targetUrl</span>
+                        <span class="propertyDescription">The we go when we click</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent empty"></span>
+                        <span class="propertyName">webSite</span>
+                        <span class="propertyDescription">This is the domain of the target url (e.g. en.wikipedia.org)</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <pre class="small-8 columns small-centered  prettyprint lang-php">
+if($result->is("video"){
+
+    echo $result->position . " " . $result->title;
+
+}</pre>
+
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+<!-- IMAGE GROUPE RESULTS -->
+
+<section  class="section_light">
+
+
+
+    <h2 style="text-align:center">Image group</h2>
+    <div class="result-type-description">
+        These results are a list of image placed among natural results
+    </div>
+
+    <div class="row">
+
+        <div class="columns small-6">
+            <img src="/images/serp-screens/images_box.PNG" alt="image group result example" />
+        </div>
+
+
+        <div class="warning-box">
+            This is a group result, you need to iterate over it to get single results
+        </div>
+
+        <div class="columns small-6">
+
+            <div class="identifiedBy">
+                Type name <span class="badge">imageGroup</span>
+            </div>
+
+            <div class="typeProperties">
+                <span>Properties</span>
+                <ul>
+                    <li>
+                        <span class="propertyIdent">A</span>
+                        <span class="propertyName">title</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent">B</span>
+                        <span class="propertyName">targetUrl</span>
+                        <span class="propertyDescription">The we go when we click</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent empty"></span>
+                        <span class="propertyName">webSite</span>
+                        <span class="propertyDescription">This is the domain of the target url (e.g. en.wikipedia.org)</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <pre class="small-8 columns small-centered  prettyprint lang-php">
+if($result->is("imageGroup"){
+
+    foreach ($result->getItems() as $imgResult) {
+
+        echo $result->position . " " . $result->website;
+
+    }
+
+}</pre>
+
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- IN THE NEWS RESULTS -->
+
+<section  class="section_light">
+
+
+
+    <h2 style="text-align:center">In the news group</h2>
+    <div class="result-type-description">
+        This a list of articles recently published (news). They are included in natural results
+    </div>
+
+    <div class="row">
+
+        <div class="columns small-6">
+            <img src="/images/serp-screens/in_the_news.PNG" alt="in the news result example" />
+        </div>
+
+
+        <div class="warning-box">
+            This is a group result, you need to iterate over it to get single results
+        </div>
+
+        <div class="columns small-6">
+
+            <div class="identifiedBy">
+                Type name <span class="badge">inTheNewsGroup</span>
+            </div>
+
+            <div class="typeProperties">
+                <span>Properties</span>
+                <ul>
+                    <li>
+                        <span class="propertyIdent">A</span>
+                        <span class="propertyName">title</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent">B</span>
+                        <span class="propertyName">targetUrl</span>
+                        <span class="propertyDescription">The we go when we click</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent empty"></span>
+                        <span class="propertyName">webSite</span>
+                        <span class="propertyDescription">This is the domain of the target url (e.g. en.wikipedia.org)</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <pre class="small-8 columns small-centered  prettyprint lang-php">
+if($result->is("inTheNewsGroup"){
+
+    foreach ($result->getItems() as $newsResult) {
+
+        echo $result->position . " " . $result->website;
+
+    }
+
+}</pre>
+
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- IN DEPTH RESULTS -->
+
+<section  class="section_light">
+
+
+
+    <h2 style="text-align:center">In depth article group</h2>
+    <div class="result-type-description">
+        This a list of detailled articles included in natural results.
+    </div>
+
+    <div class="row">
+
+        <div class="columns small-6">
+            <img src="/images/serp-screens/in_depth.PNG" alt="in depth result example" />
+        </div>
+
+
+        <div class="warning-box">
+            This is a group result, you need to iterate over it to get single results
+        </div>
+
+        <div class="columns small-6">
+
+            <div class="identifiedBy">
+                Type name <span class="badge">inDepthGroup</span>
+            </div>
+
+            <div class="typeProperties">
+                <span>Properties</span>
+                <ul>
+                    <li>
+                        <span class="propertyIdent">A</span>
+                        <span class="propertyName">title</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent">B</span>
+                        <span class="propertyName">targetUrl</span>
+                        <span class="propertyDescription">The we go when we click</span>
+                    </li>
+                    <li>
+                        <span class="propertyIdent empty"></span>
+                        <span class="propertyName">webSite</span>
+                        <span class="propertyDescription">This is the domain of the target url (e.g. en.wikipedia.org)</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <pre class="small-8 columns small-centered  prettyprint lang-php">
+if($result->is("inDepthGroup"){
+
+    foreach ($result->getItems() as $newsResult) {
+
+        echo $result->position . " " . $result->website;
+
     }
 
 }</pre>
