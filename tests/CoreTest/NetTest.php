@@ -11,8 +11,8 @@ class NetTest  extends PHPUnit_Framework_TestCase{
 
 
         $googleUrl = new GoogleUrl();
-        $googleUrl->setLang("en")->setTld("com.au")->enableLr(false);
-        $dom = $googleUrl->search("simpsons");
+        $googleUrl->setLang("en")->enableLr(false);
+        $dom = $googleUrl->search("simpsons mug");
 
         echo $dom->getUrl();
 
@@ -53,6 +53,22 @@ class NetTest  extends PHPUnit_Framework_TestCase{
                 echo "Unknown type : " . $item->getType();
             }
             echo PHP_EOL;
+        }
+
+
+        echo PHP_EOL;
+        echo PHP_EOL;
+        echo "ADWORDS ====";
+        echo PHP_EOL;
+
+        $parsedAdws = $dom->getAdWordsResults();
+
+        foreach($parsedAdws as $adwords){
+
+            echo $adwords->position . " in " . $adwords->pageLocation;
+            echo PHP_EOL . "title : " . $adwords->title;
+            echo PHP_EOL;
+
         }
 
         return;

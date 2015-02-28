@@ -1,6 +1,8 @@
 google-url
 ==========
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SneakyBobito/google-url?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 Google url is a library that brings a very comfortable way to query and parse google SERPs (Search Engine Result Page)
 
 **BE AWARE**
@@ -220,7 +222,7 @@ Optionally you can use a not implemented language TODO : link to the doc
 Support - Contact
 -----------------
 
-Feel free to open an issue for any request/question
+Feel free to open an issue for any request/question or to [talk on gitter](https://gitter.im/SneakyBobito/google-url)
 
 Roadmap
 -------

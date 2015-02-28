@@ -10,13 +10,8 @@ namespace GoogleUrl;
  * @author sghzal
  * @license http://www.freebsd.org/copyright/license.html BSD
  */
-class GoogleAdwordPosition {
-    /**
-     * search query
-     * @var string
-     */
-    protected $keyword;
-    
+class AdWordsPosition {
+
     /**
      * the visual url used for display only
      * @var string 
@@ -48,54 +43,21 @@ class GoogleAdwordPosition {
      */
     protected $text;
     
-    /**
-     * UNIX timestamp date of the search
-     * @var int
-     */
-    protected $date;
-    
+
     /**
      * where on the page (body, column)
      * @var string
      */
-    protected $location;
+    protected $pageLocation;
     
+
     
-    /**
-     * 
-     * @param type $keyword
-     * @param type $position
-     * @param type $visurl
-     * @param type $adwordsUrl
-     * @param type $title
-     * @param type $text
-     * @param type $date
-     */
-    function __construct($keyword, $position , $visurl , $adwordsUrl, $title, $text, $date) {
-        $this->keyword = $keyword;
-        $this->visurl = $visurl;
-        $this->position = $position;
-        $this->adwordsUrl = $adwordsUrl;
-        $this->title = $title;
-        $this->text = $text;
-        $this->date = $date;
-    }
-    
-    public function getLocation() {
-        return $this->location;
+    public function getPageLocation() {
+        return $this->pageLocation;
     }
 
-    public function setLocation($location) {
-        $this->location = $location;
-    }
-
-        
-    public function getKeyword() {
-        return $this->keyword;
-    }
-
-    public function setKeyword($keyword) {
-        $this->keyword = $keyword;
+    public function setPageLocation($location) {
+        $this->pageLocation = $location;
     }
 
     public function getVisurl() {
@@ -114,7 +76,6 @@ class GoogleAdwordPosition {
         $this->position = $position;
     }
 
-    
     public function getAdwordsUrl() {
         return $this->adwordsUrl;
     }
@@ -131,15 +92,6 @@ class GoogleAdwordPosition {
         $this->title = $title;
     }
 
-
-    public function getDate() {
-        return $this->date;
-    }
-
-    public function setDate($date) {
-        $this->date = $date;
-    }
-
     public function getText() {
         return $this->text;
     }
@@ -149,7 +101,17 @@ class GoogleAdwordPosition {
     }
 
 
-    
+    function __get($name)
+    {
+        $methodName = "get" . ucfirst($name);
+
+
+        if(method_exists($this,$methodName)){
+            return  $this->$methodName();
+        }else{
+            return null;
+        }
+    }
 
     
 }

@@ -5,6 +5,7 @@
 namespace GoogleUrl;
 
 use \GoogleUrl\AdwordsResultSet;
+use GoogleUrl\Parser\AdWordsParser;
 use GoogleUrl\Parser\Rule\ImageGroupResultRule;
 use GoogleUrl\Parser\Rule\InDepthArticleRule;
 use GoogleUrl\Parser\Rule\VideoResultRule;
@@ -118,75 +119,25 @@ class GoogleDOM extends \DOMDocument{
     
     /**
      * list of adwords nodes. Please consider using getAdwordsPositions() instead
-     * @return \DOMNodeList
+     * @return Ad
      */
-    public function getAdWords(){
+    public function getAdWordsResults(){
         
         if(null === $this->adwsResults){
-        
+
+            $parser = new AdWordsParser();
+
+            $resultSet = $parser->parse($this);
             
-            $DOMbodyAdwords = $this->getXpath()->query(self::RHS_QUERY_BODY);
-            $body = $this->parseAdwords($DOMbodyAdwords, AdwordsResultSet::LOCATION_BODY);
-            
-            $DOMColumnAdwords = $this->getXpath()->query(self::RHS_QUERY_COLUMN);
-            $column = $this->parseAdwords($DOMColumnAdwords, AdwordsResultSet::LOCATION_COLUMN);
-            
-            $resultSet = new AdwordsResultSet(array_merge($body,$column));
-         
-            
-            return $resultSet;
+            $this->adwsResults = $resultSet;
             
         }
         
         return $this->adwsResults;
         
     }
-    
+
     /**
-     * Get the list of adwords positions
-     * @return \GoogleUrl\GoogleAdwordPosition[]
-     */
-    public function parseAdwords(\DOMNodeList $dlist,$location = null){
-    
-        
-        $positions=array();// we buf results
-        $number=1;
-        
-        
-        foreach($dlist as $node){
-            
-            
-            // query to find the tilte/url
-            $aTag=$this->getXpath()->query(self::RHS_LINK,$node)->item(0);
-            /* @var $aTag \DOMElement */
-
-            $visUrlTag = $this->getXpath()->query(self::RHS_VISURL,$node)->item(0);
-            /* @var $visUrlTag \DOMElement */
-            
-            
-            $textTag = $this->getXpath()->query(self::RHS_TEXT,$node)->item(0);
-            /* @var $textTag \DOMElement */
-            
-            
-            $title = $aTag ?  strip_tags($aTag->textContent) : "";
-            $adwordsUrl = $aTag ? $aTag->getAttribute("href") : "";
-            $visurl = $visUrlTag ? strip_tags($visUrlTag->textContent) : "";
-            $text = $textTag ? strip_tags($textTag->textContent) : "";
-            
-            
-            $position = new GoogleAdwordPosition($this->search, $number, $visurl, $adwordsUrl, $title, $text, $this->date);
-            $position->setLocation($location);
-            $positions[] = $position;
-            
-            $number++;
-            
-        }
-        
-        return $positions;
-    }
-    
-
-        /**
      * @return int
      */
     public function getDate()
