@@ -14,7 +14,7 @@ class NetTest  extends PHPUnit_Framework_TestCase{
         $googleUrl->setLang("fr");
         $dom = $googleUrl->search("lorde royal");
 
-        $parsed = $dom->getNaturals();
+        $parsed = $dom->getNaturalResults();
 
         echo $dom->getUrl();
 
@@ -36,6 +36,12 @@ class NetTest  extends PHPUnit_Framework_TestCase{
             }else if($item->is("video")){
                 echo $item->getPosition() . " [VIDEO] " . $item->title;
                 echo PHP_EOL . "  url -> (" . $item->website . ")" . $item->targetUrl ;
+            }else if($item->is("imageGroup")){
+                echo $item->getPosition() . " [IMAGE GROUP] " ;
+                foreach($item->getItems() as $card){
+                    echo PHP_EOL . "   " . $card->position . " " . $card->imageUrl ;
+                    echo PHP_EOL . "     target->(" . $card->website . ") " . $card->targetUrl ;
+                }
             }
             echo PHP_EOL;
         }

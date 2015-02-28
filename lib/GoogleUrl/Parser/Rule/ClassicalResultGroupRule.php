@@ -16,7 +16,7 @@ class ClassicalResultGroupRule extends ClassicalResultBase {
             return self::RULE_MATCH_MATCHED;
         }
 
-        return self::RULE_MATCH_IGNORE;
+        return self::RULE_MATCH_NOMATCH;
 
     }
 

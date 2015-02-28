@@ -12,7 +12,7 @@ namespace GoogleUrl\Result;
 abstract class ClickableResult extends PositionedResult {
 
     protected $targetUrl;
-    protected $website;
+    protected $website = null;
 
     /**
      * @return mixed
@@ -35,15 +35,23 @@ abstract class ClickableResult extends PositionedResult {
      */
     public function getWebsite()
     {
+
+        if(null === $this->website){
+            $this->website = $this->_extractDomain($this->getTargetUrl());
+        }
+
         return $this->website;
     }
 
-    /**
-     * @param mixed $website
-     */
-    public function setWebsite($website)
-    {
-        $this->website = $website;
+    protected function _extractDomain($url){
+
+        $protPos=strpos($url, "://");
+
+        $shortUrl=  substr($url,$protPos+3); // ltrim the protocol
+        $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /
+
+        return $shortUrl;
+
     }
 
 }

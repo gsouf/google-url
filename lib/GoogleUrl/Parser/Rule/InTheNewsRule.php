@@ -16,7 +16,7 @@ class InTheNewsRule extends AbstractNaturalRule {
             return self::RULE_MATCH_MATCHED;
         }
 
-        return self::RULE_MATCH_IGNORE;
+        return self::RULE_MATCH_NOMATCH;
     }
 
     public function parseGroup(GoogleDOM $googleDOM, \DomElement $group, ResultSetInterface $resultSet, $currentPosition)
@@ -71,16 +71,12 @@ class InTheNewsRule extends AbstractNaturalRule {
         $title = $aTag->nodeValue;
 
         $targetUrl = $aTag->getAttribute("href");
-        $protPos=strpos($targetUrl, "://");
 
         $title=$aTag->nodeValue; // get the title of the result
-        $shortUrl=  substr($targetUrl,$protPos+3); // ltrim the protocol
-        $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /
 
         $card = new InTheNewsResult();
         $card->setTitle($title);
         $card->setTargetUrl($targetUrl);
-        $card->setWebsite($shortUrl);
 
 
         return $card;

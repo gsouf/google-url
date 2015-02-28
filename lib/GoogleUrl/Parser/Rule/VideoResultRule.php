@@ -16,11 +16,9 @@ class VideoResultRule extends  AbstractNaturalRule{
         $classList = explode(" ", $node->getAttribute("class"));
 
         if( in_array("mnr-c", $classList)){
-
             return self::RULE_MATCH_MATCHED;
-
         }else{
-            return self::RULE_MATCH_IGNORE;
+            return self::RULE_MATCH_NOMATCH;
         }
 
     }
@@ -36,10 +34,7 @@ class VideoResultRule extends  AbstractNaturalRule{
 
         $title=$aTag->nodeValue; // get the title of the result
 
-        $shortUrl = $this->extractDomain($url);
-
         $videoItem = new VideoResult();
-        $videoItem->setWebsite($shortUrl);
         $videoItem->setTargetUrl($url);
         $videoItem->setTitle($title);
 

@@ -14,14 +14,14 @@ class ClassicalResultRule extends ClassicalResultBase {
         if($node->getAttribute("class") == "g"){
 
             if($node->hasAttribute("id") && $node->getAttribute("id") == "imagebox_bigimages" ){
-                return self::RULE_MATCH_IGNORE;
+                return self::RULE_MATCH_NOMATCH;
             }
 
             return self::RULE_MATCH_MATCHED;
 
         }
 
-        return self::RULE_MATCH_IGNORE;
+        return self::RULE_MATCH_NOMATCH;
 
     }
 

@@ -5,6 +5,7 @@
 namespace GoogleUrl;
 
 use \GoogleUrl\AdwordsResultSet;
+use GoogleUrl\Parser\Rule\ImageGroupResultRule;
 use GoogleUrl\Parser\Rule\VideoResultRule;
 
 /**
@@ -102,6 +103,7 @@ class GoogleDOM extends \DOMDocument{
             $parser->addRule(new \GoogleUrl\Parser\Rule\ClassicalResultGroupRule());
             $parser->addRule(new \GoogleUrl\Parser\Rule\InTheNewsRule());
             $parser->addRule(new VideoResultRule());
+            $parser->addRule(new ImageGroupResultRule());
             $this->naturalsResults = $parser->parse($this);
 
         }
@@ -116,7 +118,7 @@ class GoogleDOM extends \DOMDocument{
      * list of adwords nodes. Please consider using getAdwordsPositions() instead
      * @return \DOMNodeList
      */
-    public function getAdwords(){
+    public function getAdWords(){
         
         if(null === $this->adwsResults){
         

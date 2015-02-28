@@ -25,14 +25,7 @@ abstract class ClassicalResultBase extends AbstractNaturalRule {
 
         $url=$aTag->getAttribute("href"); // get the link of the result
 
-
-        $protPos=strpos($url, "://");
-
         $title=$aTag->nodeValue; // get the title of the result
-        $shortUrl=  substr($url,$protPos+3); // ltrim the protocol
-        $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /
-
-        //   "https://google.com/search?..." becomes "google.com"
 
         $currentPosition++;
         $truePosition = $currentPosition + ($googleDOM->getNumberResults() * $googleDOM->getPage());
@@ -42,9 +35,8 @@ abstract class ClassicalResultBase extends AbstractNaturalRule {
         $item->setSnippet($itemDom->C14N());
         $item->setTitle($title);
         $item->setTargetUrl($url);
-        $item->setWebsite($shortUrl);
 
-            $resultSet->addItem($item);
+        $resultSet->addItem($item);
 
         return $currentPosition;
 
