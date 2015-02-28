@@ -93,7 +93,7 @@ class GoogleDOM extends \DOMDocument{
      * gives the list of the natural results
      * @return \DOMNodeList list of naturals results
      */
-    public function getNaturals() {
+    public function getNaturalResults() {
         
         if(null === $this->naturalsResults){
 
