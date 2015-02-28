@@ -68,11 +68,11 @@ foreach($naturalResults as $result){
 
 $adWordsResults = $simpsonsPage->getAdWordsResults();
 
-foreach($adWordsResults as $result){
+foreach($adWordsResults->getBodyTopResults() as $result){
 
     if($result->website == "my-simpsons-website.com"){
         $position = $website->position;
-        echo "My web site is number $position in the results";
+        echo "My web site is number $position in the top results";
     }
 
 }</pre>
@@ -81,7 +81,7 @@ foreach($adWordsResults as $result){
 
         <div class="infoBox">
             <div>
-                Learn more about <a href="">adWords results</a>
+                Learn more about <a href="#/adWordsResults">adWords results</a>
             </div>
         </div>
 
