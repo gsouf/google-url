@@ -6,7 +6,7 @@ namespace GoogleUrl\Result;
 
 abstract class TextResult extends PositionedResult {
 
-    protected $url;
+    protected $targetUrl;
     protected $website;
     protected $title;
     protected $snippet;
@@ -14,17 +14,17 @@ abstract class TextResult extends PositionedResult {
     /**
      * @return mixed
      */
-    public function getUrl()
+    public function getTargetUrl()
     {
-        return $this->url;
+        return $this->targetUrl;
     }
 
     /**
      * @param mixed $url
      */
-    public function setUrl($url)
+    public function setTargetUrl($url)
     {
-        $this->url = $url;
+        $this->targetUrl = $url;
     }
 
     /**

@@ -12,7 +12,7 @@ class InTheNewsResult extends TextResult {
 
     public function getType()
     {
-        return 'InTheNewsCard';
+        return 'inTheNewsCard';
     }
 
     /**

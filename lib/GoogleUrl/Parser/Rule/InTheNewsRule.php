@@ -65,9 +65,23 @@ class InTheNewsRule extends AbstractNaturalRule {
     protected function _parseItem(GoogleDOM $googleDOM, \DomElement $node){
 
         $xpathTitle = "descendant::*[@class = '_Dk']";
-        $title = $googleDOM->getXpath()->query($xpathTitle,$node)->item(0)->nodeValue;
+
+        $aTag = $googleDOM->getXpath()->query($xpathTitle, $node)->item(0);
+
+        $title = $aTag->nodeValue;
+
+        $targetUrl = $aTag->getAttribute("href");
+        $protPos=strpos($targetUrl, "://");
+
+        $title=$aTag->nodeValue; // get the title of the result
+        $shortUrl=  substr($targetUrl,$protPos+3); // ltrim the protocol
+        $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /
+
         $card = new InTheNewsResult();
         $card->setTitle($title);
+        $card->setTargetUrl($targetUrl);
+        $card->setWebsite($shortUrl);
+
 
         return $card;
 

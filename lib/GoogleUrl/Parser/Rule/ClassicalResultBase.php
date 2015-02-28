@@ -25,28 +25,26 @@ abstract class ClassicalResultBase extends AbstractNaturalRule {
 
         $url=$aTag->getAttribute("href"); // get the link of the result
 
-        // if no protocole it means the result is a an relative path to google.
-        // then it means than it is not a true natural result
-        // it mays be a link or something else visual that we are not interested in
-        if(($protPos=strpos($url, "://"))>0){
-            $title=$aTag->nodeValue; // get the title of the result
-            $shortUrl=  substr($url,$protPos+3); // ltrim the protocol
-            $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /
 
-            //   "https://google.com/search?..." becomes "google.com"
+        $protPos=strpos($url, "://");
 
-            $currentPosition++;
-            $truePosition = $currentPosition + ($googleDOM->getNumberResults() * $googleDOM->getPage());
+        $title=$aTag->nodeValue; // get the title of the result
+        $shortUrl=  substr($url,$protPos+3); // ltrim the protocol
+        $shortUrl=  substr($shortUrl,0,strpos($shortUrl, "/")); // remove all what left after the first /
 
-            $item = new ClassicalResult();
-            $item->setPosition($truePosition);
-            $item->setSnippet($itemDom->C14N());
-            $item->setTitle($title);
-            $item->setUrl($url);
-            $item->setWebsite($shortUrl);
+        //   "https://google.com/search?..." becomes "google.com"
+
+        $currentPosition++;
+        $truePosition = $currentPosition + ($googleDOM->getNumberResults() * $googleDOM->getPage());
+
+        $item = new ClassicalResult();
+        $item->setPosition($truePosition);
+        $item->setSnippet($itemDom->C14N());
+        $item->setTitle($title);
+        $item->setTargetUrl($url);
+        $item->setWebsite($shortUrl);
 
             $resultSet->addItem($item);
-        }
 
         return $currentPosition;
 

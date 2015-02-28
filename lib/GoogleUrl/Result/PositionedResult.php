@@ -35,4 +35,8 @@ abstract class PositionedResult implements  ResultItemInterface {
         }
     }
 
+    public function is($type){
+        return $type == $this->getType();
+    }
+
 }

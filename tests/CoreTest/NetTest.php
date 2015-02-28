@@ -22,12 +22,16 @@ class NetTest  extends PHPUnit_Framework_TestCase{
 
         foreach($parsed as $item){
 
-            if($item->type == "classical"){
-                echo $item->position . " " . $item->title;
-            }else if($item->type == "inTheNews" ){
-                echo $item->position . " [IN THE NEWS]";
+            if($item->is("classical")){
+
+                echo $item->position . " " . $item->title . " ";
+                echo PHP_EOL . "  url -> (" . $item->website . ")" . $item->targetUrl ;
+
+            }else if($item->is("inTheNewsGroup")){
+                echo $item->getPosition() . " [IN THE NEWS]";
                 foreach($item->getItems() as $card){
-                    echo PHP_EOL . "   " . $card->position . " " . $card->title;
+                    echo PHP_EOL . "   " . $card->position . " " . $card->title ;
+                    echo PHP_EOL . "     target-> (" . $card->website . ") " . $card->targetUrl ;
                 }
             }
             echo PHP_EOL;

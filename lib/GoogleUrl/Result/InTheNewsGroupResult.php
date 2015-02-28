@@ -6,6 +6,6 @@ namespace GoogleUrl\Result;
 class InTheNewsGroupResult extends  GroupedResult {
     public function getType()
     {
-        return "inTheNews";
+        return "inTheNewsGroup";
     }
 }
