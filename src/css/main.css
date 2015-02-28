@@ -83,6 +83,11 @@ h1,h2,h3,h4 {font-family:arial,tahoma,verdana,sans-serif; font-weight: normal; c
 }
 .section_main h2 {padding: 0 0 20px}
 
+h3{
+	text-align: center;
+	color: #888;
+}
+
 /* END Frontpage sections */
 
 
