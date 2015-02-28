@@ -1480,6 +1480,7 @@ h1,h2,h3,h4{font-family:arial,tahoma,verdana,sans-serif;font-weight:400;color:#3
 .section_main .infoBox>div{background:#2D2D2D;display:inline-block;padding:5px 13px;border-radius:8px;color:#C5C5C5;margin-top:27px;font-size:12px}
 .section_main{background:#222;padding:20px 0}
 .section_main h2{padding:0 0 20px}
+h3{text-align:center;color:#888}
 .heading_supersize{font-size:128px;text-align:center;font-weight:400;line-height:150px;margin:0 0 10px;color:#212121}
 .heading_largesize{font-size:34px;text-align:center;font-weight:400}
 .dropcap_black,.dropcap_red{border-radius:100px 100px 100px 100px;display:block;float:left;font-size:18px;line-height:10px;margin:10px 28px 0 0;text-align:center;width:35px;background:0 0;color:#999}
