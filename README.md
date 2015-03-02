@@ -7,7 +7,8 @@ Google url is a library that brings a very comfortable way to query and parse go
 
 **BE AWARE**
 
-The proxyPool section will soon be moved to another package and it is going to be refactored (only proxy pools, not proxy objects).
+The library has recently been updated to v2. Following the semver, it meens that it breaks compatibility with v1.
+Please check the new documentation, and make sure to use the correct version number in your composer.json
 
 
 Features
@@ -68,7 +69,7 @@ and just include the file named ``autoload.php`̀` :
        
     include("path/to/googleurl/autoload.php");
 
-    $g = new \GoogleUrl();
+    $g = new GoogleUrl();
 
     // ......
 
@@ -93,7 +94,7 @@ There is no universal rule for the delays to apply. It is hard to figure out the
 ```php
 
     <?php
-        $googleUrl=new \GoogleUrl();
+        $googleUrl=new GoogleUrl();
         $googleUrl->setLang('en') // lang allows to adapt the query (tld, and google local params)
             ->setNumberResults(10);                        // 10 results per page
         $acdcPage1=$googleUrl->setPage(0)->search("acdc"); // acdc results page 1 (results 1-10)
@@ -103,28 +104,47 @@ There is no universal rule for the delays to apply. It is hard to figure out the
         $simpsonPage1=$googleUrl->setPage(0)->search("simpson"); // simpsons results page 1 (results 1-20)
 
 
+```
+
+**Get natural results**
 
 
-        // GET NATURAL RESULTS
-
+```php
         $positions=$simpsonPage1->getPositions();
 
-        echo "results for " . $simpsonPage1->getKeywords();
-        echo "<ul>";
+        echo 'results for ' . $simpsonPage1->getKeywords();
+
         foreach($positions as $result){
-            echo "<li>";
-            echo "<ul>";
-            echo "<li>position : " . $result->getPosition() . "</li>";
-            echo "<li>title : "    . utf8_decode($result->getTitle())    . "</li>";
-            echo "<li>website : "  . $result->getWebsite()  . "</li>";
-            echo "<li>URL : <a href='" . $result->getUrl() ."'>" . $result->getUrl() . "</a></li>";
-            echo "</ul>";
-            echo "</li>";
+            
+            if($result->is("classical")){
+                $resultTitle = $result->title;
+                $website     = $result->website;
+                $url         = $result->targetUrl;
+            }else if($result->is("video"){
+                $resultTitle = $result->title;
+                $website     = $result->website;
+            }else if($result->is("imageGroup"){
+                $images = $result->getItems();
+                foreach ($images as $imgResult) {
+                    $imgUrl = $imgResult->imageUrl;
+                    $url    = $imgResult->targetUrl;
+                }
+            }else{
+            
+                echo 'Ignored result : ';
+                echo $result->position . ' ' . $result->type;
+            
+            }
+
+            
         }
-        echo "</ul>";
 
-        // GET ADWORDS RESULTS
 
+```
+
+**Get adWords results**
+
+```php
         $commercialSearch = $googleUrl->setLang("fr")->setPage(0)->search("simpson tshirt");
         $adwordsPositions = $commercialSearch->getAdwords();
         echo "adwords for " . $commercialSearch->getKeywords();
@@ -132,10 +152,11 @@ There is no universal rule for the delays to apply. It is hard to figure out the
         foreach($adwordsPositions as $result){
             echo "<li>";
             echo "<ul>";
-            echo "<li>location : " . $result->getLocation() . "</li>"; // adwords can be displayed in body or in column
+            // adwords can be displayed in body top, body bottom or right column
+            echo "<li>location : " . $result->getLocation() . "</li>"; 
             echo "<li>position : " . $result->getPosition() . "</li>";
-            echo "<li>title : "    . utf8_decode($result->getTitle())    . "</li>";
-            echo "<li>fake url : "  . $result->getVisurl()  . "</li>";
+            echo "<li>title : "    . $result->getTitle()    . "</li>";
+            echo "<li>fake url : " . $result->getVisurl()  . "</li>";
             echo "<li>URL :" . $result->getAdwordsUrl() . "</li>";
             echo "<li>Text : " . $result->getText() . "<li>";
             echo "</ul>";
@@ -143,20 +164,20 @@ There is no universal rule for the delays to apply. It is hard to figure out the
         }
         echo "</ul>";
 
-        // we can also get only results in body
+        // we can also get only results in body top
         echo "adwords <b>IN BODY</b> for " . $commercialSearch->getKeywords();
         echo "<ul>";
-        foreach($adwordsPositions->getBodyResults() as $result){
-            echo "<li>" . $result->getPosition() . " : " . utf8_decode($result->getTitle()) . "</li>";
+        foreach($adwordsPositions->getBodyTopResults() as $result){
+            echo "<li>" . $result->getPosition() . " : " . $result->getTitle() . "</li>";
         }
         echo "</ul>";
 
 
-        // and obviously results in the right column
+        // or results in the right column
         echo "adwords <b>IN COLUMN</b> for " . $commercialSearch->getKeywords();
         echo "<ul>";
         foreach($adwordsPositions->getColumnResults() as $result){
-            echo "<li>" . $result->getPosition() . " : " . utf8_decode($result->getTitle()) . "</li>";
+            echo "<li>" . $result->getPosition() . " : " . $result->getTitle() . "</li>";
         }
         echo "</ul>";
         
