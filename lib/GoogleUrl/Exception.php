@@ -3,7 +3,7 @@
 namespace GoogleUrl;
 
 /**
- * CaptachaException
+ * GoogleUrlException
  *
  * @author sghzal
  */

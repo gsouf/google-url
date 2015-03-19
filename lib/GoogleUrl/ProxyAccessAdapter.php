@@ -2,8 +2,6 @@
 
 namespace GoogleUrl;
 
-use GoogleUrl\ProxyInterface;
-
 /**
  * Description of ProxyPool
  *
@@ -27,12 +25,35 @@ interface ProxyAccessAdapter {
      * @param \GoogleUrl\ProxyInterface $proxy
      */
     public function acquireProxyLock(ProxyInterface $proxy);
+
+    /**
+     * @param ProxyInterface $proxy
+     * @return mixed
+     */
     public function releaseProxyLock(ProxyInterface $proxy);
+
+    /**
+     * @param ProxyInterface $proxy
+     * @return mixed
+     */
     public function proxyUsed(ProxyInterface $proxy);
-    
+
+    /**
+     * @param ProxyInterface $proxy
+     * @return mixed
+     */
     public function setProxy(ProxyInterface $proxy);
+
+    /**
+     * @param ProxyInterface $proxy
+     * @return mixed
+     */
     public function removeProxy(ProxyInterface $proxy);
-    
+
+    /**
+     * @param SimpleProxyInterface $p
+     * @return mixed
+     */
     public function hasProxy(SimpleProxyInterface $p);
     
 }

@@ -4,7 +4,10 @@
 
 namespace GoogleUrl;
 
-use \GoogleUrl\AdwordsResultSet;
+use DOMDocument;
+use DOMNodeList;
+use DOMXPath;
+
 
 /**
  * Description of GoogleDOM
@@ -12,8 +15,7 @@ use \GoogleUrl\AdwordsResultSet;
  * @author sghzal
  * @license http://www.freebsd.org/copyright/license.html BSD
  */
-class GoogleDOM extends \DOMDocument{
-    
+class GoogleDOM extends DOMDocument{
     
     /**
      * list of natural nodes
@@ -28,30 +30,77 @@ class GoogleDOM extends \DOMDocument{
     /**
      * Get adwords nodes
      */
-    const RHS_QUERY_COLUMN="//div[@id = 'rhs']//ol/li[@class='ads-ad']"; 
-    const RHS_QUERY_BODY="//div[@id = 'tads']//ol/li[@class='ads-ad']"; 
-    const RHS_LINK="descendant::h3/a[@onmousedown]"; 
-    const RHS_VISURL="descendant::div[@class='ads-visurl']/cite"; 
-    const RHS_TEXT="descendant::div[@class='ads-creative']"; 
+    const RHS_QUERY_COLUMN="//div[@id = 'rhs']//ol/li[@class='ads-ad']";
+    /**
+     *
+     */
+    const RHS_QUERY_BODY="//div[@id = 'tads']//ol/li[@class='ads-ad']";
+    /**
+     *
+     */
+    const RHS_LINK="descendant::h3/a[@onmousedown]";
+    /**
+     *
+     */
+    const RHS_VISURL="descendant::div[@class='ads-visurl']/cite";
+    /**
+     *
+     */
+    const RHS_TEXT="descendant::div[@class='ads-creative']";
     
     // we check if there is a form named 'captcha' to detect a bad page
+    /**
+     *
+     */
     const CAPTCHA_FORM_XPATH="//input[@name='captcha']";
-    
+
+    /**
+     * @var null
+     */
     protected $naturalsResults = null; // used for cache
+    /**
+     * @var null
+     */
     protected $adwsResults = null; // used for cache
+    /**
+     * @var
+     */
     protected $xpath;
 
     // the keyword(s)
+    /**
+     * @var
+     */
     protected $search;
     // the google url
+    /**
+     * @var
+     */
     protected $generatedUrl;
     // date of the search
+    /**
+     * @var int
+     */
     protected $date;
     // page result
+    /**
+     * @var
+     */
     protected $page;
     //nb results per pages
+    /**
+     * @var
+     */
     protected $numberResults;
 
+    /**
+     * @param $search
+     * @param $generatedUrl
+     * @param $page
+     * @param $numberResults
+     * @param null $version
+     * @param null $encoding
+     */
     public function __construct($search,$generatedUrl,$page,$numberResults,$version = null, $encoding = null) {
         parent::__construct($version, $encoding);
         
@@ -63,18 +112,21 @@ class GoogleDOM extends \DOMDocument{
 
         $this->init();
     }
-    
+
+    /**
+     *
+     */
     public function init(){
         $this->naturalsResults=null;
     }
     
     /**
      * get the object xpath to query it
-     * @return \DOMXPath
+     * @return DOMXPath
      */
     public function getXpath() {
         if(null === $this->xpath){
-            $this->xpath=new \DOMXPath($this);
+            $this->xpath=new DOMXPath($this);
         }
         return $this->xpath;
     }
@@ -91,7 +143,7 @@ class GoogleDOM extends \DOMDocument{
         
     /**
      * gives the list of the natural results
-     * @return \DOMNodeList list of naturals results
+     * @return DOMNodeList list of naturals results
      */
     public function getNaturals() {
         
@@ -160,7 +212,7 @@ class GoogleDOM extends \DOMDocument{
     
     /**
      * list of adwords nodes. Please consider using getAdwordsPositions() instead
-     * @return \DOMNodeList
+     * @return DOMNodeList
      */
     public function getAdwords(){
         
@@ -183,12 +235,14 @@ class GoogleDOM extends \DOMDocument{
         return $this->adwsResults;
         
     }
-    
+
     /**
      * Get the list of adwords positions
-     * @return \GoogleUrl\GoogleAdwordPosition[]
+     * @param DOMNodeList $dlist
+     * @param null $location
+     * @return GoogleAdwordPosition[]
      */
-    public function parseAdwords(\DOMNodeList $dlist,$location = null){
+    public function parseAdwords(DOMNodeList $dlist,$location = null){
     
         
         $positions=array();// we buf results
@@ -228,7 +282,7 @@ class GoogleDOM extends \DOMDocument{
     }
     
 
-        /**
+    /**
      * @return int
      */
     public function getDate()
@@ -244,9 +298,10 @@ class GoogleDOM extends \DOMDocument{
         return $this->search;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUrl(){
         return $this->generatedUrl;
     }
-
-    
 }

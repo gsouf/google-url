@@ -1,12 +1,13 @@
 <?php
 
 namespace GoogleUrl\Exception;
+use GoogleUrl\Exception;
 
 /**
- * CaptachaException
+ * CaptchaException
  *
  * @author sghzal
  */
-class CaptachaException extends \GoogleUrl\Exception{
+class CaptchaException extends Exception {
     //put your code here
 }

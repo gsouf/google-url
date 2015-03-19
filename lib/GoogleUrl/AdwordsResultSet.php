@@ -4,13 +4,19 @@
 namespace GoogleUrl;
 
 /**
- * AdwordsResultSet
- *
+ * Class AdwordsResultSet
+ * @package GoogleUrl
  * @author sghzal
  */
 class AdwordsResultSet extends \ArrayObject {
-    
+
+    /**
+     *
+     */
     const LOCATION_COLUMN = "column";
+    /**
+     *
+     */
     const LOCATION_BODY    = "body";
     
     /**
@@ -46,7 +52,4 @@ class AdwordsResultSet extends \ArrayObject {
         
         return $pos;
     }
-    
-    
-    
 }
