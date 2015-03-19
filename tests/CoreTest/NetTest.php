@@ -20,10 +20,10 @@ class NetTest  extends PHPUnit_Framework_TestCase{
         $this->assertEquals(10, count($firstSearch->getPositions()));
         $this->assertEquals(10, count($googleUrl->setLang('fr')->setNumberResults(10)->setPage(2)->search("acdc")->getPositions()));
 
-        $this->assertEquals(true,  GoogleUrl::langageIsAvailable("fr"));
-        $this->assertEquals(true,  GoogleUrl::langageIsAvailable("en"));
+        $this->assertEquals(true,  GoogleUrl::languageIsAvailable("fr"));
+        $this->assertEquals(true,  GoogleUrl::languageIsAvailable("en"));
         
-        $this->assertEquals(false,  GoogleUrl::langageIsAvailable("rf"));
+        $this->assertEquals(false,  GoogleUrl::languageIsAvailable("rf"));
         
     }
     

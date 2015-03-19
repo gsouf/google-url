@@ -284,11 +284,11 @@ class GoogleUrl {
     }
     
     /**
-     * ask if a langage is configured 
+     * ask if a language is configured
      * @param string $iso the iso code of the country. e.g  english : "en" , france : "fr"
      * @return boolean true if available
      */
-    public static function langageIsAvailable($iso){
+    public static function languageIsAvailable($iso){
         $hl="HL_".strtoupper($iso);
         
         return defined("self::".$hl);
@@ -303,7 +303,7 @@ class GoogleUrl {
      */
     public function setLang($iso,$setTld=true){
                
-        if(self::langageIsAvailable($iso)){
+        if(self::languageIsAvailable($iso)){
             $hl="HL_".strtoupper($iso);
             $lr="LR_".strtoupper($iso);
             $accept="ACCEPT_".strtoupper($iso);
