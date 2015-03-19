@@ -70,6 +70,7 @@ class File implements ProxyAccessAdapter {
 
     /**
      * @param ProxyInterface $proxy
+     * @return void
      */
     public function setProxy(ProxyInterface $proxy) {
         
@@ -174,6 +175,7 @@ class File implements ProxyAccessAdapter {
 
     /**
      * @param ProxyInterface $proxy
+     * @return void
      */
     public function proxyUsed(ProxyInterface $proxy) {
         $id = $this->__id($proxy);
