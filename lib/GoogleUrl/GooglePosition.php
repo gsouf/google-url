@@ -5,8 +5,8 @@
 namespace GoogleUrl;
 
 /**
- * Description of GooglePosition
- *
+ * Class GooglePosition
+ * @package GoogleUrl
  * @author sghzal
  * @license http://www.freebsd.org/copyright/license.html BSD
  */
@@ -74,60 +74,101 @@ class GooglePosition {
         $this->date     = $date;
     }
 
-    
-    
+
+    /**
+     * @return string
+     */
     public function getKeyword() {
         return $this->keyword;
     }
 
+    /**
+     * @param $keyword
+     */
     public function setKeyword($keyword) {
         $this->keyword = $keyword;
     }
 
+    /**
+     * @return string
+     */
     public function getWebsite() {
         return $this->website;
     }
 
+    /**
+     * @param $website
+     */
     public function setWebsite($website) {
         $this->website = $website;
     }
 
+    /**
+     * @return bool|int
+     */
     public function getPosition() {
         return $this->position;
     }
 
+    /**
+     * @param $position
+     */
     public function setPosition($position) {
         $this->position = $position;
     }
 
+    /**
+     * @return string
+     */
     public function getUrl() {
         return $this->url;
     }
 
+    /**
+     * @param $url
+     */
     public function setUrl($url) {
         $this->url = $url;
     }
 
+    /**
+     * @return string
+     */
     public function getTitle() {
         return $this->title;
     }
 
+    /**
+     * @param $title
+     */
     public function setTitle($title) {
         $this->title = $title;
     }
 
+    /**
+     * @return strnig|string
+     */
     public function getSnippet() {
         return $this->snippet;
     }
 
+    /**
+     * @param $snippet
+     */
     public function setSnippet($snippet) {
         $this->snippet = $snippet;
     }
 
+    /**
+     * @return int
+     */
     public function getDate() {
         return $this->date;
     }
 
+    /**
+     * @param $date
+     */
     public function setDate($date) {
         $this->date = $date;
     }

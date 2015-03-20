@@ -2,9 +2,6 @@
 
 namespace GoogleUrl;
 
-
-use GoogleUrl\MilliDelayer;
-
 /**
  * Allows to do google searches with safe delays
  *
@@ -16,15 +13,29 @@ use GoogleUrl\MilliDelayer;
  */
 class DelayedQuery extends \GoogleUrl {
 
+    /**
+     * @var MilliDelayer|null
+     */
     protected static $delayer=null;
+    /**
+     * @var bool
+     */
     protected $started=false;
 
+    /**
+     * Main Construct
+     */
     public function __construct(){
         parent::__construct();
         if(self::$delayer==null)
             self::$delayer = new MilliDelayer(50020,70023,80084,40096,150032,50150,70007,180000);
     }
 
+    /**
+     * @param null $searchTerm
+     * @return GoogleDOM
+     * @throws \Exception
+     */
     public function search($searchTerm = null )
     {
         // dont wait for the first iteration

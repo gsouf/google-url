@@ -9,14 +9,34 @@ use GoogleUrl\Exception;
  *
  * @author bob
  */
-class ProxyString implements \GoogleUrl\SimpleProxyInterface{
-   
+class ProxyString implements SimpleProxyInterface
+{
+
+    /**
+     * @var
+     */
     public $ip;
+    /**
+     * @var
+     */
     public $port;
+    /**
+     * @var
+     */
     public $login;
+    /**
+     * @var null
+     */
     public $password;
+    /**
+     * @var int
+     */
     public $proxyType;
-            
+
+    /**
+     * @param $proxy
+     * @throws Exception
+     */
     function __construct($proxy) {
         
         $proxyPieces = explode("@", $proxy);
@@ -52,32 +72,53 @@ class ProxyString implements \GoogleUrl\SimpleProxyInterface{
         
         $this->proxyType = CURLPROXY_HTTP;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getIp() {
         return $this->ip;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPort() {
         return $this->port;
     }
 
 
+    /**
+     * @return mixed
+     */
     public function getLogin() {
         return $this->login;
     }
 
+    /**
+     * @return null
+     */
     public function getPassword() {
         return $this->password;
     }
 
+    /**
+     * @param $login
+     */
     public function setLogin($login) {
         $this->login = $login;
     }
- 
+
+    /**
+     * @return int
+     */
     public function getProxyType() {
         return $this->proxyType;
     }
 
+    /**
+     * @param $proxyType
+     */
     public function setProxyType($proxyType) {
         $this->proxyType = $proxyType;
     }

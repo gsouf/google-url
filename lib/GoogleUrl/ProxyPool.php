@@ -7,14 +7,21 @@ namespace GoogleUrl;
  *
  * @author bob
  */
+/**
+ * Class ProxyPool
+ * @package GoogleUrl
+ */
 class ProxyPool implements ProxyAccessAdapter {
     
     /**
      *
-     * @var ProxyDefinition[]
+     * @var array ProxyInterface
      */
     protected $proxys;
-    
+
+    /**
+     * @var array
+     */
     protected $delays;
     
     /**
@@ -28,7 +35,7 @@ class ProxyPool implements ProxyAccessAdapter {
     
     /**
      * Add a proxy. It must be an instance of {@see ProxyDefinition}
-     * @param \GoogleUrl\ProxyInterface $p
+     * @param ProxyInterface $p
      * @throws \Exception
      */
     public function setProxy(ProxyInterface $p){
@@ -43,16 +50,17 @@ class ProxyPool implements ProxyAccessAdapter {
     
     /**
      * check if the given proxy exists
-     * @param \GoogleUrl\SimpleProxyInterface $p
+     * @param SimpleProxyInterface $p
+     * @return bool
      */
     public function hasProxy(SimpleProxyInterface $p) {
-        
         return isset($this->proxys[$p->getIp() . ":" . $p->getPort()]);
-        
     }
 
-    
 
+    /**
+     * @param ProxyInterface $proxy
+     */
     public function removeProxy(ProxyInterface $proxy) {
     
         $string = $proxy->getIp() . ":" . $proxy->getPort();
@@ -62,7 +70,10 @@ class ProxyPool implements ProxyAccessAdapter {
         }
     }
 
-    
+
+    /**
+     * @return ProxyInterface|null
+     */
     public function findShortestTimeProxy(){
         $finalProxy = null;
         foreach($this->proxys as $p){
@@ -76,7 +87,10 @@ class ProxyPool implements ProxyAccessAdapter {
         }
         return $finalProxy;
     }
-    
+
+    /**
+     * @return ProxyInterface|null
+     */
     public function findAvailableProxy() {
         foreach($this->proxys as $p){
             $avail = $p->isAvailable();
@@ -87,6 +101,9 @@ class ProxyPool implements ProxyAccessAdapter {
         return null;
     }
 
+    /**
+     * @param ProxyInterface $proxy
+     */
     public function proxyUsed(ProxyInterface $proxy) {
         $string = $proxy->getIp() . ":" . $proxy->getPort();
         
@@ -102,6 +119,9 @@ class ProxyPool implements ProxyAccessAdapter {
         }
     }
 
+    /**
+     * @param ProxyInterface $proxy
+     */
     public function acquireProxyLock(ProxyInterface $proxy) {
         $string = $proxy->getIp() . ":" . $proxy->getPort();
         
@@ -111,6 +131,9 @@ class ProxyPool implements ProxyAccessAdapter {
         }
     }
 
+    /**
+     * @param ProxyInterface $proxy
+     */
     public function releaseProxyLock(ProxyInterface $proxy) {
         $string = $proxy->getIp() . ":" . $proxy->getPort();
         
