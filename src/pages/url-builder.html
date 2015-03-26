@@ -1,0 +1,113 @@
+
+<section  class="section_main">
+
+    <div class="row">
+
+
+        <h2 style="text-align:center">The URL builder</h2>
+        <div class="infoBox">
+            <div>
+            The URL builder offers a fluent and comprehensive api to build google SERP URLs.
+            </div>
+        </div>
+
+        <pre class="small-8 columns small-centered  prettyprint lang-php">
+
+$googleUrl = new GoogleUrl();
+$googleUrl->setSearchTerm("Simpsons");
+
+echo $googleUrl->getUrl();
+// you can also write echo $googleUrl;
+
+// https://www.google.com/search?lr=lang_en&hl=en&q=Simpsons&complete=0&pws=0 </pre>
+
+
+
+        <h2 style="text-align:center">Change the language</h2>
+
+        <div class="infoBox">
+            <div>
+                You can choose what change the query language. This will affect local/lang results
+            </div>
+        </div>
+
+        <pre class="small-8 columns small-centered  prettyprint lang-php">
+
+// english results
+$googleUrl->setLang("en");
+echo $googleUrl->getUrl();
+// https://www.google.com/search?lr=lang_en&hl=en&q=Simpsons&complete=0&pws=0
+
+// german results
+$googleUrl->setLang("de");
+echo $googleUrl->getUrl();
+// https://www.google.de/search?lr=lang_de&hl=de&q=Simpsons&complete=0&pws=0</pre>
+
+
+        <h2 style="text-align:center">Change the TLD</h2>
+
+        <div class="infoBox">
+            <div>
+                Setting the lang also affects the TLD, but you can manually set a TLD
+            </div>
+        </div>
+
+        <pre class="small-8 columns small-centered  prettyprint lang-php">
+
+// english results on google.co.uk
+$googleUrl->setLang("en");
+$googleUrl->setTld("co.uk");
+echo $googleUrl->getUrl();
+// https://www.google.co.uk/search?lr=lang_en&hl=en&q=Simpsons&complete=0&pws=0
+
+// german results on google.com
+$googleUrl->setLang("de");
+$googleUrl->setTld("com");
+echo $googleUrl->getUrl();
+// https://www.google.com/search?lr=lang_de&hl=de&q=Simpsons&complete=0&pws=0
+
+//reset the TLD
+$googleUrl->setTld(null);
+echo $googleUrl->getUrl();
+// https://www.google.de/search?lr=lang_de&hl=de&q=Simpsons&complete=0&pws=0</pre>
+
+
+        <h2 style="text-align:center">Change Number of results per page</h2>
+
+        <div class="infoBox">
+            <div>
+                By default google shows 10 results per page. You can change this limit from 1 to 100
+            </div>
+        </div>
+
+
+<pre class="small-8 columns small-centered  prettyprint lang-php">
+
+// 20 results per pages
+$googleUrl->setNumberResults(20);
+echo $googleUrl->getUrl();
+// https://www.google.de/search?lr=lang_de&hl=de&q=Simpsons&num=20&complete=0&pws=0</pre>
+
+
+        <h2 style="text-align:center">Change the Page</h2>
+
+        <div class="infoBox">
+            <div>
+                You can change the page to query. If you dont specify it, you will ever get the first result page
+            </div>
+        </div>
+
+
+<pre class="small-8 columns small-centered  prettyprint lang-php">
+
+// get the results on the second page (0 indexed)
+$googleUrl->setPage(1);
+// and reset the number result to 10
+$googleUrl->setNumberResults(10);
+echo $googleUrl->getUrl();
+// https://www.google.de/search?lr=lang_de&hl=de&q=Simpsons&start=10&complete=0&pws=0</pre>
+
+
+    </div>
+
+</section>

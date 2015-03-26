@@ -35,6 +35,11 @@
             controller  : 'mainController'
         });
 
+        $routeProvider.when('/url-builder', {
+            templateUrl : app.getTemplate('url-builder.html'),
+            controller  : 'mainController'
+        });
+
 
     });
 
