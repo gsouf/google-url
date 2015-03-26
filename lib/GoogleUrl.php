@@ -117,7 +117,7 @@ class GoogleUrl{
      * @param string $search set the string to search
      * @return GoogleUrl
      */
-    public function searchTerm($search){
+    public function setSearchTerm($search){
         return $this->setParam("q",$search);
     }
     
