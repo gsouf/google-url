@@ -10,3 +10,6 @@ composer.phar
 #mac
 .Trashes
 .DS_STORE
+
+# node_modeuls from gh-pages
+/node_modules/
