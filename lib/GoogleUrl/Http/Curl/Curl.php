@@ -54,9 +54,8 @@
  * @version 0.3.0
  */
 
-namespace GoogleUrl;
+namespace GoogleUrl\Http\Curl;
 
-use GoogleUrl\CurlParallel;
 
 class Curl
 {

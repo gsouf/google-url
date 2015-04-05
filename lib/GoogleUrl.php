@@ -67,7 +67,6 @@ class GoogleUrl{
         );
 
         $this->setLang("en");
-
     }
     
 
@@ -223,83 +222,30 @@ class GoogleUrl{
             $searchTerm = $this->param("q");
         }
 
+        $sender = new \GoogleUrl\Http\CurlSender();
+        $sender->setUserAgent($this->userAgent);
 
+        $httpOptions = [
+            "headers" => [
+                "Accept-Language" => $this->acceptLangage ? $this->acceptLangage : $this->language->getAccept()
+            ]
+        ];
 
-        /**=========
-         * INIT CURL
-          =========*/
-        $c = new \GoogleUrl\Curl();
-        $c->url = $url;
-
-
-        /**==========
-         * DO HEADERS
-          ===========*/
-        // let's be redirected if needed
-        $c->followLocation();
-        // use a true user agent, maybe better for true results
-        $c->useragent = $this->userAgent;
-
-        // use other headers
-
-        // accept-langage to make sure google use the same language as asked
-        $header[]="Accept-Language: ". ($this->acceptLangage ? $this->acceptLangage : $this->language->getAccept());
-
-        $c->HTTPHEADER=$header;
-
-        
-        /**=========
-         * SET PROXY
-           =========*/
-        if($proxy){
-            $c->proxy = $proxy->getIp();
-            $c->proxyport = $proxy->getPort();
-            
-            $login = $proxy->getLogin();
-            if($login){
-                $auth = $login;
-                $psw = $proxy->getPassword();
-                if($psw){
-                    $auth .= ":" . $psw;
-                }
-                $c->proxyuserpwd = $auth;
-            }
-            
-            
-            $proxyType = $proxy->getProxyType();
-            $c->proxytype = $proxyType ? $proxyType : "http";
-  
-        }
-        
-
-        /**========
-         * EXECUTE
-          =========*/
-        $r = $c->exec();
-        
-        if(false === $r){
-            
-            $errno = $c->errno();
-            
-            if(CURLE_COULDNT_RESOLVE_PROXY == $errno){
-                throw new \GoogleUrl\Exception\ProxyException("HTTP query failled [curl-error : $errno - " . $c->error() . " ] for the following URL : ".$this);
-            }else{
-                throw new \GoogleUrl\Exception\CurlException ("HTTP query failled [curl-error : $errno - " . $c->error() . " ] for the following URL : ".$this);
-            }
-            
-        }
+        $response = $sender->send($url, $httpOptions, $proxy);
         
         /**===============
          * CREATE DOCUMENT
           ================*/
-        $doc = new GoogleDOM($searchTerm,$url,$this->getPage(),$this->param("num"));
-        libxml_use_internal_errors(TRUE);
-        $doc->loadHTML($r);
-        libxml_use_internal_errors(FALSE);
+        $doc = new GoogleDOM($searchTerm, $url, $this->getPage(), $this->param("num"));
+        $oldXmlErrorValue = libxml_use_internal_errors(true);
+        $doc->loadHTML($response);
+        libxml_use_internal_errors($oldXmlErrorValue);
         libxml_clear_errors();
         
-        if($doc->isCaptcha())
-            throw new \GoogleUrl\Exception\CaptchaException();
+        if($doc->isCaptcha()) {
+            $captchaPage = new \GoogleUrl\CaptchaPage($doc);
+            throw new \GoogleUrl\Exception\CaptchaException($captchaPage);
+        }
 
         return $doc;
     }

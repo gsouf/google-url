@@ -37,7 +37,7 @@ class GoogleDOM extends \DOMDocument{
     //nb results per pages
     protected $numberResults;
 
-    public function __construct($search,$generatedUrl,$page,$numberResults,$version = null, $encoding = null) {
+    public function __construct($search, $generatedUrl, $page, $numberResults, $version = null, $encoding = null) {
         parent::__construct($version, $encoding);
         
         $this->search = $search;

@@ -3,10 +3,7 @@
 
 class ProxyTest  extends PHPUnit_Framework_TestCase{
     
-   
-    /**
-     * @group proxy
-     */
+
     public function testProxyQuery(){
         
         $delays = array(
@@ -60,10 +57,6 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
             $pool->releaseProxyLock($proxy);
             $pool->proxyUsed($proxy);
         }
-        
-        
-        
-        
     }
     
     public function testProxyString(){
@@ -89,11 +82,8 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
         $this->assertEquals("pswd",$p->getPassword());
         
     }
-    
-    
-    /**
-     * @group proxy
-     */
+
+
     public function testProxyFile(){
         
         echo PHP_EOL;
@@ -155,9 +145,7 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
             $pool->proxyUsed($proxy);
         }
         
-        
-        
-        
+
     }
     
 }

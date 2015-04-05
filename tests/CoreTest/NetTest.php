@@ -4,9 +4,6 @@
 class NetTest  extends PHPUnit_Framework_TestCase{
 
 
-    /**
-     * @group bla
-     */
     public function testQuery(){
 
 
