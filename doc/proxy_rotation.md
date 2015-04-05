@@ -182,7 +182,7 @@ The following example shows a basical use of the proxy. You may modify it to use
         } 
 
         // We have met the google captcha. We will have to update delays
-        catch (\GoogleUrl\Exception\CaptachaException $ex){
+        catch (\GoogleUrl\Exception\CaptchaException $ex){
 
             echo $ex->getMessage();
             // we may remove the proxy and create an alert
@@ -349,7 +349,7 @@ These example are close enough from the previous one. Only new actions are docum
 
         } 
 
-        catch (\GoogleUrl\Exception\CaptachaException $ex){
+        catch (\GoogleUrl\Exception\CaptchaException $ex){
 
             echo $ex->getMessage();
             // this writes unlock the proxy

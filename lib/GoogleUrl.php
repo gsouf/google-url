@@ -203,7 +203,7 @@ class GoogleUrl{
      *                       
      * @return GoogleDOM the Google DOMDocument
      * @throws Exception
-     * @throws \GoogleUrl\Exception\CaptachaException google detected us as a bot
+     * @throws \GoogleUrl\Exception\CaptchaException google detected us as a bot
      */
     public function search($searchTerm=null, \GoogleUrl\SimpleProxyInterface $proxy = null){
         
@@ -299,7 +299,7 @@ class GoogleUrl{
         libxml_clear_errors();
         
         if($doc->isCaptcha())
-            throw new \GoogleUrl\Exception\CaptachaException();
+            throw new \GoogleUrl\Exception\CaptchaException();
 
         return $doc;
     }
