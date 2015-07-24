@@ -64,10 +64,10 @@ The following example shows a basical use of the proxy. You may modify it to use
     //
     // We dont define any delays for this proxy. Then it is going to use default delays of the ProxyPool
     //
-    $proxy1 = new GoogleUrl\Proxy\ProxyObject("20.20.183.183", 82, 0, 0,0,false);
+    $proxy1 = new GoogleUrl\Proxy\ProxyObject("20.20.183.183", 82, null, null, 0, 0, 0, false);
 
     // creates a 2d proxy on the ip 20.20.183.184 port 8080
-    $proxy2 = new GoogleUrl\Proxy\ProxyObject("20.20.183.184", 8080, 0, 0,0,false);
+    $proxy2 = new GoogleUrl\Proxy\ProxyObject("20.20.183.184", 8080, null, null, 0, 0, 0, false);
 
     // set delays for this 2d proxy. Thus it will use theses delays instead of the one set in the proxyPool
     $proxy2->setDelays(array(
@@ -245,8 +245,8 @@ These example are close enough from the previous one. Only new actions are docum
         -1 => array(60,120) // every request will wait randomly from 60 to 120 seconds
     );
 
-    $proxy1 = new GoogleUrl\Proxy\ProxyObject("20.20.183.183", 82, 0, 0,0,false);
-    $proxy2 = new GoogleUrl\Proxy\ProxyObject("20.20.183.184", 8080, 0, 0,0,false);
+    $proxy1 = new GoogleUrl\Proxy\ProxyObject("20.20.183.183", 82, null, null, 0, 0, 0, false);
+    $proxy2 = new GoogleUrl\Proxy\ProxyObject("20.20.183.184", 8080, null, null, 0, 0, 0, false);
 
     // instead of using ProxyPool we use \GoogleUrl\ProxyPool\File the usage are identical what changes :
     // - Constructor are different : \GoogleUrl\ProxyPool\File takes path to an existing and writable file.
