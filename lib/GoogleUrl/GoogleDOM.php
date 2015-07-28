@@ -95,15 +95,9 @@ class GoogleDOM extends \DOMDocument{
      */
     public function getNaturals() {
         
-        if(null === $this->naturalsResults){
-        
+        if (null === $this->naturalsResults) {
             $query=self::NATURAL_QUERY;
-
-            
             $this->naturalsResults=$this->getXpath()->query($query);
-
-            var_dump($this->naturalsResults);
-            
         }
         
         return $this->naturalsResults;
