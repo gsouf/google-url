@@ -9,6 +9,7 @@ use GoogleUrl\Parser\AdWordsParser;
 use GoogleUrl\Parser\Rule\ImageGroupResultRule;
 use GoogleUrl\Parser\Rule\InDepthArticleRule;
 use GoogleUrl\Parser\Rule\VideoResultRule;
+use GoogleUrl\Result\ResultSetInterface;
 
 /**
  * Description of GoogleDOM
@@ -94,7 +95,7 @@ class GoogleDOM extends \DOMDocument{
         
     /**
      * gives the list of the natural results
-     * @return \DOMNodeList list of naturals results
+     * @return ResultSetInterface list of naturals results
      */
     public function getNaturalResults() {
         
@@ -119,7 +120,7 @@ class GoogleDOM extends \DOMDocument{
     
     /**
      * list of adwords nodes. Please consider using getAdwordsPositions() instead
-     * @return Ad
+     * @return AdwordsResultSet
      */
     public function getAdWordsResults(){
         

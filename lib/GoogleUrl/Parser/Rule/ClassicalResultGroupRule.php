@@ -24,7 +24,7 @@ class ClassicalResultGroupRule extends ClassicalResultBase {
 
         $xpath = $googleDOM->getXpath();
 
-        $results = $xpath->query("descendant::li[@class='g']",$group);
+        $results = $xpath->query("descendant::div[@class='g']",$group);
 
         foreach($results as $searchItem){
 

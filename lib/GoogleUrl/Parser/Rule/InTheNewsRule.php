@@ -12,7 +12,14 @@ class InTheNewsRule extends AbstractNaturalRule {
 
     public function match(\DOMElement $node)
     {
-        if($node->getAttribute("class") == "mnr-c _yE" ){
+
+        $child = $node->firstChild;
+
+        if(!$child || !($child instanceof \DOMElement) ){
+            return self::RULE_MATCH_NOMATCH;
+        }
+
+        if($child->getAttribute("class") == "mnr-c _yE" ){
             return self::RULE_MATCH_MATCHED;
         }
 
