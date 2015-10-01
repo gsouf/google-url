@@ -14,8 +14,9 @@ Features
 --------
 
  * Google SERP url generation
- * Natural results parsing
- * Adwords results parsing
+ * Google scraping including : 
+   * Natural results parsing
+   * Adwords results parsing
  * Proxy Usage
 
 
