@@ -26,7 +26,7 @@ Features
 Be aware...
 ------------
 
-...that scrapping google is forbiden (what an irony for the biggest scrapper ever written)... But who cares ? 
+...that scraping google is forbiden (what an irony for the biggest scraper ever written)... But who cares ? 
 
 Google does. And it will stop you with a captcha if you submit too many requests in a short time.
 
