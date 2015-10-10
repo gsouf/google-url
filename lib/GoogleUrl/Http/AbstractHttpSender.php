@@ -2,7 +2,7 @@
 
 namespace GoogleUrl\Http;
 
-use GoogleUrl\SimpleProxyInterface;
+use GoogleUrl\Proxy\SimpleProxyInterface;
 
 abstract class AbstractHttpSender {
 

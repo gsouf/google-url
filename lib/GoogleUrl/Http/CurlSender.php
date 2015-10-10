@@ -5,7 +5,7 @@ namespace GoogleUrl\Http;
 
 
 use GoogleUrl\Http\Curl\Curl;
-use GoogleUrl\SimpleProxyInterface;
+use GoogleUrl\Proxy\SimpleProxyInterface;
 
 class CurlSender extends AbstractHttpSender {
 
