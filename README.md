@@ -7,8 +7,7 @@ Google url is a library that brings a very comfortable way to query and parse go
 
 **BE AWARE**
 
-The library has recently been updated to v2. Following the semver, it meens that it breaks compatibility with v1.
-Please check the new documentation, and make sure to use the correct version number in your composer.json
+The library has recently been updated to v2. It meens that it breaks compatibility with v1.
 
 
 Features
@@ -20,11 +19,11 @@ Features
  * Proxy Usage
 
 
-**PLEASE READ ALL THE FOLLOWING SECTIONS BEFORE USING IT** it contains important informations about the usage.
+**PLEASE READ ALL THE FOLLOWING SECTIONS BEFORE USING IT** it contains important information about the usage.
 
 
 Be aware...
-------------
+-----------
 
 ...that scrapping google is forbiden (what an irony for the biggest scrapper ever written)... But who cares ? 
 
@@ -35,33 +34,35 @@ Usually I delay each query with 30 seconds. But if you do a lot of requests it's
 **How to counter :**
 
 * Optimize your delays between each queries.
-* If you want to do very high number of requests on a short time you will have to use proxy(s). There is a tool packaged in the library that can do it for you ([see below](#using-proxy)), but you still can do it by yourself.
+* If you want to do very high number of requests on a short time you will have to use proxy(s).
+There is a tool packaged in the library that can do it for you ([see below](#using-proxy)).
 
 
-This library needs to be updated regularly
-------------------------------------------
+This library needs to be updated frequently
+-------------------------------------------
 
 As said in the previous section google doesn't want bots to scrape it. 
-Then there is no guaranty that the current build of GoogleUrl still works in the 2 next monthes.
+Then there is no guaranty that the current build of GoogleUrl still works in the future.
 
 Every update made by google can lead to unpredicted behaviours of the library. We try to keep it up to date
 
-In the last 2 years, there were only once critical google update for the library. We can tell it's safe enough.
+In the last 2 years, there were only two critical google update for the library. We can tell it's safe enough.
 
-Sometime google also adds new stuff to the results. For instance the "in the news" box. That wont be parsed unless we implement it in the library.
+Sometime google also adds new stuff to the results. Every new google feature needs to be implemented and you
+need to update to the new version once it's done.
 
-We kindly encourage you to report any problem or question you encounter with the library to help us to keep the library up to date as often as possible.
-(please use the github issue tracker)
+We kindly encourage you to report any problem or question you encounter with the library to help us to keep
+the library up to date as often as possible (please use the github issue tracker).
 
 
 
-Installation
-------------
+Install
+-------
 
-The library is available on packgist : ``"sneakybobito/google-url": "~2.0"``
+The library is available on packagist : ``"gsouf/google-url": "~2.0"``
 
-If you are not familiar with packagist, you can also use the loader packaged in the repo. To do so download the library (e.g. as a zip from github) 
-and just include the file named ``autoload.php`̀` : 
+If you are not familiar with packagist, you can also use the loader packaged in the repo.
+To do so download the library (e.g. as a zip from github) and just include the file named ``autoload.php`̀` :
 
 ```php
 
@@ -221,9 +222,10 @@ Please refere to https://github.com/SneakyBobito/google-url/blob/master/doc/prox
 Implemented Languages
 ---------------------
 
-Each language matches a google domain (google.com, google.fr, google.de...) and language of the search. You will not have the same results for EN or DE.
+Each language matches a google domain (google.com, google.fr, google.de...) and language of the search.
+You will not have the same results for EN or DE.
 
-The following languages are implemented.
+The following languages are currently implemented.
 
 * en (english)
 * fr (french)
@@ -236,19 +238,18 @@ The following languages are implemented.
 * ru (russian)
 
 
-more are comming over the time. You can open an issue if you want your language to appear in the library.
+more are coming over the time. You can open an issue if you want your language to appear in the library.
 
-Optionally you can use a not implemented language TODO : link to the doc
+Optionally you can use your language with a very few efforts TODO : link to the doc
 
 Support - Contact
 -----------------
 
-Feel free to open an issue for any request/question or to [talk on gitter](https://gitter.im/SneakyBobito/google-url)
+Feel free to open an issue for any request/question or to [talk on gitter](https://gitter.im/gsouf/google-url)
 
 Roadmap
 -------
 
-* Refactoring and moving proxy pools
 * Create better test and set up a task to handle google updates
 
 ChangeLog
@@ -256,6 +257,8 @@ ChangeLog
 
 What is new in V2 :
 
+* We implemented captcha resolver to make possible to automatically solve captcha with external services
+* Proxy and proxy rotation has been reviewed to be more stable
 * Page parsing has been wholly refactored to allow better control and extensibility (internal changes)
 * The result analyse API as been reviewed to be more semantic and now accepts different types of results ("in the news", "images", "in depth articles"...)
 * The language management is more transparent. You can control easily the tld, the language, etc...
