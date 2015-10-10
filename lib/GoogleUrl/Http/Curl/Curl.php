@@ -1,22 +1,9 @@
 <?php
 
-/* This class was taken from a work by James Socol : https://github.com/jsocol/oocurl/blob/master/OOCurl.php */
-
-/**
- * OOCurl
- *
- * Provides an Object-Oriented interface to the PHP cURL
- * functions and clean up some of the curl_setopt() calls.
- *
- * @package OOCurl
- * @author James Socol <me@jamessocol.com>
- * @version 0.3.0
- * @copyright Copyright (c) 2008-2013, James Socol
- * @license See LICENSE
- */
-
 /**
  * Curl connection object
+ *
+ * This class was taken from a work by James Socol : https://github.com/jsocol/oocurl/blob/master/OOCurl.php
  *
  * Provides an Object-Oriented interface to the PHP cURL
  * functions and a clean way to replace curl_setopt().
