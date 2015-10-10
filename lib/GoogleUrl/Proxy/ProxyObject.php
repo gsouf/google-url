@@ -2,12 +2,15 @@
 
 namespace GoogleUrl\Proxy;
 
+use GoogleUrl\Exception;
+use GoogleUrl\Proxy\ProxyInterface;
+use GoogleUrl\Proxy\ProxyDelayedInterface;
+use GoogleUrl\Proxy\SimpleProxyInterface;
+
 /**
- * Description of ProxyDefinition
- *
- * @author bob
+ * A basic proxy object
  */
-class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedInterface, \GoogleUrl\SimpleProxyInterface{
+class ProxyObject implements ProxyInterface, ProxyDelayedInterface{
 
     
 
@@ -29,12 +32,39 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     
     protected $locked;
     
-    public static function fromSimpleProxy(\GoogleUrl\SimpleProxyInterface $proxy,$lastRun = 0,$nextDelay=0,$delayCount=0,$locked=false){
-        
+    public static function fromSimpleProxy(SimpleProxyInterface $proxy, $lastRun = 0, $nextDelay=0, $delayCount=0, $locked=false){
         return new static($proxy->getIp(),$proxy->getPort(),$proxy->getLogin(),$proxy->getPassword(),$proxy->getProxyType(),$lastRun, $nextDelay,$delayCount,$locked);
-        
     }
-    
+
+    public static function fromProxyString($proxy,  $lastRun = 0, $nextDelay=0, $delayCount=0, $locked=false){
+        $proxyPieces = explode("@", $proxy);
+
+        if(count($proxyPieces) == 2){
+
+            $authPieces = explode(":", $proxyPieces[0]);
+
+            if(count($authPieces)>2)
+                throw new Exception("Bad proxy string. Format : [user[:passsword]@]ip:port");
+
+            if(!isset($authPieces[1]))
+                $authPieces[1] = null;
+
+            $hostPieces = explode(":", $proxyPieces[1]);
+            if(count($hostPieces) !== 2){
+                throw new Exception("Bad proxy string. Format : [user[:passsword]@]ip:port");
+            }
+
+        }else if(count($proxyPieces) == 1){
+
+            $authPieces = [null,null];
+            $hostPieces = explode(":", $proxyPieces[0]);
+
+        }else{
+            throw new Exception("Bad proxy string. Format : [user[:passsword]@]ip:port");
+        }
+
+        return new static($hostPieces[0], $hostPieces[1], $authPieces[0], $authPieces[1], CURLPROXY_HTTP, $lastRun, $nextDelay, $delayCount, $locked);
+    }
     
     public function __construct($ip, $port,$login,$password,$proxyType, $lastRun, $nextDelay,$delayCount,$locked) {
         $this->ip=$ip;
@@ -47,7 +77,6 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
         $this->login = $login;
         $this->password = $password;
         $this->proxyType = $proxyType;
-        
     }
     
     
@@ -199,7 +228,4 @@ class ProxyObject implements \GoogleUrl\ProxyInterface, \GoogleUrl\ProxyDelayedI
     public function increaseCycle(){
         $this->cycle++;
     }
-    
-    
-    
 }

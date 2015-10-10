@@ -1,13 +1,15 @@
 <?php
 
-namespace GoogleUrl;
+namespace GoogleUrl\Proxy;
+
+use GoogleUrl\Proxy\SimpleProxyInterface;
 
 /**
  * Description of SimpleProxy
  *
  * @author bob
  */
-class SimpleProxy implements \GoogleUrl\SimpleProxyInterface{
+class SimpleProxy implements SimpleProxyInterface{
    
     public $ip;
     public $port;
@@ -60,13 +62,4 @@ class SimpleProxy implements \GoogleUrl\SimpleProxyInterface{
     public function setProxyType($proxyType) {
         $this->proxyType = $proxyType;
     }
-
-
-
-
-
-
-    
-
-    
 }

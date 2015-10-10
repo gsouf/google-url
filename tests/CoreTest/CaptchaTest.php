@@ -13,7 +13,6 @@ class CaptchaTest  extends PHPUnit_Framework_TestCase{
             try{
                 $googleDom = $googleUrl->search("simpsons" . $i);
                 $naturals = $googleDom->getNaturalResults();
-                var_dump(count($naturals));
             }catch (\GoogleUrl\Exception\CaptchaException $e){
                 $solver = new GoogleUrl\CaptchaSolver\ManualSolver();
                 $id = $e->getCaptchaPage()->getId();

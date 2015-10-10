@@ -1,12 +1,10 @@
 <?php
 
 
-namespace GoogleUrl;
+namespace GoogleUrl\Proxy;
 
 /**
- * Description of SimpleProxyInterface
- *
- * @author sghzal
+ * That describes basic informations of a proxy (ip, port, login...)
  */
 interface SimpleProxyInterface {
 
@@ -15,8 +13,11 @@ interface SimpleProxyInterface {
     
     public function getLogin();
     public function getPassword();
-    
+
+    /**
+     * Proxy type used in curl proxy type parameter (http, sock5...)
+     * @return string
+     */
     public function getProxyType();
-    
-    
+
 }

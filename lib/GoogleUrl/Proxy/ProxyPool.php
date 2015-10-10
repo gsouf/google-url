@@ -1,13 +1,13 @@
 <?php
 
-namespace GoogleUrl;
+namespace GoogleUrl\Proxy;
 
 /**
  * Description of ProxyPool
  *
  * @author bob
  */
-class ProxyPool implements ProxyAccessAdapter {
+class ProxyPool implements ProxyAccessInterface {
     
     /**
      *
@@ -33,8 +33,8 @@ class ProxyPool implements ProxyAccessAdapter {
      */
     public function setProxy(ProxyInterface $p){
         
-        if(!$p instanceof Proxy\ProxyObject){
-            throw new \Exception("ProxyPool::addProxy() first parameter must be an instance of GoogleUrl\Proxy\ProxyObject." . get_class($p) . " used instead.");
+        if(!$p instanceof ProxyObject){
+            throw new \Exception("ProxyPool::addProxy() first parameter must be an instance of GoogleUrl\Proxy\ProxyObject. " . get_class($p) . " used instead.");
         }
         
         $this->proxys[$p->__toString()] = $p;
@@ -87,7 +87,7 @@ class ProxyPool implements ProxyAccessAdapter {
         return null;
     }
 
-    public function proxyUsed(ProxyInterface $proxy) {
+    public function proxyRegisterUsage(ProxyInterface $proxy) {
         $string = $proxy->getIp() . ":" . $proxy->getPort();
         
         

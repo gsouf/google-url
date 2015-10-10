@@ -1,15 +1,19 @@
 <?php
 
-namespace GoogleUrl\ProxyPool;
+namespace GoogleUrl\Proxy\ProxyPool;
 
-use GoogleUrl\ProxyInterface;
+use GoogleUrl\Proxy\ProxyDelayedInterface;
+use GoogleUrl\Proxy\ProxyObject;
+use GoogleUrl\Proxy\ProxyInterface;
+use GoogleUrl\Proxy\ProxyAccessInterface;
+use GoogleUrl\Proxy\SimpleProxyInterface;
 
 /**
  * Description of File
  *
  * @author sghzal
  */
-class File implements \GoogleUrl\ProxyAccessAdapter {
+class File implements ProxyAccessInterface {
     
     protected $fileName;
     protected $delays;
@@ -37,7 +41,7 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
     /**
      * returns the proxy string identifier
      */
-    private function __id(\GoogleUrl\SimpleProxyInterface $proxy){
+    private function __id(SimpleProxyInterface $proxy){
         return $proxy->getIp() . ":" . $proxy->getPort();
     }
 
@@ -63,7 +67,7 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
             "delays" => null
         );
         
-        if($proxy instanceof ProxyDelayedInterface && $proxy->getDelais()){
+        if($proxy instanceof ProxyDelayedInterface && $proxy->getDelays()){
             $raw["delays"] = $proxy->getDelays();
         }
         
@@ -76,9 +80,9 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
 
     /**
      * check if the given proxy exists
-     * @param \GoogleUrl\SimpleProxyInterface $p
+     * @param SimpleProxyInterface $p
      */
-    public function hasProxy(\GoogleUrl\SimpleProxyInterface $p) {
+    public function hasProxy(SimpleProxyInterface $p) {
         
         $id = $this->__id($p);
         
@@ -99,12 +103,10 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
     }
     
     private function __constructProxy($data){
-        $p = new \GoogleUrl\Proxy\StdProxy($data["ip"], $data["port"],$data["login"],$data["password"],$data["proxyType"], $data["last-run"], $data["next-delay"], $data["count"], $data["locked"]);
-        
+        $p = new ProxyObject($data["ip"], $data["port"],$data["login"],$data["password"],$data["proxyType"], $data["last-run"], $data["next-delay"], $data["count"], $data["locked"]);
         if($p instanceof ProxyDelayedInterface){
             $p->setDelays($data["delays"]);
         }
-        
         return $p;
     }
 
@@ -135,7 +137,7 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
         }
     }
 
-    public function proxyUsed(ProxyInterface $proxy) {
+    public function proxyRegisterUsage(ProxyInterface $proxy) {
         $id = $this->__id($proxy);
         $proxys = $this->getFile();
         if(isset($proxys["proxy"][$id])){
@@ -158,13 +160,15 @@ class File implements \GoogleUrl\ProxyAccessAdapter {
     
     private function __getNextDelay($data){
         
-        if( is_array($data["delays"])){
+        if(isset($data["delays"]) && is_array($data["delays"])){
             $delays = $data["delays"];
         }else{
             $delays = $this->delays;
         }
+
+        $count = isset($data["count"]) ? $data["count"] : 0;
         
-        return $this->__prepareNextDelay($delays,$data["count"],true);
+        return $this->__prepareNextDelay($delays, $count, true);
     }
 
     

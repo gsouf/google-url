@@ -1,6 +1,8 @@
 <?php
 
 
+use GoogleUrl\Proxy\ProxyObject;
+
 class ProxyTest  extends PHPUnit_Framework_TestCase{
     
 
@@ -20,7 +22,7 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
         $proxyDefinition2->setDelays($delays);
         
         
-        $pool = new \GoogleUrl\ProxyPool([-1=>array(0,1)]);
+        $pool = new \GoogleUrl\Proxy\ProxyPool([-1=>array(0,1)]);
         $pool->setProxy($proxyDefinition1);
         $pool->setProxy($proxyDefinition2);
 
@@ -55,26 +57,26 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
             $pool->acquireProxyLock($proxy);
             // $googleUrl->search($kw,$proxy);
             $pool->releaseProxyLock($proxy);
-            $pool->proxyUsed($proxy);
+            $pool->proxyRegisterUsage($proxy);
         }
     }
     
     public function testProxyString(){
         
-        $p = new GoogleUrl\ProxyString("192.168.1.2:2222");
+        $p = ProxyObject::fromProxyString("192.168.1.2:2222");
         
         $this->assertEquals("192.168.1.2",$p->getIp());
         $this->assertEquals("2222",$p->getPort());
         
         
-        $p = new GoogleUrl\ProxyString("user@192.168.1.2:2222");
+        $p = ProxyObject::fromProxyString("user@192.168.1.2:2222");
         
         $this->assertEquals("192.168.1.2",$p->getIp());
         $this->assertEquals("2222",$p->getPort());
         $this->assertEquals("user",$p->getLogin());
         
         
-        $p = new GoogleUrl\ProxyString("user:pswd@192.168.1.2:2222");
+        $p = ProxyObject::fromProxyString("user:pswd@192.168.1.2:2222");
         
         $this->assertEquals("192.168.1.2",$p->getIp());
         $this->assertEquals("2222",$p->getPort());
@@ -100,14 +102,14 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
             
         );
         
-        $proxyDefinition1 = new GoogleUrl\Proxy\StdProxy("23.21.183.183", 82,null, null ,null, 0, 0,0,false);
+        $proxyDefinition1 = new GoogleUrl\Proxy\ProxyObject("23.21.183.183", 82,null, null ,null, 0, 0,0,false);
         $proxyDefinition1->setDelays($delays);
         
-        $proxyDefinition2 = new GoogleUrl\Proxy\StdProxy("23.21.183.183", 80,null, null ,null, 0, 0,0,false);
+        $proxyDefinition2 = new GoogleUrl\Proxy\ProxyObject("23.21.183.183", 80,null, null ,null, 0, 0,0,false);
         $proxyDefinition2->setDelays($delays);
         
         
-        $pool = new GoogleUrl\ProxyPool\File(__DIR__ . "/../data/proxies.json",$delays);
+        $pool = new GoogleUrl\Proxy\ProxyPool\File(__DIR__ . "/../data/proxies.json",$delays);
         $pool->setProxy($proxyDefinition1);
         $pool->setProxy($proxyDefinition2);
 
@@ -142,7 +144,7 @@ class ProxyTest  extends PHPUnit_Framework_TestCase{
             $pool->acquireProxyLock($proxy);
             // $googleUrl->search($kw,$proxy);
             $pool->releaseProxyLock($proxy);
-            $pool->proxyUsed($proxy);
+            $pool->proxyRegisterUsage($proxy);
         }
         
 
