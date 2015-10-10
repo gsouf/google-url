@@ -257,6 +257,7 @@ ChangeLog
 
 What is new in V2 :
 
+* We moved minimal php version to 5.4
 * We implemented captcha resolver to make possible to automatically solve captcha with external services
 * Proxy and proxy rotation has been reviewed to be more stable
 * Page parsing has been wholly refactored to allow better control and extensibility (internal changes)
