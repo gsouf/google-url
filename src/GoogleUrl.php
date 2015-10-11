@@ -259,7 +259,7 @@ class GoogleUrl
         libxml_clear_errors();
         
         if ($doc->isCaptcha()) {
-            $captchaPage = new \GoogleUrl\CaptchaPage($doc);
+            $captchaPage = new  \GoogleUrl\Captcha\CaptchaPage($doc);
             throw new \GoogleUrl\Exception\CaptchaException($captchaPage);
         }
 

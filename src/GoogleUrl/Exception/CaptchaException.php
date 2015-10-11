@@ -2,7 +2,7 @@
 
 namespace GoogleUrl\Exception;
 
-use GoogleUrl\CaptchaPage;
+use GoogleUrl\Captcha\CaptchaPage;
 use GoogleUrl\Exception;
 
 /**
@@ -25,7 +25,7 @@ class CaptchaException extends Exception
     }
 
     /**
-     * @return \GoogleUrl\CaptchaPage
+     * @return CaptchaPage
      */
     public function getCaptchaPage()
     {

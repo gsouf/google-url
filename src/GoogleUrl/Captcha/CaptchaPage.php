@@ -1,6 +1,8 @@
 <?php
 
-namespace GoogleUrl;
+namespace GoogleUrl\Captcha;
+
+use GoogleUrl\CaptchaSolver\CaptchaImage;
 
 class CaptchaPage
 {
@@ -37,7 +39,7 @@ class CaptchaPage
     public function getImage()
     {
         $imageUrl = $this->getImageUrl();
-        return file_get_contents("https://google.com$imageUrl");
+        return new CaptchaImage(file_get_contents("https://google.com$imageUrl"));
     }
 
     public function getId()

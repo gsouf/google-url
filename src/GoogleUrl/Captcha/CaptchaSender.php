@@ -1,9 +1,9 @@
 <?php
 
-namespace GoogleUrl\CaptchaSolver;
+namespace GoogleUrl\Captcha;
 
 use GoogleUrl\Http\CurlSender;
-use GoogleUrl\SimpleProxyInterface;
+use GoogleUrl\Proxy\SimpleProxyInterface;
 
 class CaptchaSender
 {
@@ -24,7 +24,7 @@ class CaptchaSender
 
         $sender = new CurlSender();
 
-        $r = $sender->send($url, [], $proxy);
+        $r = $sender->send($url, ["postData" => $params], $proxy);
 
     }
 }
