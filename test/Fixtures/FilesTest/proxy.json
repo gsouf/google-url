@@ -1,0 +1,10 @@
+{
+  "proxy": {
+    "1.1.1.1:80": {
+      "ip": "1.1.1.1",
+      "port": "80",
+      "login": "someLogin",
+      "password": "somePassword"
+    }
+  }
+}

@@ -15,6 +15,8 @@ interface ProxyInterface extends SimpleProxyInterface
     public function getDelayCount();
     public function setLocked($locked);
     public function setLastUse($time);
+    public function getLastUse();
+    public function getNextDelay();
     public function getLocked();
     public function getTimeToAvailability();
     public function isAvailable();

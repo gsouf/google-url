@@ -70,4 +70,17 @@ interface ProxyAccessInterface
      * @return mixed
      */
     public function hasProxy(SimpleProxyInterface $p);
+
+    /**
+     * Get all the proxies
+     * @return ProxyInterface[]
+     */
+    public function getProxies();
+
+    /**
+     * get a proxy by either its id (ip:port) or from a proxy instance
+     * @param String|SimpleProxyInterface $proxy
+     * @return ProxyInterface
+     */
+    public function getProxy($proxy);
 }

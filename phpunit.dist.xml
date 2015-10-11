@@ -13,4 +13,9 @@
             <directory>./test/suites</directory>
         </testsuite>
     </testsuites>
+
+    <php>
+        <includePath>.</includePath>
+    </php>
+
 </phpunit>

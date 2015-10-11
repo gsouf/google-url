@@ -2,6 +2,7 @@
 
 namespace GoogleUrl\Proxy;
 
+use GoogleUrl\Exception;
 use GoogleUrl\Proxy\ProxyInterface;
 
 /**
@@ -147,4 +148,35 @@ class ProxyPool implements ProxyAccessInterface
             $p->setLocked(false);
         }
     }
+
+    /**
+     * Get all the proxies
+     * @return ProxyInterface[]
+     */
+    public function getProxies()
+    {
+        return array_values($this->proxys);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getProxy($proxy)
+    {
+        if(is_string($proxy)){
+            $id = $proxy;
+        }else if($proxy instanceof SimpleProxyInterface){
+            $id = $proxy->getIp() . ":" . $proxy->getPort();
+        }else{
+            throw new \InvalidArgumentException("Invalid argument, must be a proxy string id or a proxy instance");
+        }
+
+        if(isset($this->proxys[$id])){
+            return $this->proxys[$id];
+        }else{
+            throw new Exception("proxy $id does not exist");
+        }
+    }
+
+
 }
