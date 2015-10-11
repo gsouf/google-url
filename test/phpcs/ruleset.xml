@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="GoogleUrl">
+
+    <file>./src</file>
+    <file>./test/suites</file>
+
+    <!--The complete PSR-2 ruleset-->
+    <rule ref="PSR2"/>
+
+    <!-- Arrays -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+
+</ruleset>

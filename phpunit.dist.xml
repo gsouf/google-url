@@ -10,7 +10,7 @@
          stopOnFailure="false">
     <testsuites>
         <testsuite name="Core">
-            <directory>./tests/CoreTest</directory>
+            <directory>./test/suites</directory>
         </testsuite>
     </testsuites>
 </phpunit>

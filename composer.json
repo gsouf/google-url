@@ -1,5 +1,5 @@
 {
-    "name": "sneakybobito/google-url",
+    "name": "gsouf/google-url",
     "type": "library",
     "description": "Manipulate and parse google SERP",
     "keywords": ["google","SERP"],
@@ -16,12 +16,14 @@
     },
 
     "require-dev": {
-        "phpunit/PHPUnit": "~4"
+      "phpunit/phpunit": "4.1.2",
+      "codeclimate/php-test-reporter": "dev-master",
+      "squizlabs/php_codesniffer": "~2"
     },
 
     "autoload": {
         "psr-0" : {
-            "GoogleUrl" : "lib/"
+            "GoogleUrl" : "src/"
         }
     }
 }
