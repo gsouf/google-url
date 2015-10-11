@@ -12,5 +12,6 @@ phpunit -c "$SCRIPTDIR/../../phpunit.dist.xml" --coverage-clover "$SCRIPTDIR/../
 
 if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "dev-v2" ]
 then
+    echo "sending code coverage data"
     ./vendor/bin/test-reporter
 fi
