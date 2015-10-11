@@ -2,6 +2,8 @@
 
 namespace GoogleUrl\Proxy;
 
+use GoogleUrl\Proxy\ProxyInterface;
+
 /**
  * Description of ProxyPool
  *
@@ -12,7 +14,7 @@ class ProxyPool implements ProxyAccessInterface
     
     /**
      *
-     * @var ProxyDefinition[]
+     * @var ProxyInterface[]
      */
     protected $proxys;
     
@@ -20,6 +22,19 @@ class ProxyPool implements ProxyAccessInterface
     
     /**
      * the delays to use by default if the proxy doesnt have
+     *
+     * <code>
+     *
+     * new ProxyPool([
+     *
+     *      10 => 50,   // 50 seconds for the 10 first requests
+     *      20 => 60,   // 60 seconds for the 10th to 20th requests
+     *      50 => 80    // 80 seconds for the 20th to 50th requests
+     *
+     * ]);
+     *
+     * </code>
+     *
      * @param array $delays
      */
     function __construct($delays)
@@ -29,45 +44,41 @@ class ProxyPool implements ProxyAccessInterface
 
     
     /**
-     * Add a proxy. It must be an instance of {@see ProxyDefinition}
-     * @param \GoogleUrl\ProxyInterface $p
-     * @throws \Exception
+     * @inheritdoc
      */
     public function setProxy(ProxyInterface $p)
     {
-        
         if (!$p instanceof ProxyObject) {
             throw new \Exception("ProxyPool::addProxy() first parameter must be an instance of GoogleUrl\Proxy\ProxyObject. " . get_class($p) . " used instead.");
         }
         
         $this->proxys[$p->__toString()] = $p;
     }
-    
-    
+
+
     /**
-     * check if the given proxy exists
-     * @param \GoogleUrl\SimpleProxyInterface $p
+     * @inheritdoc
      */
     public function hasProxy(SimpleProxyInterface $p)
     {
-        
         return isset($this->proxys[$p->getIp() . ":" . $p->getPort()]);
-        
     }
 
-    
 
+    /**
+     * @inheritdoc
+     */
     public function removeProxy(ProxyInterface $proxy)
     {
-    
         $string = $proxy->getIp() . ":" . $proxy->getPort();
-        
         if (isset($this->proxys[$string])) {
             unset($this->proxys[$string]);
         }
     }
 
-    
+    /**
+     * @inheritdoc
+     */
     public function findShortestTimeProxy()
     {
         $finalProxy = null;
@@ -82,7 +93,10 @@ class ProxyPool implements ProxyAccessInterface
         }
         return $finalProxy;
     }
-    
+
+    /**
+     * @inheritdoc
+     */
     public function findAvailableProxy()
     {
         foreach ($this->proxys as $p) {
@@ -94,22 +108,23 @@ class ProxyPool implements ProxyAccessInterface
         return null;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function proxyRegisterUsage(ProxyInterface $proxy)
     {
         $string = $proxy->getIp() . ":" . $proxy->getPort();
-        
-        
+
         if (isset($this->proxys[$string])) {
             $p = $this->proxys[$string];
             $p->setLastUse(time());
             $p->prepareNextDelay($this->delays);
-            echo "updating proxy : $proxy. Setting count : " . $p->getDelaysCount() ;
-            echo " cycle : " . $p->getCycle() ;
-            echo " nextDelay : " . $p->getNextDelay() ;
-           
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function acquireProxyLock(ProxyInterface $proxy)
     {
         $string = $proxy->getIp() . ":" . $proxy->getPort();
@@ -120,6 +135,9 @@ class ProxyPool implements ProxyAccessInterface
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function releaseProxyLock(ProxyInterface $proxy)
     {
         $string = $proxy->getIp() . ":" . $proxy->getPort();

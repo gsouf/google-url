@@ -10,7 +10,7 @@ use GoogleUrl\Proxy\SimpleProxyInterface;
 /**
  * A basic proxy object
  */
-class ProxyObject extends SimpleProxy implements ProxyInterface, ProxyDelayedInterface
+class ProxyObject extends SimpleProxy implements ProxyInterface
 {
 
 
@@ -138,7 +138,11 @@ class ProxyObject extends SimpleProxy implements ProxyInterface, ProxyDelayedInt
         
         foreach ($delays as $count => $range) {
             if ($count < 0 ||  $this->delaysCount <= $count) {
-                $this->nextDelay = rand($range[0], $range[1]);
+                if(is_array($range)){
+                    $this->nextDelay = rand($range[0], $range[1]);
+                }else{
+                    $this->nextDelay = $range;
+                }
                 $this->increaseDelayCount();
                 return $this->nextDelay;
             }
@@ -149,7 +153,7 @@ class ProxyObject extends SimpleProxy implements ProxyInterface, ProxyDelayedInt
             $this->increaseCycle();
             return $this->__prepareNextDelay($delaysDefault);
         } else {
-            throw new \Exception("Preventing endless loop : proxy delays are not correctly configured");
+            throw new Exception("Preventing endless loop : proxy delays are not correctly configured");
         }
     }
     
@@ -200,6 +204,9 @@ class ProxyObject extends SimpleProxy implements ProxyInterface, ProxyDelayedInt
 
     public function setDelaysCount($delaysCount)
     {
+        if($delaysCount <= 0){
+            $delaysCount = 1;
+        }
         $this->delaysCount = $delaysCount;
     }
     
