@@ -4,11 +4,7 @@ Google URL : Google scraper for php
 Get ready to query google like a pro and make awesome google searches with PHP
 
 
-
-**BE AWARE**
-
-The proxyPool section will soon be moved to another package and it is going to be refactored (only proxy pools, not proxy objects).
-
+V2 is on the way, check dev-v2 branch
 
 Features
 --------
