@@ -2,7 +2,7 @@
 
 namespace GoogleUrl\Captcha;
 
-use GoogleUrl\CaptchaSolver\CaptchaImage;
+use GoogleUrl\GoogleDOM;
 
 class CaptchaPage
 {

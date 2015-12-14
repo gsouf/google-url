@@ -61,21 +61,6 @@ class Curl
      */
     protected $curlopt = [];
 
-    /**
-     * Flag the Curl object as linked to a {@link CurlParallel}
-     * object.
-     *
-     * @var bool
-     */
-    protected $multi = false;
-
-    /**
-     * Store the response. Used with {@link fetch()} and
-     * {@link fetch_json()}.
-     *
-     * @var string
-     */
-    protected $response;
 
     /**
      * The version of the OOCurl library.
@@ -163,42 +148,6 @@ class Curl
         return curl_exec($this->ch);
     }
 
-    /**
-     * If the Curl object was added to a {@link CurlParallel}
-     * object, then you can use this function to get the
-     * returned data (whatever that is). Otherwise it's similar
-     * to {@link exec()} except it saves the output, instead of
-     * running the request repeatedly.
-     *
-     * @see $multi
-     * @return mixed
-     */
-    public function fetch()
-    {
-        if ($this->multi) {
-            return curl_multi_getcontent($this->ch);
-        } else {
-            if ($this->response) {
-                return $this->response;
-            } else {
-                $this->response = curl_exec($this->ch);
-                return $this->response;
-            }
-        }
-    }
-
-    /**
-     * Fetch a JSON encoded value and return a JSON
-     * object. Requires the PHP JSON functions. Pass TRUE
-     * to return an associative array instead of an object.
-     *
-     * @param bool array optional. Return an array instead of an object.
-     * @return mixed an array or object (possibly null).
-     */
-    public function fetch_json($array = false)
-    {
-        return json_decode($this->fetch(), $array);
-    }
 
 
     /**
@@ -367,25 +316,4 @@ class Curl
         // just do nothing.
     }
 
-    /**
-     * Grants access to {@link Curl::$ch $ch} to a {@link CurlParallel} object.
-     *
-     * @param CurlParallel $mh The CurlParallel object that needs {@link Curl::$ch $ch}.
-     */
-    public function grant(CurlParallel $mh)
-    {
-        $mh->accept($this->ch);
-        $this->multi = true;
-    }
-
-    /**
-     * Removes access to {@link Curl::$ch $ch} from a {@link CurlParallel} object.
-     *
-     * @param CurlParallel $mh The CurlParallel object that no longer needs {@link Curl::$ch $ch}.
-     */
-    public function revoke(CurlParallel $mh)
-    {
-        $mh->release($this->ch);
-        $this->multi = false;
-    }
 }
