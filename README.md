@@ -4,8 +4,6 @@ Google URL : Google scraper for php
 Get ready to query google like a pro and make awesome google searches with PHP
 
 
-V2 is on the way, check dev-v2 branch
-
 Features
 --------
 
