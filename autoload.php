@@ -7,7 +7,7 @@ class GoogleUrlAutoLoader {
         $parts = explode('\\', ltrim($className,"\\"));
         if($parts[0]==="GoogleUrl"){
             
-            $full = __DIR__ . "/lib/" . implode("/", $parts) . ".php";
+            $full = __DIR__ . "/src/" . implode("/", $parts) . ".php";
             
             
             if(file_exists($full)){
