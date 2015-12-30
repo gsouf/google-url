@@ -5,7 +5,7 @@ google-url
 
 Google url is a library that brings a very comfortable way to query and parse google SERPs (Search Engine Result Page)
 
-**BE AWARE**  This branch is v2. That means that it breaks compatibility with v1. Additionaly V2 is **not finished** yet and some feature are not implemented, some feature can change or disapear until the API is frozen.
+**BE AWARE**  This branch was aimed to serve for the release of the v2, apparently some people started to use it but a lot of refactoring is going to happen and it's better to wait it to be released as a stable thing.
 
 
 
