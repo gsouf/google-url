@@ -200,7 +200,7 @@ class GoogleUrl{
      * @param string $value value of the param
      * @return \GoogleUrl
      */
-    private function setParam($name,$value){
+    public function setParam($name,$value){
         if(null === $value){
             if($this->googleParams[$name]){
                 unset($this->googleParams[$name]);
@@ -211,12 +211,16 @@ class GoogleUrl{
         return $this;
     }
 
+    public function setRawParam($name, $value){
+        $this->googleParams[$name] = urldecode($value);
+    }
+
     /**
      * get a param by its name
      * @param string $name the param to get
      * @return string
      */
-    private function param($name){
+    public function param($name){
         return $this->googleParams[$name];
     }
 
@@ -226,7 +230,7 @@ class GoogleUrl{
      * @param string $name the param to get
      * @return string
      */
-    private function hasParam($name){
+    public function hasParam($name){
         return isset($this->googleParams[$name]);
     }
 
