@@ -11,7 +11,6 @@ Features
  * Google scraping including : 
    * Natural results parsing
    * Adwords results parsing
- * Proxy Usage
 
 
 **PLEASE READ ALL THE FOLLOWING SECTIONS BEFORE USING IT** it contains important informations about the usage.
@@ -145,6 +144,11 @@ There is no universal rule for the delays to apply. It is hard to figure out the
 
 Using Proxy
 -----------
+
+
+### IMPORTANT WANRING
+
+Using proxy pool offered by the library is currently **deprecated** because it will be removed from the next release. Proxy management is very specific and can't be implemented in a decent way in the library. The library will continue to offer support for querying through a proxy, but proxy management will be managed by yourself.
 
 
 ```php
