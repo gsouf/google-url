@@ -1,7 +1,13 @@
+Project Deprecated
+==================
+
+This project has been deprecated in favor of a better alternative: http://serp-spider.github.io
+
+That means that the project support will be stoped
+
 google-url
 ==========
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SneakyBobito/google-url?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Google url is a library that brings a very comfortable way to query and parse google SERPs (Search Engine Result Page)
 
