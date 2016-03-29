@@ -1,3 +1,11 @@
+Project Deprecated
+==================
+
+This project has been deprecated in favor of a better alternative: http://serp-spider.github.io
+
+That means that the project support will be stoped
+
+
 Google URL : Google scraper for php
 ===================================
 
