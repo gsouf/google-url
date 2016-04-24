@@ -12,4 +12,4 @@ This project has been deprecated in favor of a **shiny** :sparkles:  , **stronge
 </p>
 
 
-Old documentation remains available in README.old.md
+Old documentation remains available in [README.old.md](https://github.com/gsouf/google-url/blob/master/README.old.md)
