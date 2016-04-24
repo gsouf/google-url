@@ -11,8 +11,6 @@ This project has been deprecated in favor of a **shiny** :sparkles:  , **stronge
 </a>
 </p>
 
-That means that the project support will be stoped in favor of the new one.
-
 
 Google URL : Google scraper for php
 ===================================
