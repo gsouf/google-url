@@ -3,7 +3,9 @@ Project Deprecated
 
 This project has been deprecated in favor of a **shiny** :sparkles:  , **stronger** :muscle:, **better** :rocket: alternative: http://serp-spider.github.io
 
-<center> [![serps](https://serp-spider.github.io/logo.png)](http://serp-spider.github.io)</center>
+<p align="center">
+  <img src ="https://serp-spider.github.io/logo.png" />
+</p>
 
 That means that the project support will be stoped in favor of the new one.
 
